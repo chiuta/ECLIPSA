@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title id="pageTitle">ECLIPSA — casa ta la eclipsa de Soare sau de Lună</title>
+<meta name="description" content="Calculează pe ce casă astrologică natală a căzut o eclipsă de Soare sau de Lună (semne întregi, case egale sau Placidus). Calcul local, offline, fără cont. Astrologia nu are validare științifică.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; font-src 'none'; form-action 'none'; base-uri 'none'">
+<meta property="og:title" content="ECLIPSA — casa ta la eclipsa de Soare sau de Lună">
+<meta property="og:description" content="Află în ce casă astrologică natală cade o eclipsă (Soare sau Lună). Calcul local, offline, fără cont.">
+<meta property="og:type" content="website">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#140D26">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Eclipsa">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23140D26'/%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23E9CD8C' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='26' fill='%23140D26' stroke='%23E9CD8C' stroke-width='3'/%3E%3Ccircle cx='68' cy='36' r='3' fill='%23F3EEE0'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg-void:#140D26;
+  --bg-panel:#1C1538;
+  --bg-input:#120B22;
+  --corona:#E9CD8C;
+  --corona-dim:#B79A5E;
+  --prominence:#C2495B;
+  --prominence-text:#F0AAB6;
+  --text:#F3EEE0;
+  --text-muted:#A79BC4;
+  --line:rgba(233,205,140,0.16);
+  --line-strong:rgba(233,205,140,0.38);
+  --font-display:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;
+  --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;}
+html{background:var(--bg-void); -webkit-text-size-adjust:100%; text-size-adjust:100%;}
+body{
+  margin:0;
+  background:radial-gradient(ellipse at 50% -10%, #241A48 0%, var(--bg-void) 55%);
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overscroll-behavior-y:none;
+}
+.wrap{
+  max-width:640px;margin:0 auto;
+  padding:2.5rem 1.25rem 4rem;
+  padding-left:max(1.25rem, env(safe-area-inset-left));
+  padding-right:max(1.25rem, env(safe-area-inset-right));
+  padding-bottom:max(4rem, env(safe-area-inset-bottom));
+}
+
+.hero{text-align:center;margin-bottom:2.25rem;position:relative;}
+.hero-art{display:flex;justify-content:center;margin-bottom:0.4rem;}
+#btnLang.lang-toggle{position:absolute;top:0;right:0;width:auto;min-height:auto;padding:0.3rem 0.7rem;font-size:0.78rem;}
+.approx-toggle{margin-bottom:0.2rem;}
+.result-actions{display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:1.2rem;}
+.result-actions .btn-ghost{margin-top:0;}
+h1{
+  font-family:var(--font-display);
+  font-size:2.3rem;
+  letter-spacing:0.05em;
+  margin:0.2rem 0 0.15rem;
+  color:var(--corona);
+  font-weight:600;
+}
+.tagline{
+  font-family:var(--font-display);
+  font-style:italic;
+  color:var(--text-muted);
+  margin:0 0 1.1rem;
+  font-size:1.05rem;
+}
+.lead{color:var(--text);opacity:0.88;max-width:46ch;margin:0 auto;font-size:0.98rem;}
+
+.panel{
+  background:var(--bg-panel);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:1.5rem 1.35rem;
+  margin-bottom:1.5rem;
+}
+.panel-title{
+  font-family:var(--font-display);
+  font-size:1.2rem;
+  color:var(--corona);
+  margin:0 0 1.1rem;
+  font-weight:600;
+}
+.panel-title-2{margin-top:1.9rem;padding-top:1.6rem;border-top:1px solid var(--line);}
+
+.field{margin-bottom:1.1rem;}
+.fieldset-plain{border:0;padding:0;margin-left:0;margin-right:0;min-width:0;}
+.fieldset-plain legend{padding:0;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1.1rem;}
+.field-row .field{margin-bottom:0;}
+label,.field-label{display:block;font-size:0.88rem;color:var(--text-muted);margin-bottom:0.35rem;}
+input[type=text],input[type=date],input[type=time],input[type=number],select{
+  width:100%;
+  background:var(--bg-input);
+  border:1px solid var(--line-strong);
+  color:var(--text);
+  border-radius:4px;
+  padding:0.65rem 0.7rem;
+  font-family:var(--font-body);
+  font-size:16px; /* >=16px prevents iOS Safari auto-zooming the page on focus */
+  -webkit-appearance:none;
+  appearance:none;
+}
+select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 8l5 5 5-5' fill='none' stroke='%23B79A5E' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 0.65rem center;
+  background-size:16px;
+  padding-right:2.2rem;
+}
+input::placeholder{color:var(--text-muted);opacity:0.85;}
+input:focus-visible,select:focus-visible,button:focus-visible{
+  outline:2px solid var(--corona);
+  outline-offset:2px;
+}
+.hint{font-size:0.82rem;color:var(--text-muted);margin:0.4rem 0 0;}
+.radio-row{display:flex;gap:1.4rem;flex-wrap:wrap;}
+.radio{display:flex;align-items:center;gap:0.4rem;font-size:0.93rem;color:var(--text);cursor:pointer;min-height:44px;-webkit-tap-highlight-color:transparent;}
+.radio:has(input:disabled){opacity:0.45;cursor:not-allowed;}
+.radio input{accent-color:var(--corona);}
+.field-btn{display:flex;align-items:flex-end;}
+.btn-ghost{
+  width:100%;
+  min-height:44px;
+  background:transparent;
+  border:1px solid var(--line-strong);
+  color:var(--corona);
+  border-radius:4px;
+  padding:0.6rem 0.7rem;
+  font-size:0.85rem;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+@media (hover:hover){ .btn-ghost:hover{border-color:var(--corona);} }
+.btn-ghost:active{border-color:var(--corona);background:rgba(233,205,140,0.08);}
+.btn-primary{
+  width:100%;
+  min-height:44px;
+  background:var(--corona);
+  color:#1C1538;
+  border:none;
+  border-radius:4px;
+  padding:0.85rem 1rem;
+  font-size:1.02rem;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:0.4rem;
+  -webkit-tap-highlight-color:transparent;
+}
+@media (hover:hover){ .btn-primary:hover{background:#F1DBA3;} }
+.btn-primary:active{background:#F1DBA3;}
+.form-error{
+  color:var(--prominence-text);
+  background:rgba(194,73,91,0.14);
+  border:1px solid rgba(194,73,91,0.4);
+  border-radius:4px;
+  padding:0.6rem 0.8rem;
+  font-size:0.88rem;
+  margin:0.6rem 0 0;
+}
+
+.results{text-align:left;}
+.wheel{display:flex;justify-content:center;margin-bottom:1.4rem;}
+.wheel svg{width:100%;max-width:380px;height:auto;}
+.glyph{fill:var(--corona-dim);font-size:15px;font-variant-emoji:text;}
+.huse{fill:var(--text-muted);font-size:12px;font-family:var(--font-display);}
+.huse-active{fill:var(--corona);font-weight:700;}
+.angle-label{fill:var(--prominence-text);font-size:11px;letter-spacing:0.04em;}
+.result-greeting{color:var(--text-muted);margin:0 0 0.2rem;font-size:0.95rem;}
+.result-eclipse-tag{color:var(--prominence-text);margin:0 0 0.9rem;font-size:0.82rem;letter-spacing:0.02em;}
+.result-house{
+  font-family:var(--font-display);
+  color:var(--corona);
+  font-size:1.4rem;
+  margin:0 0 0.7rem;
+  font-weight:600;
+}
+.result-text{margin:0 0 1.2rem;font-size:1rem;}
+.result-details{
+  display:grid;grid-template-columns:1fr 1fr;gap:0.6rem 1rem;
+  border-top:1px solid var(--line);padding-top:1rem;margin:0 0 1.2rem;
+}
+.result-details dt{font-size:0.78rem;color:var(--text-muted);margin:0;}
+.result-details dd{font-size:0.92rem;margin:0.15rem 0 0;}
+.note{font-size:0.82rem;color:var(--text-muted);border-top:1px solid var(--line);padding-top:1rem;margin:0;}
+.stale-banner{
+  display:none;
+  background:rgba(194,73,91,0.14);
+  border:1px solid rgba(194,73,91,0.4);
+  color:var(--prominence-text);
+  border-radius:4px;
+  padding:0.6rem 0.8rem;
+  font-size:0.85rem;
+  margin:0 0 1.2rem;
+}
+#results.stale .stale-banner{display:block;}
+#results.stale > *:not(.stale-banner){opacity:0.35;}
+
+.footer{text-align:center;color:var(--text-muted);font-size:0.78rem;margin-top:1rem;line-height:1.6;}
+.disclaimer{max-width:52ch;margin:1rem auto 0;padding:0.7rem 0.9rem;font-size:0.84rem;line-height:1.5;color:var(--text);background:rgba(233,205,140,0.07);border:1px solid var(--line-strong);border-radius:6px;text-align:left;}
+
+@media (min-width:560px){ h1{font-size:2.7rem;} }
+@media (max-width:480px){
+  .field-row{grid-template-columns:1fr;}
+  .result-details{grid-template-columns:1fr;}
+}
+@media (prefers-reduced-motion:no-preference){
+  .results{animation:reveal 0.5s ease-out;}
+  @keyframes reveal{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+}
+@media print{
+  :root{
+    --bg-void:#fff; --bg-panel:#fff; --bg-input:#fff;
+    --corona:#7a5e28; --corona-dim:#7a5e28;
+    --prominence:#8a2f3d; --prominence-text:#8a2f3d;
+    --text:#111; --text-muted:#444;
+    --line:#ccc; --line-strong:#999;
+  }
+  body{background:#fff;}
+  .hero-art,.tagline,.lead,.footer,.disclaimer,#chartForm,#noTimeNote,.stale-banner,.no-print,.lang-toggle,.result-actions{display:none !important;}
+  .panel{border:1px solid #ccc;box-shadow:none;}
+  a{color:inherit;text-decoration:none;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <noscript><p class="disclaimer">Această aplicație necesită JavaScript pentru calcul. / This app needs JavaScript to run the calculation.</p></noscript>
+
+  <header class="hero">
+    <div class="hero-art">
+      <svg width="108" height="108" viewBox="0 0 200 200" aria-hidden="true">
+        <defs>
+          <radialGradient id="coronaGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#E9CD8C" stop-opacity="0.85"/>
+            <stop offset="38%" stop-color="#E9CD8C" stop-opacity="0.3"/>
+            <stop offset="70%" stop-color="#E9CD8C" stop-opacity="0.06"/>
+            <stop offset="100%" stop-color="#E9CD8C" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="100" cy="100" r="96" fill="url(#coronaGlow)"/>
+        <g stroke="#E9CD8C" stroke-opacity="0.55" stroke-width="1.6" stroke-linecap="round">
+          <line x1="100" y1="6" x2="100" y2="27"/>
+          <line x1="100" y1="194" x2="100" y2="173"/>
+          <line x1="6" y1="100" x2="27" y2="100"/>
+          <line x1="194" y1="100" x2="173" y2="100"/>
+          <line x1="32" y1="32" x2="46" y2="46"/>
+          <line x1="168" y1="168" x2="154" y2="154"/>
+          <line x1="32" y1="168" x2="46" y2="154"/>
+          <line x1="168" y1="32" x2="154" y2="46"/>
+          <line x1="62" y1="13" x2="70" y2="31"/>
+          <line x1="138" y1="187" x2="130" y2="169"/>
+          <line x1="187" y1="138" x2="169" y2="130"/>
+          <line x1="13" y1="62" x2="31" y2="70"/>
+        </g>
+        <circle cx="100" cy="100" r="44" fill="#140D26" stroke="#E9CD8C" stroke-width="1.5"/>
+        <circle cx="141" cy="83" r="3.2" fill="#F3EEE0"/>
+      </svg>
+    </div>
+    <h1>ECLIPSA</h1>
+    <p class="tagline" data-i18n="tagline">Casa ta la eclipsă</p>
+    <p class="lead" data-i18n="lead">O eclipsă — de Soare sau de Lună — marchează, în tradiția astrologică, un prag — un punct în care ceva vechi se încheie și ceva nou cere loc. Completează datele tale de naștere, alege o eclipsă din cele peste 200 din 2024–2070, și află pe ce casă din harta ta natală a căzut, împreună cu o direcție concretă de lucru asupra ta.</p>
+    <p class="disclaimer" role="note" data-i18n="disclaimer">Calculul pozițiilor (Soare, Lună, ascendent, case) este astronomic; interpretările sunt texte simbolice. Astrologia nu are validare științifică: nu există dovezi că poziția astrelor la naștere sau în timpul unei eclipse influențează caracterul sau viitorul cuiva. Folosește rezultatul ca pretext de reflecție personală sau ca divertisment — nu ca predicție și nu ca sfat medical, financiar sau juridic.</p>
+    <button type="button" id="btnLang" class="btn-ghost lang-toggle" aria-label="Switch language / Schimbă limba">EN</button>
+  </header>
+
+  <form id="chartForm" class="panel" novalidate>
+    <h2 class="panel-title" data-i18n="birthDataTitle">Datele tale de naștere</h2>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="prenume" data-i18n="firstName">Prenume</label>
+        <input type="text" id="prenume" placeholder="opțional" data-i18n-placeholder="optional" autocomplete="given-name" autocapitalize="words">
+      </div>
+      <div class="field">
+        <label for="nume" data-i18n="lastName">Nume</label>
+        <input type="text" id="nume" placeholder="opțional" data-i18n-placeholder="optional" autocomplete="family-name" autocapitalize="words">
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="bdate" data-i18n="birthDate">Data nașterii</label>
+        <input type="date" id="bdate" min="1900-01-01">
+      </div>
+      <div class="field">
+        <label for="btime" data-i18n="birthTime">Ora nașterii</label>
+        <input type="time" id="btime">
+      </div>
+    </div>
+    <p class="hint" data-i18n="timeHint">Ora e opțională — fără ea, casele se calculează după harta solară (Soarele ține locul ascendentului), o metodă mai simplă și mai puțin precisă decât cea cu ora exactă. Dacă nu ești sigur/ă dacă te-ai născut înainte sau după miezul nopții, merită încercate ambele date — pot ieși case diferite.</p>
+
+    <div class="field-row" id="approxRow">
+      <label class="radio approx-toggle"><input type="checkbox" id="approxToggle"> <span data-i18n="approxToggleLabel">Nu știu ora exactă, dar știu un interval</span></label>
+    </div>
+    <div class="field-row" id="approxFields" hidden>
+      <div class="field">
+        <label for="btimeFrom" data-i18n="fromTime">De la ora</label>
+        <input type="time" id="btimeFrom">
+      </div>
+      <div class="field">
+        <label for="btimeTo" data-i18n="toTime">Până la ora</label>
+        <input type="time" id="btimeTo">
+      </div>
+    </div>
+    <p class="hint" id="approxHint" data-i18n="approxHint" hidden>Calculăm ascendentul la fiecare câteva minute din interval și arătăm toate casele posibile — util când știi doar „dimineața" sau „spre seară", nu ora exactă.</p>
+
+    <div class="field" style="margin-top:1.1rem;">
+      <label for="citySelect" data-i18n="birthPlace">Locul nașterii</label>
+      <select id="citySelect">
+        <option value="" data-i18n="chooseCity">— alege un oraș din listă —</option>
+        <optgroup label="România" id="ogRO" data-i18n-label="groupRomania"></optgroup>
+        <optgroup label="Internațional" id="ogIntl" data-i18n-label="groupIntl"></optgroup>
+        <option value="manual" data-i18n="manualCity">— nu găsești orașul? scrie coordonatele mai jos —</option>
+      </select>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="lat" data-i18n="latitude">Latitudine</label>
+        <input type="number" id="lat" step="0.0001" min="-90" max="90" inputmode="decimal" placeholder="ex: 44.4268" data-i18n-placeholder="egLat">
+      </div>
+      <div class="field">
+        <label for="lon" data-i18n="longitude">Longitudine</label>
+        <input type="number" id="lon" step="0.0001" min="-180" max="180" inputmode="decimal" placeholder="ex: 26.1025" data-i18n-placeholder="egLon">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="tz" data-i18n="tzLabel">Fus orar la naștere (UTC)</label>
+        <input type="number" id="tz" step="0.25" min="-12" max="14" inputmode="decimal" placeholder="ex: 2" data-i18n-placeholder="egTz">
+      </div>
+      <div class="field field-btn">
+        <button type="button" id="btnSuggestTZ" class="btn-ghost" data-i18n="suggestTZRomania">Sugerează pentru România</button>
+      </div>
+    </div>
+    <p class="hint" id="locHint" data-i18n="locHint">Locul și fusul orar sunt necesare doar dacă ai completat ora nașterii mai sus. Sugestia de fus orar folosește baza de date IANA din browser (inclusiv ora de vară istorică a României); înainte de ~1970 sau în ziua schimbării orei, verifică manual.</p>
+
+    <fieldset class="field fieldset-plain" style="margin-top:1.1rem;">
+      <legend class="field-label" data-i18n="houseSystemLegend">Sistem de case</legend>
+      <div class="radio-row">
+        <label class="radio"><input type="radio" name="hsys" value="whole" id="hsysWhole" checked> <span data-i18n="wholeSign">Semne întregi</span></label>
+        <label class="radio"><input type="radio" name="hsys" value="equal" id="hsysEqual"> <span data-i18n="equalHouses">Case egale</span></label>
+        <label class="radio"><input type="radio" name="hsys" value="placidus" id="hsysPlacidus"> Placidus</label>
+      </div>
+      <p class="hint" id="hsysHint" data-i18n="hsysHintFull">Trei sisteme, calculate local, fără internet — Placidus folosește o iterație numerică și nu este definit la latitudini polare (peste ~66°), spre deosebire de celelalte două.</p>
+    </fieldset>
+
+    <h2 class="panel-title panel-title-2" data-i18n="eclipseToCheckTitle">Eclipsa de verificat</h2>
+    <div class="field">
+      <label for="eclipseSelect" data-i18n="chooseKnownEclipse">Alege o eclipsă cunoscută</label>
+      <select id="eclipseSelect"></select>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="edate" data-i18n="eclipseDate">Data eclipsei (UTC)</label>
+        <input type="date" id="edate" min="1583-01-01" max="2100-12-31">
+      </div>
+      <div class="field">
+        <label for="etime" data-i18n="eclipseTime">Ora eclipsei (UTC)</label>
+        <input type="time" id="etime">
+      </div>
+    </div>
+    <fieldset class="field fieldset-plain">
+      <legend class="field-label" data-i18n="eclipseTypeLegend">Tip eclipsă</legend>
+      <div class="radio-row">
+        <label class="radio"><input type="radio" name="ekind" value="solar" checked> <span data-i18n="ofSun">de Soare</span></label>
+        <label class="radio"><input type="radio" name="ekind" value="lunar"> <span data-i18n="ofMoon">de Lună</span></label>
+      </div>
+      <p class="hint" data-i18n="ekindHint">Se completează automat la alegerea din listă — ajustează doar dacă introduci o dată personalizată. La eclipsa de Soare se verifică poziția Soarelui; la cea de Lună, poziția Lunii (opusă Soarelui, ca la orice Lună Plină).</p>
+    </fieldset>
+    <p class="hint" data-i18n="geoNote">Poziția astrologică e aceeași oriunde pe glob — vizibilitatea geografică nu contează pentru interpretare.</p>
+
+    <p id="formError" class="form-error" role="alert" hidden></p>
+    <button type="submit" class="btn-primary" data-i18n="calculate">Calculează</button>
+  </form>
+
+  <section id="results" class="panel results" aria-live="polite" hidden>
+    <p class="stale-banner" id="staleBanner" data-i18n="staleBanner">Ai schimbat ceva mai sus — apasă din nou <strong>Calculează</strong> pentru rezultatul actualizat.</p>
+    <div id="wheelContainer" class="wheel"></div>
+    <p class="result-greeting" id="resultGreeting"></p>
+    <p class="result-eclipse-tag" id="resultEclipseTag"></p>
+    <h2 class="result-house" id="resultHouse"></h2>
+    <p class="result-text" id="resultText"></p>
+    <dl class="result-details" id="resultDetails"></dl>
+    <p class="hint" id="approxResultNote" hidden></p>
+    <p class="hint" id="noTimeNote" data-i18n="noTimeNote" hidden>Fără ora nașterii, nu se poate calcula un ascendent real, așa că am folosit harta solară: Soarele ține locul ascendentului, iar casele urmează semnele întregi de la el încolo. E o metodă recunoscută pentru cazul ăsta, dar mai puțin precisă — dacă afli vreodată ora exactă, revino pentru rezultatul complet.</p>
+    <p class="note" data-i18n="note">Instrument de reflecție, construit pe formule astronomice (precizie de ordinul 0,01–0,1°) — poziția Soarelui sau a Lunii (după tipul eclipsei) și, când se cunoaște ora nașterii, a ascendentului. Astrologia nu are validare științifică; interpretarea e simbolică, nu o predicție și nu un sfat medical, financiar sau juridic.</p>
+    <div class="result-actions no-print">
+      <button type="button" id="btnCopyResult" class="btn-ghost" data-i18n="copyResult">Copiază rezultatul</button>
+      <button type="button" id="btnDownloadResult" class="btn-ghost" data-i18n="downloadResult">Descarcă rezultatul</button>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span data-i18n="footer1">Aplicație single-file, offline, fără conexiune la internet și fără dependințe externe.</span><br>
+    <span data-i18n="footer2">Parte din seria de aplicații independente „fără frontiere”.</span><br>
+    <span data-i18n="footer3">Datele eclipselor: NASA / GSFC (Fred Espenak).</span>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   ECLIPSA — date, motor de calcul astronomic, desenare roată SVG
+   ============================================================ */
+
+let LANG = 'ro';
+
+const STR = {
+ro: {
+  tagline:"Casa ta la eclipsă",
+  disclaimer:"Calculul pozițiilor (Soare, Lună, ascendent, case) este astronomic; interpretările sunt texte simbolice. Astrologia nu are validare științifică: nu există dovezi că poziția astrelor la naștere sau în timpul unei eclipse influențează caracterul sau viitorul cuiva. Folosește rezultatul ca pretext de reflecție personală sau ca divertisment — nu ca predicție și nu ca sfat medical, financiar sau juridic.",
+  lead:"O eclipsă — de Soare sau de Lună — marchează, în tradiția astrologică, un prag — un punct în care ceva vechi se încheie și ceva nou cere loc. Completează datele tale de naștere, alege o eclipsă din cele peste 200 din 2024–2070, și află pe ce casă din harta ta natală a căzut, împreună cu o direcție concretă de lucru asupra ta.",
+  birthDataTitle:"Datele tale de naștere",
+  firstName:"Prenume", lastName:"Nume", optional:"opțional",
+  birthDate:"Data nașterii", birthTime:"Ora nașterii",
+  timeHint:"Ora e opțională — fără ea, casele se calculează după harta solară (Soarele ține locul ascendentului), o metodă mai simplă și mai puțin precisă decât cea cu ora exactă. Dacă nu ești sigur/ă dacă te-ai născut înainte sau după miezul nopții, merită încercate ambele date — pot ieși case diferite.",
+  approxToggleLabel:"Nu știu ora exactă, dar știu un interval",
+  fromTime:"De la ora", toTime:"Până la ora",
+  approxHint:"Calculăm ascendentul la fiecare câteva minute din interval și arătăm toate casele posibile — util când știi doar „dimineața” sau „spre seară”, nu ora exactă.",
+  birthPlace:"Locul nașterii", chooseCity:"— alege un oraș din listă —",
+  groupRomania:"România", groupIntl:"Internațional",
+  manualCity:"— nu găsești orașul? scrie coordonatele mai jos —",
+  latitude:"Latitudine", longitude:"Longitudine",
+  tzLabel:"Fus orar la naștere (UTC)",
+  suggestTZRomania:"Sugerează pentru România",
+  suggestTZStandard:"Sugerează fusul orar",
+  locHint:"Locul și fusul orar sunt necesare doar dacă ai completat ora nașterii mai sus. Sugestia de fus orar folosește baza de date IANA din browser (inclusiv ora de vară istorică a României); înainte de ~1970 sau în ziua schimbării orei, verifică manual.",
+  locHintIntl:"Locul și fusul orar sunt necesare doar dacă ai completat ora nașterii mai sus. Sugestia folosește baza de date IANA din browser (inclusiv ora de vară istorică a orașului ales); înainte de ~1970 sau în ziua schimbării orei, verifică manual.",
+  houseSystemLegend:"Sistem de case", wholeSign:"Semne întregi", equalHouses:"Case egale",
+  hsysHintFull:"Trei sisteme, calculate local, fără internet — Placidus folosește o iterație numerică și nu este definit la latitudini polare (peste ~66°), spre deosebire de celelalte două.",
+  hsysHintNoTime:"Fără ora nașterii, doar semnele întregi sunt posibile (harta solară nu are un ascendent exact de la care să pornească case egale sau Placidus).",
+  eclipseToCheckTitle:"Eclipsa de verificat", chooseKnownEclipse:"Alege o eclipsă cunoscută",
+  eclipseDate:"Data eclipsei (UTC)", eclipseTime:"Ora eclipsei (UTC)",
+  eclipseTypeLegend:"Tip eclipsă", ofSun:"de Soare", ofMoon:"de Lună",
+  ekindHint:"Se completează automat la alegerea din listă — ajustează doar dacă introduci o dată personalizată. La eclipsa de Soare se verifică poziția Soarelui; la cea de Lună, poziția Lunii (opusă Soarelui, ca la orice Lună Plină).",
+  geoNote:"Poziția astrologică e aceeași oriunde pe glob — vizibilitatea geografică nu contează pentru interpretare.",
+  calculate:"Calculează",
+  staleBannerHtml:'Ai schimbat ceva mai sus — apasă din nou <strong>Calculează</strong> pentru rezultatul actualizat.',
+  noTimeNote:"Fără ora nașterii, nu se poate calcula un ascendent real, așa că am folosit harta solară: Soarele ține locul ascendentului, iar casele urmează semnele întregi de la el încolo. E o metodă recunoscută pentru cazul ăsta, dar mai puțin precisă — dacă afli vreodată ora exactă, revino pentru rezultatul complet.",
+  note:"Instrument de reflecție, construit pe formule astronomice (precizie de ordinul 0,01–0,1°) — poziția Soarelui sau a Lunii (după tipul eclipsei) și, când se cunoaște ora nașterii, a ascendentului. Astrologia nu are validare științifică; interpretarea e simbolică, nu o predicție și nu un sfat medical, financiar sau juridic.",
+  copyResult:"Copiază rezultatul", copied:"Copiat ✓", copyFailed:"Nu s-a putut copia",
+  downloadResult:"Descarcă rezultatul",
+  footer1:"Aplicație single-file, offline, fără conexiune la internet și fără dependințe externe.",
+  footer2:"Parte din seria de aplicații independente „fără frontiere”.",
+  footer3:"Datele eclipselor: NASA / GSFC (Fred Espenak).",
+  forName:n=>`Pentru ${n}:`, yourResult:"Rezultatul tău:",
+  houseWord:"Casa",
+  detailAscendant:"Ascendent", detailMC:"Mijlocul cerului (MC)", detailSunSign:"Semnul Soarelui (bază pentru case)",
+  detailEclipseSun:"Eclipsa (Soare)", detailEclipseMoon:"Eclipsa (Lună)",
+  detailMoon:"Poziția Lunii natale", detailHouseSystem:"Sistem de case",
+  hsysWholeSolar:"semne întregi (hartă solară)", hsysWhole:"semne întregi", hsysEqual:"case egale", hsysPlacidus:"Placidus",
+  egLat:"ex: 44.4268", egLon:"ex: 26.1025", egTz:"ex: 2",
+  pageTitle:"ECLIPSA — casa ta la eclipsa de Soare sau de Lună",
+  wheelAriaLabel:"Roata astrologică natală cu poziția eclipsei",
+  errNeedDates:"Completează data nașterii și data eclipsei.",
+  errNeedLoc:"Ai completat ora nașterii — completează și locul (din listă sau manual) și fusul orar.",
+  errLat:"Latitudinea trebuie să fie între -90 și 90.",
+  errLon:"Longitudinea trebuie să fie între -180 și 180.",
+  errTz:"Fusul orar trebuie să fie între -12 și +14.",
+  errApproxRange:"Completează ambele capete ale intervalului orar (ora de început diferită de cea de sfârșit; dacă sfârșitul e mai mic, intervalul trece peste miezul nopții).",
+  errPlacidusPolar:"Placidus nu poate fi calculat la această latitudine (aproape de sau în interiorul cercului polar, peste ~66°). Alege „Semne întregi” sau „Case egale”.",
+  errPole:"Latitudine prea apropiată de pol pentru un ascendent calculabil (peste 89,5°). Lasă ora nașterii goală (hartă solară) sau verifică coordonatele.",
+  errBirthDate:"Data nașterii trebuie să fie între 1 ianuarie 1900 și azi.",
+  errEclipseDate:"Data eclipsei trebuie să fie între 1583 și 2100.",
+  eclipseTagSolar:(tip,date)=>`Eclipsă de Soare (${tip}) · ${date}`,
+  eclipseTagLunar:(tip,date)=>`Eclipsă de Lună (${tip}) · ${date}`,
+  approxResultNote:(list)=>`Cu ora aproximativă dată, casa ar putea fi ${list}, în funcție de ora exactă din interval — rezultatul de mai sus e pentru mijlocul intervalului.`,
+  approxOnlyOne:(h)=>`Cu ora aproximativă dată, casa rămâne Casa ${h} pe tot intervalul — un rezultat stabil, chiar și fără ora exactă.`,
+  and:"și"
+},
+en: {
+  tagline:"Your house at the eclipse",
+  disclaimer:"The positions (Sun, Moon, ascendant, houses) are computed astronomically; the interpretations are symbolic texts. Astrology has no scientific validation: there is no evidence that the positions of the stars at birth or during an eclipse influence anyone's character or future. Use the result as a prompt for personal reflection or as entertainment — not as a prediction and not as medical, financial or legal advice.",
+  lead:"An eclipse — solar or lunar — marks, in astrological tradition, a threshold — a point where something old ends and something new asks for room. Fill in your birth details, pick an eclipse from over 200 between 2024–2070, and find which house of your natal chart it fell in, along with a concrete direction to work on.",
+  birthDataTitle:"Your birth details",
+  firstName:"First name", lastName:"Last name", optional:"optional",
+  birthDate:"Birth date", birthTime:"Birth time",
+  timeHint:"Time is optional — without it, houses are calculated from the solar chart (the Sun stands in for the ascendant), a simpler and less precise method than using the exact time. If you're not sure whether you were born before or after midnight, it's worth trying both dates — the houses can differ.",
+  approxToggleLabel:"I don't know the exact time, but I know a range",
+  fromTime:"From", toTime:"To",
+  approxHint:"We calculate the ascendant every few minutes across the range and show every house that comes up — useful when you only know \"morning\" or \"early evening\", not the exact time.",
+  birthPlace:"Birthplace", chooseCity:"— choose a city from the list —",
+  groupRomania:"Romania", groupIntl:"International",
+  manualCity:"— can't find your city? enter coordinates below —",
+  latitude:"Latitude", longitude:"Longitude",
+  tzLabel:"Time zone at birth (UTC)",
+  suggestTZRomania:"Suggest for Romania",
+  suggestTZStandard:"Suggest time zone",
+  locHint:"Place and time zone are only needed if you filled in the birth time above. The suggestion uses the browser's IANA time-zone database (including Romania's historical daylight saving); before ~1970 or on a clock-change day, check manually.",
+  locHintIntl:"Place and time zone are only needed if you filled in the birth time above. The suggestion uses the browser's IANA time-zone database (including the chosen city's historical daylight saving); before ~1970 or on a clock-change day, check manually.",
+  houseSystemLegend:"House system", wholeSign:"Whole sign", equalHouses:"Equal houses",
+  hsysHintFull:"Three systems, computed locally with no internet — Placidus uses a numeric iteration and is undefined at polar latitudes (beyond ~66°), unlike the other two.",
+  hsysHintNoTime:"Without a birth time, only whole signs are possible (the solar chart has no exact ascendant for equal houses or Placidus to start from).",
+  eclipseToCheckTitle:"Eclipse to check", chooseKnownEclipse:"Choose a known eclipse",
+  eclipseDate:"Eclipse date (UTC)", eclipseTime:"Eclipse time (UTC)",
+  eclipseTypeLegend:"Eclipse type", ofSun:"Solar", ofMoon:"Lunar",
+  ekindHint:"Filled in automatically when you pick from the list — adjust only if you enter a custom date. For a solar eclipse, the Sun's position is checked; for a lunar one, the Moon's (opposite the Sun, as at any Full Moon).",
+  geoNote:"The astrological position is the same anywhere on Earth — geographic visibility doesn't matter for the interpretation.",
+  calculate:"Calculate",
+  staleBannerHtml:'Something changed above — press <strong>Calculate</strong> again for the updated result.',
+  noTimeNote:"Without a birth time, a real ascendant can't be calculated, so we used the solar chart: the Sun stands in for the ascendant, and houses follow whole signs from there. It's a recognized method for this case, but less precise — if you ever find out the exact time, come back for the full result.",
+  note:"A reflection tool, built on astronomical formulas (accuracy on the order of 0.01–0.1°) — the Sun's or Moon's position (depending on eclipse type) and, when the birth time is known, the ascendant. Astrology has no scientific validation; the interpretation is symbolic, not a prediction and not medical, financial or legal advice.",
+  copyResult:"Copy result", copied:"Copied ✓", copyFailed:"Couldn't copy",
+  downloadResult:"Download result",
+  footer1:"Single-file, offline application — no internet connection and no external dependencies.",
+  footer2:"Part of the \"fără frontiere\" (borderless) series of independent applications.",
+  footer3:"Eclipse data: NASA / GSFC (Fred Espenak).",
+  forName:n=>`For ${n}:`, yourResult:"Your result:",
+  houseWord:"House",
+  detailAscendant:"Ascendant", detailMC:"Midheaven (MC)", detailSunSign:"Sun's sign (basis for houses)",
+  detailEclipseSun:"Eclipse (Sun)", detailEclipseMoon:"Eclipse (Moon)",
+  detailMoon:"Natal Moon position", detailHouseSystem:"House system",
+  hsysWholeSolar:"whole sign (solar chart)", hsysWhole:"whole sign", hsysEqual:"equal houses", hsysPlacidus:"Placidus",
+  egLat:"e.g. 44.4268", egLon:"e.g. 26.1025", egTz:"e.g. 2",
+  pageTitle:"ECLIPSA — your house at the solar or lunar eclipse",
+  wheelAriaLabel:"Natal astrological wheel with the eclipse position",
+  errNeedDates:"Fill in the birth date and the eclipse date.",
+  errNeedLoc:"You entered a birth time — also fill in the place (from the list or manually) and the time zone.",
+  errLat:"Latitude must be between -90 and 90.",
+  errLon:"Longitude must be between -180 and 180.",
+  errTz:"Time zone must be between -12 and +14.",
+  errApproxRange:"Fill in both ends of the time range (start different from end; if the end is earlier, the range crosses midnight).",
+  errPlacidusPolar:"Placidus can't be computed at this latitude (near or inside the polar circle, beyond ~66°). Choose \"Whole sign\" or \"Equal houses\".",
+  errPole:"Latitude too close to the pole for a computable ascendant (beyond 89.5°). Leave the birth time empty (solar chart) or check the coordinates.",
+  errBirthDate:"The birth date must be between 1 January 1900 and today.",
+  errEclipseDate:"The eclipse date must be between 1583 and 2100.",
+  eclipseTagSolar:(tip,date)=>`Solar eclipse (${tip}) · ${date}`,
+  eclipseTagLunar:(tip,date)=>`Lunar eclipse (${tip}) · ${date}`,
+  approxResultNote:(list)=>`With the approximate time given, the house could be ${list}, depending on the exact time within the range — the result above is for the midpoint of the range.`,
+  approxOnlyOne:(h)=>`With the approximate time given, the house stays House ${h} across the whole range — a stable result, even without the exact time.`,
+  and:"and"
+}
+};
+function t(key){ return STR[LANG][key]; }
+
+const CITIES_RO = [
+["Alba Iulia",46.0764,23.5728],["Alexandria",43.9686,25.3333],["Arad",46.1667,21.3167],
+["Bacău",46.5833,26.9167],["Baia Mare",47.6567,23.5719],["Băile Herculane",44.8800,22.4100],
+["Bârlad",46.2167,27.6667],["Bistrița",47.1333,24.4833],["Botoșani",47.7486,26.6694],
+["Bragadiru",44.3694,25.9753],["Brăila",45.2692,27.9575],["Brașov",45.6522,25.6106],
+["București",44.4134,26.0978],["Buftea",44.5636,25.9494],["Bușteni",45.4167,25.5333],
+["Buzău",45.1517,26.8167],["Călărași",44.2000,27.3333],["Câmpina",45.1281,25.7383],
+["Câmpulung",45.2750,25.0500],["Câmpulung Moldovenesc",47.5333,25.5667],["Caracal",44.1000,24.3333],
+["Cernavodă",44.3381,28.0336],["Chitila",44.5075,25.9833],["Cluj-Napoca",46.7689,23.5907],
+["Constanța",44.1733,28.6383],["Craiova",44.3333,23.8167],["Curtea de Argeș",45.1333,24.6733],
+["Dej",47.1414,23.8764],["Deva",45.8719,22.9117],["Drobeta-Turnu Severin",44.6361,22.6556],
+["Fetești",44.4150,27.8236],["Florești (Cluj)",46.7475,23.4908],["Focșani",45.6997,27.1797],
+["Făgăraș",45.8447,24.9742],["Galați",45.4233,28.0425],["Giurgiu",43.9000,25.9667],
+["Gura Humorului",47.5500,25.8917],["Hunedoara",45.7697,22.9203],["Iași",47.1622,27.5889],
+["Lugoj",45.6861,21.9006],["Mangalia",43.8172,28.5828],["Medgidia",44.2503,28.2614],
+["Mediaș",46.1639,24.3508],["Miercurea Ciuc",46.3594,25.8039],["Mioveni",44.9553,24.9356],
+["Năvodari",44.3208,28.6125],["Odorheiu Secuiesc",46.3139,25.3017],["Onești",46.2500,26.7667],
+["Oradea",47.0722,21.9211],["Otopeni",44.5500,26.0700],["Pantelimon",44.4528,26.2036],
+["Pașcani",47.2519,26.7231],["Petroșani",45.4122,23.3733],["Piatra Neamț",46.9275,26.3708],
+["Pitești",44.8667,24.8833],["Ploiești",44.9411,26.0225],["Popești-Leordeni",44.3800,26.1700],
+["Predeal",45.5000,25.5667],["Râmnicu Sărat",45.3800,27.0600],["Râmnicu Vâlcea",45.1047,24.3756],
+["Reghin",46.7758,24.7083],["Reșița",45.3000,21.8903],["Roman",46.9300,26.9300],
+["Satu Mare",47.7900,22.8900],["Săcele",45.6175,25.6878],["Sebeș",45.9547,23.5700],
+["Sfântu Gheorghe",45.8653,25.7878],["Sibiu",45.8000,24.1500],["Sighetu Marmației",47.9309,23.8947],
+["Sighișoara",46.2167,24.7917],["Sinaia",45.3500,25.5500],["Slatina",44.4297,24.3642],
+["Slobozia",44.5639,27.3661],["Sovata",46.5833,25.0667],["Suceava",47.6514,26.2556],
+["Târgoviște",44.9244,25.4572],["Târgu Jiu",45.0342,23.2747],["Târgu Mureș",46.5497,24.5597],
+["Tecuci",45.8467,27.4278],["Techirghiol",44.0500,28.6000],["Timișoara",45.7597,21.2300],
+["Tulcea",45.1775,28.8036],["Turda",46.5667,23.7833],["Vălenii de Munte",45.1856,26.0397],
+["Vaslui",46.6468,27.7387],["Vatra Dornei",47.3500,25.3667],["Voluntari",44.4925,26.1914],
+["Zalău",47.1911,23.0572]
+];
+const CITIES_INTL = [
+["Chișinău (R. Moldova)",47.0105,28.8638,2,"Europe/Chisinau"],["Londra",51.5074,-0.1278,0,"Europe/London"],["Paris",48.8566,2.3522,1,"Europe/Paris"],
+["Berlin",52.5200,13.4050,1,"Europe/Berlin"],["München",48.1351,11.5820,1,"Europe/Berlin"],["Madrid",40.4168,-3.7038,1,"Europe/Madrid"],
+["Barcelona",41.3851,2.1734,1,"Europe/Madrid"],["Roma",41.9028,12.4964,1,"Europe/Rome"],["Milano",45.4642,9.1900,1,"Europe/Rome"],
+["Torino",45.0703,7.6869,1,"Europe/Rome"],["Viena",48.2082,16.3738,1,"Europe/Vienna"],["Atena",37.9838,23.7275,2,"Europe/Athens"],
+["Sofia",42.6977,23.3219,2,"Europe/Sofia"],["Budapesta",47.4979,19.0402,1,"Europe/Budapest"],["Varșovia",52.2297,21.0122,1,"Europe/Warsaw"],
+["Praga",50.0755,14.4378,1,"Europe/Prague"],["Moscova",55.7558,37.6173,3,"Europe/Moscow"],["Kiev",50.4501,30.5234,2,"Europe/Kiev"],
+["Istanbul",41.0082,28.9784,3,"Europe/Istanbul"],["Bruxelles",50.8503,4.3517,1,"Europe/Brussels"],["Amsterdam",52.3676,4.9041,1,"Europe/Amsterdam"],
+["Dublin",53.3498,-6.2603,0,"Europe/Dublin"],["Lisabona",38.7223,-9.1393,0,"Europe/Lisbon"],["Stockholm",59.3293,18.0686,1,"Europe/Stockholm"],
+["Zürich",47.3769,8.5417,1,"Europe/Zurich"],["New York",40.7128,-74.0060,-5,"America/New_York"],["Chicago",41.8781,-87.6298,-6,"America/Chicago"],
+["Los Angeles",34.0522,-118.2437,-8,"America/Los_Angeles"],["Toronto",43.6532,-79.3832,-5,"America/Toronto"],["Montreal",45.5019,-73.5674,-5,"America/Toronto"],
+["Ciudad de México",19.4326,-99.1332,-6,"America/Mexico_City"],["São Paulo",-23.5505,-46.6333,-3,"America/Sao_Paulo"],["Buenos Aires",-34.6037,-58.3816,-3,"America/Argentina/Buenos_Aires"],
+["Sydney",-33.8688,151.2093,10,"Australia/Sydney"],["Melbourne",-37.8136,144.9631,10,"Australia/Melbourne"],["Tokyo",35.6762,139.6503,9,"Asia/Tokyo"],
+["Beijing",39.9042,116.4074,8,"Asia/Shanghai"],["Seoul",37.5665,126.9780,9,"Asia/Seoul"],["New Delhi",28.6139,77.2090,5.5,"Asia/Kolkata"],
+["Dubai",25.2048,55.2708,4,"Asia/Dubai"],["Cairo",30.0444,31.2357,2,"Africa/Cairo"],["Johannesburg",-26.2041,28.0473,2,"Africa/Johannesburg"]
+];
+
+const ECLIPSES_SOLAR = [
+{d:"2024-04-08",t:"18:17",tip:"totală",loc:"America de Nord",tipEn:"total",locEn:"North America"},
+{d:"2024-10-02",t:"18:45",tip:"inelară",loc:"America de Sud",tipEn:"annular",locEn:"South America"},
+{d:"2025-03-29",t:"10:47",tip:"parțială",loc:"Europa, NV Africii, Canada",tipEn:"partial",locEn:"Europe, NW Africa, Canada"},
+{d:"2025-09-21",t:"19:42",tip:"parțială",loc:"Pacific, Noua Zeelandă, Antarctica",tipEn:"partial",locEn:"Pacific, New Zealand, Antarctica"},
+{d:"2026-02-17",t:"12:12",tip:"inelară",loc:"Antarctica",tipEn:"annular",locEn:"Antarctica"},
+{d:"2026-08-12",t:"17:46",tip:"totală",loc:"Groenlanda, Islanda, Spania",tipEn:"total",locEn:"Greenland, Iceland, Spain"},
+{d:"2027-02-06",t:"16:00",tip:"inelară",loc:"America de Sud",tipEn:"annular",locEn:"South America"},
+{d:"2027-08-02",t:"10:07",tip:"totală",loc:"Africa de Nord, Peninsula Iberică, Orientul Mijlociu",tipEn:"total",locEn:"North Africa, the Iberian Peninsula, Middle East"},
+{d:"2028-01-26",t:"15:09",tip:"inelară",loc:"America de Sud",tipEn:"annular",locEn:"South America"},
+{d:"2028-07-22",t:"02:56",tip:"totală",loc:"Australia",tipEn:"total",locEn:"Australia"},
+{d:"2029-01-14",t:"17:14",tip:"parțială",loc:"America de Nord, Centrală",tipEn:"partial",locEn:"North, Central America"},
+{d:"2029-06-12",t:"04:06",tip:"parțială",loc:"Arctica, Scandinavia, Alaska, N Asiei, N Canadei",tipEn:"partial",locEn:"the Arctic, Scandinavia, Alaska, N Asia, N Canada"},
+{d:"2029-07-11",t:"15:37",tip:"parțială",loc:"S Chile, S Argentinei",tipEn:"partial",locEn:"S Chile, S Argentina"},
+{d:"2029-12-05",t:"15:04",tip:"parțială",loc:"S Argentinei, S Chile, Antarctica",tipEn:"partial",locEn:"S Argentina, S Chile, Antarctica"},
+{d:"2030-06-01",t:"06:29",tip:"inelară",loc:"Europa, N Africii, Orientul Mijlociu, Asia, Arctica, Alaska",tipEn:"annular",locEn:"Europe, N Africa, Middle East, Asia, the Arctic, Alaska"},
+{d:"2030-11-25",t:"06:52",tip:"totală",loc:"S Africii, Oc. Indian, Indiile de Est, Australia, Antarctica",tipEn:"total",locEn:"S Africa, Indian Ocean, East Indies, Australia, Antarctica"},
+{d:"2031-05-21",t:"07:16",tip:"inelară",loc:"Africa, S Asiei, Indiile de Est, Australia",tipEn:"annular",locEn:"Africa, S Asia, East Indies, Australia"},
+{d:"2031-11-14",t:"21:08",tip:"hibridă",loc:"Pacific, S SUA, America Centrală, NV Americii de Sud",tipEn:"hybrid",locEn:"Pacific, S US, Central America, NW South America"},
+{d:"2032-05-09",t:"13:27",tip:"inelară",loc:"S Americii de Sud, S Africii",tipEn:"annular",locEn:"S South America, S Africa"},
+{d:"2032-11-03",t:"05:34",tip:"parțială",loc:"Asia",tipEn:"partial",locEn:"Asia"},
+{d:"2033-03-30",t:"18:03",tip:"totală",loc:"America de Nord",tipEn:"total",locEn:"North America"},
+{d:"2033-09-23",t:"13:55",tip:"parțială",loc:"S Americii de Sud, Antarctica",tipEn:"partial",locEn:"S South America, Antarctica"},
+{d:"2034-03-20",t:"10:19",tip:"totală",loc:"Africa, Europa, V Asiei",tipEn:"total",locEn:"Africa, Europe, W Asia"},
+{d:"2034-09-12",t:"16:19",tip:"inelară",loc:"America Centrală, America de Sud",tipEn:"annular",locEn:"Central America, South America"},
+{d:"2035-03-09",t:"23:06",tip:"inelară",loc:"Australia, Noua Zeelandă, S Pacificului, Mexic, Antarctica",tipEn:"annular",locEn:"Australia, New Zealand, S Pacific, Mexico, Antarctica"},
+{d:"2035-09-02",t:"01:57",tip:"totală",loc:"E Asiei, Pacific",tipEn:"total",locEn:"E Asia, Pacific"},
+{d:"2036-02-27",t:"04:47",tip:"parțială",loc:"Antarctica, S Australiei, Noua Zeelandă",tipEn:"partial",locEn:"Antarctica, S Australia, New Zealand"},
+{d:"2036-07-23",t:"10:32",tip:"parțială",loc:"S Atlanticului",tipEn:"partial",locEn:"S the Atlantic"},
+{d:"2036-08-21",t:"17:26",tip:"parțială",loc:"Alaska, Canada, Arctica, V Europei, NV Africii",tipEn:"partial",locEn:"Alaska, Canada, the Arctic, W Europe, NW Africa"},
+{d:"2037-01-16",t:"09:49",tip:"parțială",loc:"N Africii, Europa, Orientul Mijlociu, V Asiei",tipEn:"partial",locEn:"N Africa, Europe, Middle East, W Asia"},
+{d:"2037-07-13",t:"02:41",tip:"totală",loc:"Indiile de Est, Australia, Pacific",tipEn:"total",locEn:"East Indies, Australia, Pacific"},
+{d:"2038-01-05",t:"13:47",tip:"inelară",loc:"E Americii de Nord, N Americii de Sud, Atlantic, Africa, Europa",tipEn:"annular",locEn:"E North America, N South America, Atlantic, Africa, Europe"},
+{d:"2038-07-02",t:"13:33",tip:"inelară",loc:"America de Nord și Centrală, America de Sud, Africa, Europa, Orientul Mijlociu",tipEn:"annular",locEn:"North and Central America, South America, Africa, Europe, Middle East"},
+{d:"2038-12-26",t:"01:00",tip:"totală",loc:"SE Asiei, Indiile de Est, Australia, Noua Zeelandă, S Pacificului, Antarctica",tipEn:"total",locEn:"SE Asia, East Indies, Australia, New Zealand, S Pacific, Antarctica"},
+{d:"2039-06-21",t:"17:13",tip:"inelară",loc:"America de Nord, V Europei",tipEn:"annular",locEn:"North America, W Europe"},
+{d:"2039-12-15",t:"16:24",tip:"totală",loc:"S Americii de Sud, Antarctica",tipEn:"total",locEn:"S South America, Antarctica"},
+{d:"2040-05-11",t:"03:43",tip:"parțială",loc:"Australia, Noua Zeelandă, Antarctica",tipEn:"partial",locEn:"Australia, New Zealand, Antarctica"},
+{d:"2040-11-04",t:"19:09",tip:"parțială",loc:"America de Nord și Centrală",tipEn:"partial",locEn:"North and Central America"},
+{d:"2041-04-30",t:"11:52",tip:"totală",loc:"Brazilia, Africa, Orientul Mijlociu",tipEn:"total",locEn:"Brazil, Africa, Middle East"},
+{d:"2041-10-25",t:"01:36",tip:"inelară",loc:"E Asiei, Pacific",tipEn:"annular",locEn:"E Asia, Pacific"},
+{d:"2042-04-20",t:"02:18",tip:"totală",loc:"E și SE Asiei, Australia, Pacific",tipEn:"total",locEn:"E and SE Asia, Australia, Pacific"},
+{d:"2042-10-14",t:"02:01",tip:"inelară",loc:"SE Asiei, Indiile de Est, Australia, S Pacificului, Antarctica",tipEn:"annular",locEn:"SE Asia, East Indies, Australia, S Pacific, Antarctica"},
+{d:"2043-04-09",t:"18:58",tip:"totală",loc:"N Americii de Nord, NE Asiei",tipEn:"total",locEn:"N North America, NE Asia"},
+{d:"2043-10-03",t:"03:02",tip:"inelară",loc:"Antarctica, SV Australiei, Oc. Indian",tipEn:"annular",locEn:"Antarctica, SW Australia, Indian Ocean"},
+{d:"2044-02-28",t:"20:25",tip:"inelară",loc:"Antarctica, America de Sud",tipEn:"annular",locEn:"Antarctica, South America"},
+{d:"2044-08-23",t:"01:17",tip:"totală",loc:"N Asiei, V Americii de Nord, Groenlanda",tipEn:"total",locEn:"N Asia, W North America, Greenland"},
+{d:"2045-02-16",t:"23:56",tip:"inelară",loc:"Australia, Noua Zeelandă, Pacific, Hawaii",tipEn:"annular",locEn:"Australia, New Zealand, Pacific, Hawaii"},
+{d:"2045-08-12",t:"17:43",tip:"totală",loc:"America de Nord și Centrală, America de Sud, V Africii",tipEn:"total",locEn:"North and Central America, South America, W Africa"},
+{d:"2046-02-05",t:"23:06",tip:"inelară",loc:"Australia, Papua Noua Guinee, V SUA",tipEn:"annular",locEn:"Australia, Papua New Guinea, W US"},
+{d:"2046-08-02",t:"10:21",tip:"totală",loc:"Brazilia, Africa",tipEn:"total",locEn:"Brazil, Africa"},
+{d:"2047-01-26",t:"01:33",tip:"parțială",loc:"E Asiei, Alaska",tipEn:"partial",locEn:"E Asia, Alaska"},
+{d:"2047-06-23",t:"10:53",tip:"parțială",loc:"N Canadei, Groenlanda, NE Asiei",tipEn:"partial",locEn:"N Canada, Greenland, NE Asia"},
+{d:"2047-07-22",t:"22:36",tip:"parțială",loc:"SE Australiei, Noua Zeelandă",tipEn:"partial",locEn:"SE Australia, New Zealand"},
+{d:"2047-12-16",t:"23:50",tip:"parțială",loc:"Antarctica, S Chile, S Argentinei",tipEn:"partial",locEn:"Antarctica, S Chile, S Argentina"},
+{d:"2048-06-11",t:"12:59",tip:"inelară",loc:"America de Nord, Caraibe, N Africii, Europa, V Asiei",tipEn:"annular",locEn:"North America, the Caribbean, N Africa, Europe, W Asia"},
+{d:"2048-12-05",t:"15:35",tip:"totală",loc:"S Americii de Sud, SV Africii",tipEn:"total",locEn:"S South America, SW Africa"},
+{d:"2049-05-31",t:"14:00",tip:"inelară",loc:"SE SUA, America Centrală, America de Sud, Africa, S Europei",tipEn:"annular",locEn:"SE US, Central America, South America, Africa, S Europe"},
+{d:"2049-11-25",t:"05:34",tip:"hibridă",loc:"E Africii, S Asiei, Indiile de Est, Australia",tipEn:"hybrid",locEn:"E Africa, S Asia, East Indies, Australia"},
+{d:"2050-05-20",t:"20:43",tip:"hibridă",loc:"Noua Zeelandă, S Pacificului, SV Americii de Sud",tipEn:"hybrid",locEn:"New Zealand, S Pacific, SW South America"},
+{d:"2050-11-14",t:"13:31",tip:"parțială",loc:"NE SUA, E Canadei, N Africii, Europa",tipEn:"partial",locEn:"NE US, E Canada, N Africa, Europe"},
+{d:"2051-04-11",t:"02:11",tip:"parțială",loc:"Asia, Alaska, Canada, Groenlanda",tipEn:"partial",locEn:"Asia, Alaska, Canada, Greenland"},
+{d:"2051-10-04",t:"21:02",tip:"parțială",loc:"Antarctica, Australia, Noua Zeelandă",tipEn:"partial",locEn:"Antarctica, Australia, New Zealand"},
+{d:"2052-03-30",t:"18:32",tip:"totală",loc:"America de Nord și Centrală, N Americii de Sud",tipEn:"total",locEn:"North and Central America, N South America"},
+{d:"2052-09-22",t:"23:39",tip:"inelară",loc:"Australia, Noua Zeelandă, Antarctica",tipEn:"annular",locEn:"Australia, New Zealand, Antarctica"},
+{d:"2053-03-20",t:"07:08",tip:"inelară",loc:"Africa, Indiile de Est, Australia, Antarctica",tipEn:"annular",locEn:"Africa, East Indies, Australia, Antarctica"},
+{d:"2053-09-12",t:"09:34",tip:"totală",loc:"Groenlanda, Africa, Europa, Asia",tipEn:"total",locEn:"Greenland, Africa, Europe, Asia"},
+{d:"2054-03-09",t:"12:34",tip:"parțială",loc:"Antarctica, Africa de Sud, Madagascar, Chile",tipEn:"partial",locEn:"Antarctica, South Africa, Madagascar, Chile"},
+{d:"2054-08-03",t:"18:04",tip:"parțială",loc:"Antarctica",tipEn:"partial",locEn:"Antarctica"},
+{d:"2054-09-02",t:"01:10",tip:"parțială",loc:"Asia, SUA, Canada, Groenlanda",tipEn:"partial",locEn:"Asia, US, Canada, Greenland"},
+{d:"2055-01-27",t:"17:54",tip:"parțială",loc:"Canada, SUA, Mexic, Cuba",tipEn:"partial",locEn:"Canada, US, Mexico, Cuba"},
+{d:"2055-07-24",t:"09:58",tip:"totală",loc:"Africa, Antarctica",tipEn:"total",locEn:"Africa, Antarctica"},
+{d:"2056-01-16",t:"22:17",tip:"inelară",loc:"Noua Zeelandă, Pacificul Central, V Americii de Nord",tipEn:"annular",locEn:"New Zealand, Central Pacific, W North America"},
+{d:"2056-07-12",t:"20:22",tip:"inelară",loc:"S Americii de Nord, America Centrală, N Americii de Sud",tipEn:"annular",locEn:"S North America, Central America, N South America"},
+{d:"2057-01-05",t:"09:48",tip:"totală",loc:"Africa, Antarctica, Australia",tipEn:"total",locEn:"Africa, Antarctica, Australia"},
+{d:"2057-07-01",t:"23:40",tip:"inelară",loc:"Asia, America de Nord",tipEn:"annular",locEn:"Asia, North America"},
+{d:"2057-12-26",t:"01:15",tip:"totală",loc:"Antarctica, Australia",tipEn:"total",locEn:"Antarctica, Australia"},
+{d:"2058-05-22",t:"10:39",tip:"parțială",loc:"Africa de Sud, Madagascar",tipEn:"partial",locEn:"South Africa, Madagascar"},
+{d:"2058-06-21",t:"00:20",tip:"parțială",loc:"Rusia, Groenlanda, Norvegia, Suedia, Finlanda",tipEn:"partial",locEn:"Russia, Greenland, Norway, Sweden, Finland"},
+{d:"2058-11-16",t:"03:23",tip:"parțială",loc:"Rusia, China, Mongolia, Japonia",tipEn:"partial",locEn:"Russia, China, Mongolia, Japan"},
+{d:"2059-05-11",t:"19:22",tip:"totală",loc:"America de Nord, Centrală și de Sud",tipEn:"total",locEn:"North, Central, and South America"},
+{d:"2059-11-05",t:"09:18",tip:"inelară",loc:"Africa, Europa, Asia",tipEn:"annular",locEn:"Africa, Europe, Asia"},
+{d:"2060-04-30",t:"10:10",tip:"totală",loc:"Africa, Asia",tipEn:"total",locEn:"Africa, Asia"},
+{d:"2060-10-24",t:"09:24",tip:"inelară",loc:"Africa, Antarctica, America de Sud",tipEn:"annular",locEn:"Africa, Antarctica, South America"},
+{d:"2061-04-20",t:"02:57",tip:"totală",loc:"Asia, Orientul Mijlociu, America de Nord",tipEn:"total",locEn:"Asia, Middle East, North America"},
+{d:"2061-10-13",t:"10:32",tip:"inelară",loc:"Antarctica, America de Sud",tipEn:"annular",locEn:"Antarctica, South America"},
+{d:"2062-03-11",t:"04:26",tip:"parțială",loc:"Antarctica, Australia, Noua Zeelandă",tipEn:"partial",locEn:"Antarctica, Australia, New Zealand"},
+{d:"2062-09-03",t:"08:54",tip:"parțială",loc:"Groenlanda, Europa, Asia",tipEn:"partial",locEn:"Greenland, Europe, Asia"},
+{d:"2063-02-28",t:"07:43",tip:"inelară",loc:"Africa, Indiile de Est, SE Asiei, Antarctica, Australia",tipEn:"annular",locEn:"Africa, East Indies, SE Asia, Antarctica, Australia"},
+{d:"2063-08-24",t:"01:22",tip:"totală",loc:"Asia, Pacificul Central",tipEn:"total",locEn:"Asia, Central Pacific"},
+{d:"2064-02-17",t:"07:00",tip:"inelară",loc:"Africa, Asia",tipEn:"annular",locEn:"Africa, Asia"},
+{d:"2064-08-12",t:"17:46",tip:"totală",loc:"Americi, Antarctica",tipEn:"total",locEn:"Americas, Antarctica"},
+{d:"2065-02-05",t:"09:52",tip:"parțială",loc:"N Africii, Europa, V Asiei",tipEn:"partial",locEn:"N Africa, Europe, W Asia"},
+{d:"2065-07-03",t:"17:34",tip:"parțială",loc:"N Europei, Rusia",tipEn:"partial",locEn:"N Europe, Russia"},
+{d:"2065-08-02",t:"05:34",tip:"parțială",loc:"Antarctica, Africa de Sud, Madagascar",tipEn:"partial",locEn:"Antarctica, South Africa, Madagascar"},
+{d:"2065-12-27",t:"08:40",tip:"parțială",loc:"Chile, Argentina, Antarctica, Australia",tipEn:"partial",locEn:"Chile, Argentina, Antarctica, Australia"},
+{d:"2066-06-22",t:"19:26",tip:"inelară",loc:"America de Nord, N Europei, N Asiei",tipEn:"annular",locEn:"North America, N Europe, N Asia"},
+{d:"2066-12-17",t:"00:24",tip:"totală",loc:"Australia, Antarctica, Noua Zeelandă",tipEn:"total",locEn:"Australia, Antarctica, New Zealand"},
+{d:"2067-06-11",t:"20:42",tip:"inelară",loc:"Americi",tipEn:"annular",locEn:"Americas"},
+{d:"2067-12-06",t:"14:04",tip:"hibridă",loc:"Americi, Africa, S Europei",tipEn:"hybrid",locEn:"Americas, Africa, S Europe"},
+{d:"2068-05-31",t:"03:57",tip:"totală",loc:"Indiile de Est, Australia, Antarctica",tipEn:"total",locEn:"East Indies, Australia, Antarctica"},
+{d:"2068-11-24",t:"21:32",tip:"parțială",loc:"America de Nord, Rusia",tipEn:"partial",locEn:"North America, Russia"},
+{d:"2069-04-21",t:"10:11",tip:"parțială",loc:"Europa, Asia, N Africii, America de Nord",tipEn:"partial",locEn:"Europe, Asia, N Africa, North America"},
+{d:"2069-05-20",t:"17:53",tip:"parțială",loc:"America de Sud, Antarctica",tipEn:"partial",locEn:"South America, Antarctica"},
+{d:"2069-10-15",t:"04:20",tip:"parțială",loc:"Antarctica",tipEn:"partial",locEn:"Antarctica"},
+{d:"2070-04-11",t:"02:36",tip:"totală",loc:"Asia, Indiile de Est, Alaska, Canada",tipEn:"total",locEn:"Asia, East Indies, Alaska, Canada"},
+{d:"2070-10-04",t:"07:09",tip:"inelară",loc:"Africa, Antarctica, Australia",tipEn:"annular",locEn:"Africa, Antarctica, Australia"}
+];
+const ECLIPSES_LUNAR = [
+{d:"2024-03-25",t:"07:13",tip:"penumbrală",loc:"Americi",tipEn:"penumbral",locEn:"Americas"},
+{d:"2024-09-18",t:"02:44",tip:"parțială",loc:"Americi, Europa, Africa",tipEn:"partial",locEn:"Americas, Europe, Africa"},
+{d:"2025-03-14",t:"06:59",tip:"totală",loc:"Pacific, Americi, V Europei, V Africii",tipEn:"total",locEn:"Pacific, Americas, W Europe, W Africa"},
+{d:"2025-09-07",t:"18:12",tip:"totală",loc:"Europa, Africa, Asia, Australia",tipEn:"total",locEn:"Europe, Africa, Asia, Australia"},
+{d:"2026-03-03",t:"11:34",tip:"totală",loc:"Asia de Est, Australia, Pacific, Americi",tipEn:"total",locEn:"East Asia, Australia, Pacific, Americas"},
+{d:"2026-08-28",t:"04:13",tip:"parțială",loc:"Pacific, Americi, Europa, Africa",tipEn:"partial",locEn:"Pacific, Americas, Europe, Africa"},
+{d:"2027-02-20",t:"23:13",tip:"penumbrală",loc:"Americi, Europa, Africa, Asia",tipEn:"penumbral",locEn:"Americas, Europe, Africa, Asia"},
+{d:"2027-07-18",t:"16:03",tip:"penumbrală",loc:"E Africii, Asia, Australia",tipEn:"penumbral",locEn:"E Africa, Asia, Australia"},
+{d:"2027-08-17",t:"07:14",tip:"penumbrală",loc:"Pacific, Americi",tipEn:"penumbral",locEn:"Pacific, Americas"},
+{d:"2028-01-12",t:"04:13",tip:"parțială",loc:"Americi, Europa, Africa",tipEn:"partial",locEn:"Americas, Europe, Africa"},
+{d:"2028-07-06",t:"18:20",tip:"parțială",loc:"Europa, Africa, Asia, Australia",tipEn:"partial",locEn:"Europe, Africa, Asia, Australia"},
+{d:"2028-12-31",t:"16:52",tip:"totală",loc:"Europa, Africa, Asia, Australia, Pacific",tipEn:"total",locEn:"Europe, Africa, Asia, Australia, Pacific"},
+{d:"2029-06-26",t:"03:23",tip:"totală",loc:"Americi, Europa, Africa, Orientul Mijlociu",tipEn:"total",locEn:"Americas, Europe, Africa, Middle East"},
+{d:"2029-12-20",t:"22:43",tip:"totală",loc:"Americi, Europa, Africa, Asia",tipEn:"total",locEn:"Americas, Europe, Africa, Asia"},
+{d:"2030-06-15",t:"18:35",tip:"parțială",loc:"Europa, Africa, Asia, Australia",tipEn:"partial",locEn:"Europe, Africa, Asia, Australia"},
+{d:"2030-12-09",t:"22:29",tip:"penumbrală",loc:"Americi, Europa, Africa, Asia",tipEn:"penumbral",locEn:"Americas, Europe, Africa, Asia"},
+{d:"2031-05-07",t:"03:52",tip:"penumbrală",loc:"Americi, Europa, Africa",tipEn:"penumbral",locEn:"Americas, Europe, Africa"},
+{d:"2031-06-05",t:"11:45",tip:"penumbrală",loc:"Indiile de Est, Australia, Pacific",tipEn:"penumbral",locEn:"East Indies, Australia, Pacific"},
+{d:"2031-10-30",t:"07:47",tip:"penumbrală",loc:"Americi",tipEn:"penumbral",locEn:"Americas"},
+{d:"2032-04-25",t:"15:15",tip:"totală",loc:"E Africii, Asia, Australia, Pacific",tipEn:"total",locEn:"E Africa, Asia, Australia, Pacific"},
+{d:"2032-10-18",t:"19:04",tip:"totală",loc:"Africa, Europa, Asia, Australia",tipEn:"total",locEn:"Africa, Europe, Asia, Australia"},
+{d:"2033-04-14",t:"19:14",tip:"totală",loc:"Europa, Africa, Asia, Australia",tipEn:"total",locEn:"Europe, Africa, Asia, Australia"},
+{d:"2033-10-08",t:"10:56",tip:"totală",loc:"Asia, Australia, Pacific, Americi",tipEn:"total",locEn:"Asia, Australia, Pacific, Americas"},
+{d:"2034-04-03",t:"19:07",tip:"penumbrală",loc:"Europa, Africa, Asia, Australia",tipEn:"penumbral",locEn:"Europe, Africa, Asia, Australia"},
+{d:"2034-09-28",t:"02:48",tip:"parțială",loc:"Americi, Europa, Africa",tipEn:"partial",locEn:"Americas, Europe, Africa"},
+{d:"2035-02-22",t:"09:06",tip:"penumbrală",loc:"E Asiei, Pacific, Americi",tipEn:"penumbral",locEn:"E Asia, Pacific, Americas"},
+{d:"2035-08-19",t:"01:12",tip:"parțială",loc:"Americi, Europa, Africa, Orientul Mijlociu",tipEn:"partial",locEn:"Americas, Europe, Africa, Middle East"},
+{d:"2036-02-11",t:"22:13",tip:"totală",loc:"Americi, Europa, Africa, Asia, V Australiei",tipEn:"total",locEn:"Americas, Europe, Africa, Asia, W Australia"},
+{d:"2036-08-07",t:"02:53",tip:"totală",loc:"Americi, Europa, Africa, V Asiei",tipEn:"total",locEn:"Americas, Europe, Africa, W Asia"},
+{d:"2037-01-31",t:"14:02",tip:"totală",loc:"E Europei, E Africii, Asia, Australia, Pacific, America de Nord",tipEn:"total",locEn:"E Europe, E Africa, Asia, Australia, Pacific, North America"},
+{d:"2037-07-27",t:"04:10",tip:"parțială",loc:"Americi, Europa, Africa",tipEn:"partial",locEn:"Americas, Europe, Africa"},
+{d:"2038-01-21",t:"03:50",tip:"penumbrală",loc:"Americi, Europa, Africa",tipEn:"penumbral",locEn:"Americas, Europe, Africa"},
+{d:"2038-06-17",t:"02:45",tip:"penumbrală",loc:"E Americii de Nord, America Centrală și de Sud, Africa, V Europei",tipEn:"penumbral",locEn:"E North America, Central and South America, Africa, W Europe"},
+{d:"2038-07-16",t:"11:36",tip:"penumbrală",loc:"Australia, E Asiei, Pacific, V Americii",tipEn:"penumbral",locEn:"Australia, E Asia, Pacific, W Americas"},
+{d:"2038-12-11",t:"17:45",tip:"penumbrală",loc:"Europa, Africa, Asia, Australia",tipEn:"penumbral",locEn:"Europe, Africa, Asia, Australia"},
+{d:"2039-06-06",t:"18:54",tip:"parțială",loc:"Europa, Africa, Asia, Australia",tipEn:"partial",locEn:"Europe, Africa, Asia, Australia"},
+{d:"2039-11-30",t:"16:56",tip:"parțială",loc:"Europa, Africa, Asia, Australia, Pacific",tipEn:"partial",locEn:"Europe, Africa, Asia, Australia, Pacific"},
+{d:"2040-05-26",t:"11:46",tip:"totală",loc:"E Asiei, Australia, Pacific, V Americii",tipEn:"total",locEn:"E Asia, Australia, Pacific, W Americas"},
+{d:"2040-11-18",t:"19:05",tip:"totală",loc:"E Americii, Europa, Africa, Asia, Australia",tipEn:"total",locEn:"E Americas, Europe, Africa, Asia, Australia"},
+{d:"2041-05-16",t:"00:43",tip:"parțială",loc:"E Americii, Europa, Africa, V Asiei",tipEn:"partial",locEn:"E Americas, Europe, Africa, W Asia"},
+{d:"2041-11-08",t:"04:35",tip:"parțială",loc:"Americi, Europa, Africa",tipEn:"partial",locEn:"Americas, Europe, Africa"},
+{d:"2042-04-05",t:"14:30",tip:"penumbrală",loc:"Asia, Australia, Pacific",tipEn:"penumbral",locEn:"Asia, Australia, Pacific"},
+{d:"2042-09-29",t:"10:46",tip:"penumbrală",loc:"Asia, Australia, Pacific, Americi",tipEn:"penumbral",locEn:"Asia, Australia, Pacific, Americas"},
+{d:"2043-03-25",t:"14:32",tip:"totală",loc:"E Africii, E Europei, Asia, Australia, Pacific, V Americii de Nord",tipEn:"total",locEn:"E Africa, E Europe, Asia, Australia, Pacific, W North America"},
+{d:"2043-09-19",t:"01:52",tip:"totală",loc:"Americi, Europa, Africa, V Asiei",tipEn:"total",locEn:"Americas, Europe, Africa, W Asia"},
+{d:"2044-03-13",t:"19:39",tip:"totală",loc:"E Americii de Sud, Europa, Africa, Asia, Australia",tipEn:"total",locEn:"E South America, Europe, Africa, Asia, Australia"},
+{d:"2044-09-07",t:"11:21",tip:"totală",loc:"E Asiei, Australia, Pacific, Americi",tipEn:"total",locEn:"E Asia, Australia, Pacific, Americas"},
+{d:"2045-03-03",t:"07:43",tip:"penumbrală",loc:"Americi",tipEn:"penumbral",locEn:"Americas"},
+{d:"2045-08-27",t:"13:55",tip:"penumbrală",loc:"Asia, Australia, V Americii de Nord",tipEn:"penumbral",locEn:"Asia, Australia, W North America"},
+{d:"2046-01-22",t:"13:03",tip:"parțială",loc:"Asia, Australia, America de Nord",tipEn:"partial",locEn:"Asia, Australia, North America"},
+{d:"2046-07-18",t:"01:06",tip:"parțială",loc:"Americi, Europa, Africa, V Asiei",tipEn:"partial",locEn:"Americas, Europe, Africa, W Asia"},
+{d:"2047-01-12",t:"01:26",tip:"totală",loc:"Americi, Europa, Africa, Asia",tipEn:"total",locEn:"Americas, Europe, Africa, Asia"},
+{d:"2047-07-07",t:"10:36",tip:"totală",loc:"E Asiei, Australia, Pacific, Americi",tipEn:"total",locEn:"E Asia, Australia, Pacific, Americas"},
+{d:"2048-01-01",t:"06:54",tip:"totală",loc:"NE Asiei, Pacific, Americi, V Europei, V Africii",tipEn:"total",locEn:"NE Asia, Pacific, Americas, W Europe, W Africa"},
+{d:"2048-06-26",t:"02:02",tip:"parțială",loc:"Americi, Europa, Africa",tipEn:"partial",locEn:"Americas, Europe, Africa"},
+{d:"2048-12-20",t:"06:28",tip:"penumbrală",loc:"Americi, Europa, V Africii",tipEn:"penumbral",locEn:"Americas, Europe, W Africa"},
+{d:"2049-05-17",t:"11:27",tip:"penumbrală",loc:"E Asiei, Australia, Pacific, V Americii",tipEn:"penumbral",locEn:"E Asia, Australia, Pacific, W Americas"},
+{d:"2049-06-15",t:"19:14",tip:"penumbrală",loc:"Europa, Africa, Asia, Australia",tipEn:"penumbral",locEn:"Europe, Africa, Asia, Australia"},
+{d:"2049-11-09",t:"15:52",tip:"penumbrală",loc:"Europa, Africa, Asia, Australia, Pacific, NV Americii de Nord",tipEn:"penumbral",locEn:"Europe, Africa, Asia, Australia, Pacific, NW North America"},
+{d:"2050-05-06",t:"22:32",tip:"totală",loc:"E Americii, Europa, Africa, Asia, V Australiei",tipEn:"total",locEn:"E Americas, Europe, Africa, Asia, W Australia"},
+{d:"2050-10-30",t:"03:22",tip:"totală",loc:"Americi, Europa, Africa, V Asiei",tipEn:"total",locEn:"Americas, Europe, Africa, W Asia"},
+{d:"2051-04-26",t:"02:16",tip:"totală",loc:"Americi, Europa, Africa, V Asiei",tipEn:"total",locEn:"Americas, Europe, Africa, W Asia"},
+{d:"2051-10-19",t:"19:12",tip:"totală",loc:"E Americii de Sud, Europa, Africa, Asia, Australia",tipEn:"total",locEn:"E South America, Europe, Africa, Asia, Australia"},
+{d:"2052-04-14",t:"02:18",tip:"penumbrală",loc:"Americi, Europa, Africa, V Asiei",tipEn:"penumbral",locEn:"Americas, Europe, Africa, W Asia"},
+{d:"2052-10-08",t:"10:46",tip:"parțială",loc:"E Asiei, Australia, Americi",tipEn:"partial",locEn:"E Asia, Australia, Americas"},
+{d:"2053-03-04",t:"17:22",tip:"penumbrală",loc:"Europa, Africa, Asia, Australia, E Americii de Nord",tipEn:"penumbral",locEn:"Europe, Africa, Asia, Australia, E North America"},
+{d:"2053-08-29",t:"08:06",tip:"penumbrală",loc:"E Asiei, Australia, Americi, V Africii, V Europei",tipEn:"penumbral",locEn:"E Asia, Australia, Americas, W Africa, W Europe"},
+{d:"2054-02-22",t:"06:51",tip:"totală",loc:"E Asiei, E Australiei, Americi, Europa, V Africii",tipEn:"total",locEn:"E Asia, E Australia, Americas, Europe, W Africa"},
+{d:"2054-08-18",t:"09:27",tip:"totală",loc:"E Asiei, Australia, Americi, V Africii",tipEn:"total",locEn:"E Asia, Australia, Americas, W Africa"},
+{d:"2055-02-11",t:"22:46",tip:"totală",loc:"Americi, Europa, Africa, Asia, V Australiei",tipEn:"total",locEn:"Americas, Europe, Africa, Asia, W Australia"},
+{d:"2055-08-07",t:"10:53",tip:"parțială",loc:"E Asiei, Australia, Americi",tipEn:"partial",locEn:"E Asia, Australia, Americas"},
+{d:"2056-02-01",t:"12:26",tip:"penumbrală",loc:"E Asiei, Australia, America de Nord, V Americii de Sud",tipEn:"penumbral",locEn:"E Asia, Australia, North America, W South America"},
+{d:"2056-06-27",t:"10:03",tip:"penumbrală",loc:"E Asiei, Australia, SV Americii de Nord, America de Sud",tipEn:"penumbral",locEn:"E Asia, Australia, SW North America, South America"},
+{d:"2056-07-26",t:"18:43",tip:"penumbrală",loc:"Europa, Africa, Asia, Australia",tipEn:"penumbral",locEn:"Europe, Africa, Asia, Australia"},
+{d:"2056-12-22",t:"01:49",tip:"penumbrală",loc:"Americi, Europa, Africa, V Asiei",tipEn:"penumbral",locEn:"Americas, Europe, Africa, W Asia"},
+{d:"2057-06-17",t:"02:26",tip:"parțială",loc:"Americi, Europa, Africa, Orientul Mijlociu",tipEn:"partial",locEn:"Americas, Europe, Africa, Middle East"},
+{d:"2057-12-11",t:"00:54",tip:"parțială",loc:"Americi, Europa, Africa, Asia",tipEn:"partial",locEn:"Americas, Europe, Africa, Asia"},
+{d:"2058-06-06",t:"19:16",tip:"totală",loc:"E Americii de Sud, Europa, Africa, Asia, Australia",tipEn:"total",locEn:"E South America, Europe, Africa, Asia, Australia"},
+{d:"2058-11-30",t:"03:16",tip:"totală",loc:"NV Asiei, Americi, Europa, Africa",tipEn:"total",locEn:"NW Asia, Americas, Europe, Africa"},
+{d:"2059-05-27",t:"07:56",tip:"parțială",loc:"Indiile de Est, Australia, Americi, V Africii",tipEn:"partial",locEn:"East Indies, Australia, Americas, W Africa"},
+{d:"2059-11-19",t:"13:02",tip:"parțială",loc:"E Europei, E Africii, Asia, Australia, America de Nord",tipEn:"partial",locEn:"E Europe, E Africa, Asia, Australia, North America"},
+{d:"2060-04-15",t:"21:37",tip:"penumbrală",loc:"America de Sud, Europa, Africa, Asia, Australia",tipEn:"penumbral",locEn:"South America, Europe, Africa, Asia, Australia"},
+{d:"2060-10-09",t:"18:54",tip:"penumbrală",loc:"E Americii de Sud, Europa, Africa, Asia, Australia",tipEn:"penumbral",locEn:"E South America, Europe, Africa, Asia, Australia"},
+{d:"2060-11-08",t:"04:04",tip:"penumbrală",loc:"Americi, Europa, Africa, V Asiei",tipEn:"penumbral",locEn:"Americas, Europe, Africa, W Asia"},
+{d:"2061-04-04",t:"21:54",tip:"totală",loc:"E Americii, Europa, Africa, Asia, Australia",tipEn:"total",locEn:"E Americas, Europe, Africa, Asia, Australia"},
+{d:"2061-09-29",t:"09:38",tip:"totală",loc:"E Asiei, Australia, Americi",tipEn:"total",locEn:"E Asia, Australia, Americas"},
+{d:"2062-03-25",t:"03:34",tip:"totală",loc:"Americi, Europa, Africa, V Asiei",tipEn:"total",locEn:"Americas, Europe, Africa, W Asia"},
+{d:"2062-09-18",t:"18:34",tip:"totală",loc:"E Americii de Sud, Europa, Africa, Asia, Australia",tipEn:"total",locEn:"E South America, Europe, Africa, Asia, Australia"},
+{d:"2063-03-14",t:"16:06",tip:"parțială",loc:"Europa, E Africii, Asia, Australia, V Americii de Nord",tipEn:"partial",locEn:"Europe, E Africa, Asia, Australia, W North America"},
+{d:"2063-09-07",t:"20:41",tip:"penumbrală",loc:"V Americii de Sud, Europa, Africa, Asia, Australia",tipEn:"penumbral",locEn:"W South America, Europe, Africa, Asia, Australia"},
+{d:"2064-02-02",t:"21:49",tip:"parțială",loc:"V Americii, Europa, Africa, Asia, V Australiei",tipEn:"partial",locEn:"W Americas, Europe, Africa, Asia, W Australia"},
+{d:"2064-07-28",t:"07:53",tip:"parțială",loc:"Indiile de Est, Australia, Americi, V Africii",tipEn:"partial",locEn:"East Indies, Australia, Americas, W Africa"},
+{d:"2065-01-22",t:"09:59",tip:"totală",loc:"E Asiei, Australia, Americi, V Europei, V Africii",tipEn:"total",locEn:"E Asia, Australia, Americas, W Europe, W Africa"},
+{d:"2065-07-17",t:"17:49",tip:"totală",loc:"Europa, Africa, S Asiei, Australia",tipEn:"total",locEn:"Europe, Africa, S Asia, Australia"},
+{d:"2066-01-11",t:"15:05",tip:"totală",loc:"Europa, E Africii, Asia, Australia, America de Nord",tipEn:"total",locEn:"Europe, E Africa, Asia, Australia, North America"},
+{d:"2066-07-07",t:"09:30",tip:"parțială",loc:"E Asiei, Australia, Americi",tipEn:"partial",locEn:"E Asia, Australia, Americas"},
+{d:"2066-12-31",t:"14:30",tip:"penumbrală",loc:"E Europei, E Africii, Asia, Australia, America de Nord",tipEn:"penumbral",locEn:"E Europe, E Africa, Asia, Australia, North America"},
+{d:"2067-05-28",t:"18:56",tip:"penumbrală",loc:"E Americii de Sud, Europa, Africa, S Asiei, Australia",tipEn:"penumbral",locEn:"E South America, Europe, Africa, S Asia, Australia"},
+{d:"2067-06-27",t:"02:41",tip:"penumbrală",loc:"Americi, SV Europei, Africa, Orientul Mijlociu",tipEn:"penumbral",locEn:"Americas, SW Europe, Africa, Middle East"},
+{d:"2067-11-21",t:"00:05",tip:"penumbrală",loc:"Americi, Europa, Africa, Asia",tipEn:"penumbral",locEn:"Americas, Europe, Africa, Asia"},
+{d:"2068-05-17",t:"05:42",tip:"parțială",loc:"E Australiei, Americi, SV Europei, Africa",tipEn:"partial",locEn:"E Australia, Americas, SW Europe, Africa"},
+{d:"2068-11-09",t:"11:47",tip:"totală",loc:"NE Europei, Asia, Australia, Americi",tipEn:"total",locEn:"NE Europe, Asia, Australia, Americas"},
+{d:"2069-05-06",t:"09:10",tip:"totală",loc:"E Asiei, Australia, Americi, V Africii",tipEn:"total",locEn:"E Asia, Australia, Americas, W Africa"},
+{d:"2069-10-30",t:"03:35",tip:"totală",loc:"Americi, Europa, Africa, V Asiei",tipEn:"total",locEn:"Americas, Europe, Africa, W Asia"},
+{d:"2070-04-25",t:"09:21",tip:"penumbrală",loc:"E Asiei, Australia, Americi",tipEn:"penumbral",locEn:"E Asia, Australia, Americas"},
+{d:"2070-10-19",t:"18:51",tip:"parțială",loc:"E Americii de Sud, Europa, Africa, Asia, Australia",tipEn:"partial",locEn:"E South America, Europe, Africa, Asia, Australia"}
+];
+function buildAllEclipses(){
+  const all = [];
+  ECLIPSES_SOLAR.forEach(e=>all.push(Object.assign({kind:"solar"},e)));
+  ECLIPSES_LUNAR.forEach(e=>all.push(Object.assign({kind:"lunar"},e)));
+  all.sort((a,b)=> (a.d+"T"+a.t) < (b.d+"T"+b.t) ? -1 : 1);
+  return all;
+}
+const ALL_ECLIPSES = buildAllEclipses();
+
+const LEAD_SOLAR = {ro:"O eclipsă de Soare e o Lună Nouă — un început, o sămânță abia plantată. ",
+  en:"A solar eclipse is a New Moon — a beginning, a seed just planted. "};
+const LEAD_LUNAR = {ro:"O eclipsă de Lună e o Lună Plină — o culminare, ceva copt care cere recunoscut sau lăsat să plece. ",
+  en:"A lunar eclipse is a Full Moon — a culmination, something ripe that needs to be acknowledged or let go. "};
+
+const VS = "\uFE0E"; /* selector de prezentare text — evită randarea simbolurilor ca emoji color */
+const SIGNS = [
+["Berbec","♈"+VS,"Aries"],["Taur","♉"+VS,"Taurus"],["Gemeni","♊"+VS,"Gemini"],["Rac","♋"+VS,"Cancer"],
+["Leu","♌"+VS,"Leo"],["Fecioară","♍"+VS,"Virgo"],["Balanță","♎"+VS,"Libra"],["Scorpion","♏"+VS,"Scorpio"],
+["Săgetător","♐"+VS,"Sagittarius"],["Capricorn","♑"+VS,"Capricorn"],["Vărsător","♒"+VS,"Aquarius"],["Pești","♓"+VS,"Pisces"]
+];
+const ROMAN = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
+
+const HOUSES = [
+{tema:"identitatea, imaginea personală, modul în care te prezinți lumii",
+ text:"O eclipsă în Casa I te împinge să te privești din nou, fără mila obișnuită a oglinzii de zi cu zi. E momentul să lucrezi la felul în care te prezinți lumii: unde te ascunzi în spatele unei imagini vechi, unde confunzi tăcerea cu modestia. Curajul de a arăta cine ești, fără explicații și fără scuze, e exact ceea ce ai de exersat acum.",
+ temaEn:"identity, self-image, how you present yourself to the world",
+ textEn:"An eclipse in House I pushes you to look at yourself again, without the usual mercy of the everyday mirror. It's time to work on how you present yourself to the world: where you're hiding behind an old image, where you mistake silence for modesty. The courage to show who you are, without explanations or apologies, is exactly what you have to practice now."},
+{tema:"resursele proprii, valorile, stima de sine",
+ text:"Casa a II-a ține de tot ce numești „al meu” — bani, obiecte, dar și valoarea pe care ți-o acorzi singur. O eclipsă aici te cheamă să separi stima de sine de contul bancar sau de ce deții. Ai de lucrat la un obicei financiar care nu te mai reprezintă, sau la ideea că valorezi doar cât produci.",
+ temaEn:"your own resources, values, self-worth",
+ textEn:"House II holds everything you call \"mine\" — money, possessions, but also the value you place on yourself. An eclipse here calls you to separate self-worth from your bank balance or belongings. There's a financial habit that no longer represents you, or the idea that you're only worth what you produce, worth examining."},
+{tema:"comunicarea, mintea, mediul apropiat",
+ text:"Aici se joacă felul în care vorbești, asculți și gândești. O eclipsă în Casa a III-a scoate la iveală tipare de comunicare care te-au servit mai puțin decât credeai — graba de a răspunde, teama de a întreba. Ai de exersat ascultarea reală și curajul de a spune lucrurile pe nume, cu frații, cu vecinii, cu tine însuți.",
+ temaEn:"communication, the mind, your immediate surroundings",
+ textEn:"This is where how you speak, listen, and think plays out. An eclipse in House III surfaces communication patterns that have served you less than you thought — the rush to answer, the fear of asking. There's real listening to practice, and the courage to call things by their name, with siblings, with neighbors, with yourself."},
+{tema:"căminul, familia, siguranța emoțională",
+ text:"Casa a IV-a e temelia, nu fațada — familia, casa, rădăcinile, ce simți când nimeni nu se uită. O eclipsă aici cere o reconciliere: cu un tipar moștenit din familie, cu un loc pe care l-ai numit „acasă” fără să te simți așa. Ai de construit o siguranță interioară care nu depinde de ceilalți.",
+ temaEn:"home, family, emotional security",
+ textEn:"House IV is the foundation, not the facade — family, home, roots, what you feel when no one's watching. An eclipse here asks for a reconciliation: with a pattern inherited from your family, with a place you called \"home\" without ever feeling it. There's an inner security to build, one that doesn't depend on anyone else."},
+{tema:"creativitatea, bucuria, exprimarea personală",
+ text:"Aici locuiește bucuria necenzurată — creația, jocul, dragostea, tot ce faci fără să calculezi rezultatul. O eclipsă în Casa a V-a te întreabă cât timp ai lăsat pe locul doi ce te bucură cu adevărat. Ai de recuperat curajul de a crea și de a iubi fără plasă de siguranță, chiar dacă nu iese perfect.",
+ temaEn:"creativity, joy, self-expression",
+ textEn:"This is where uncensored joy lives — creating, playing, loving, everything you do without calculating the outcome. An eclipse in House V asks how long you've put what genuinely delights you second. There's a courage to recover: to create and to love without a safety net, even if it doesn't come out perfect."},
+{tema:"rutina zilnică, sănătatea, munca",
+ text:"Casa a VI-a ține de zilele obișnuite — muncă, sănătate, obiceiuri mărunte care, adunate, îți construiesc viața. O eclipsă aici arată un dezechilibru între cât dai și cât te îngrijești pe tine. Ai de schimbat un obicei concret: cum dormi, cum mănânci, cât te epuizezi pentru alții fără să observi.",
+ temaEn:"daily routine, health, work",
+ textEn:"House VI holds the ordinary days — work, health, small habits that, added up, build your life. An eclipse here shows an imbalance between how much you give and how much you take care of yourself. There's a concrete habit to change: how you sleep, how you eat, how much you wear yourself out for others without noticing."},
+{tema:"parteneriatele, relațiile apropiate",
+ text:"Aici te vezi prin ochii altcuiva — parteneri, colaboratori, „celălalt” care îți oglindește tiparele. O eclipsă în Casa a VII-a scoate la suprafață un dezechilibru într-o relație apropiată: cine dă, cine cedează, ce ai proiectat asupra celuilalt fără să-ți dai seama. Ai de învățat să ceri direct, nu prin ocolișuri.",
+ temaEn:"partnerships, close relationships",
+ textEn:"Here you see yourself through someone else's eyes — partners, collaborators, the \"other\" who mirrors your patterns. An eclipse in House VII surfaces an imbalance in a close relationship: who gives, who gives in, what you've projected onto the other person without realizing it. There's a directness to learn — asking straight out, not through detours."},
+{tema:"transformarea, intimitatea, ce ții ascuns",
+ text:"Casa a VIII-a e locul unde renunți la ce nu mai poți duce — o frică veche, o legătură toxică, un secret care apasă. O eclipsă aici cere să lași ceva să moară cu adevărat, nu doar la suprafață, ca să faci loc pentru ce urmează. Ai de lucrat la intimitate: cât din tine lași cu adevărat văzut de celălalt.",
+ temaEn:"transformation, intimacy, what you keep hidden",
+ textEn:"House VIII is where you let go of what you can no longer carry — an old fear, a toxic bond, a secret weighing on you. An eclipse here asks you to let something truly die, not just on the surface, to make room for what comes next. There's intimacy to work on: how much of yourself you actually let the other person see."},
+{tema:"sensul, credințele, orizontul larg",
+ text:"Aici te întinzi dincolo de orizontul cunoscut — credințe, studii, călătorii, întrebarea „de ce”. O eclipsă în Casa a IX-a te împinge să-ți verifici convingerile: care mai sunt ale tale și care sunt doar moștenite. Ai de lărgit perspectiva, printr-o carte, o călătorie sau o conversație care îți răstoarnă o certitudine.",
+ temaEn:"meaning, beliefs, the wider horizon",
+ textEn:"This is where you reach beyond the known horizon — beliefs, study, travel, the question \"why.\" An eclipse in House IX pushes you to check your convictions: which are still truly yours, and which are just inherited. There's a perspective to widen, through a book, a trip, or a conversation that overturns a certainty."},
+{tema:"vocația, reputația, cariera",
+ text:"Casa a X-a e vârful hărții — cariera, reputația, ce lași în urmă în lume. O eclipsă aici te obligă să reevaluezi dacă direcția pe care mergi mai e cu adevărat a ta sau doar ce se aștepta de la tine. Ai de clarificat un pas concret în carieră, sau relația ta cu autoritatea — a ta sau a altora.",
+ temaEn:"vocation, reputation, career",
+ textEn:"House X is the top of the map — career, reputation, what you leave behind in the world. An eclipse here forces you to reassess whether the direction you're heading is still truly yours, or just what was expected of you. There's a concrete career step to clarify, or your relationship to authority — your own, or someone else's."},
+{tema:"comunitatea, prieteniile, speranțele",
+ text:"Aici se adună prietenii, grupurile, comunitățile din care faci parte și visurile de viitor. O eclipsă în Casa a XI-a te face să te întrebi ce prietenii te mai reprezintă și ce speranțe porți doar din inerție. Ai de reînnoit apartenența la ceva mai mare decât tine, sau curajul de a lăsa în urmă un grup care nu te mai hrănește.",
+ temaEn:"community, friendships, hopes",
+ textEn:"This is where friendships, groups, the communities you belong to, and your hopes for the future gather. An eclipse in House XI makes you ask which friendships still represent you, and which hopes you're carrying only out of habit. There's a belonging to renew, to something bigger than yourself — or the courage to leave behind a group that no longer nourishes you."},
+{tema:"interiorul, odihna, eliberarea",
+ text:"Casa a XII-a e camera din spate — subconștientul, odihna, tot ce ții ascuns chiar și de tine. O eclipsă aici cere timp singur, nu izolare, ci retragere adevărată, ca să auzi ce încerci să nu auzi de multă vreme. Ai de exersat odihna fără vinovăție și eliberarea unui gând care te ține captiv.",
+ temaEn:"the inner world, rest, release",
+ textEn:"House XII is the back room — the subconscious, rest, everything you keep hidden even from yourself. An eclipse here calls for time alone — not isolation, but real retreat, so you can hear what you've been avoiding hearing for a long time. There's a rest to practice without guilt, and a thought to release that's been holding you captive."}
+];
+
+/* ---------- motor astronomic (Meeus, precizie redusă) ---------- */
+function toRad(d){return d*Math.PI/180;}
+function toDeg(r){return r*180/Math.PI;}
+function norm360(d){return ((d%360)+360)%360;}
+function julianDay(y,m,d,h,mi,s){
+  let Y=y, M=m;
+  if(M<=2){Y-=1;M+=12;}
+  const A=Math.floor(Y/100), B=2-A+Math.floor(A/4);
+  const dayFrac = d + (h + mi/60 + s/3600)/24;
+  return Math.floor(365.25*(Y+4716)) + Math.floor(30.6001*(M+1)) + dayFrac + B - 1524.5;
+}
+function sunLongitude(jd){
+  const T=(jd-2451545.0)/36525;
+  const L0=norm360(280.46646+36000.76983*T+0.0003032*T*T);
+  const M=norm360(357.52911+35999.05029*T-0.0001537*T*T);
+  const Mr=toRad(M);
+  const C=(1.914602-0.004817*T-0.000014*T*T)*Math.sin(Mr)
+         +(0.019993-0.000101*T)*Math.sin(2*Mr)
+         +0.000289*Math.sin(3*Mr);
+  return norm360(L0+C);
+}
+function obliquity(jd){
+  const T=(jd-2451545.0)/36525;
+  return 23.439291-0.0130042*T-0.00000016*T*T+0.000000504*T*T*T;
+}
+function gmst(jd){
+  const T=(jd-2451545.0)/36525;
+  return norm360(280.46061837+360.98564736629*(jd-2451545.0)+0.000387933*T*T-T*T*T/38710000);
+}
+function ascMC(ramcDeg,eps,latDeg){
+  const ramc=toRad(ramcDeg), e=toRad(eps), lat=toRad(latDeg);
+  const mc=norm360(toDeg(Math.atan2(Math.sin(ramc),Math.cos(ramc)*Math.cos(e))));
+  const asc=norm360(toDeg(Math.atan2(Math.cos(ramc),-(Math.sin(e)*Math.tan(lat)+Math.cos(e)*Math.sin(ramc)))));
+  return {asc,mc};
+}
+/* Poziția geocentrică a Lunii — formulă redusă (Astronomical Almanac pag. D76),
+   precizie tipică ~0.06-0.1°, maxim ~0.25°. Verificată față de exemplul lucrat
+   din sursă: 9 aug 1998, 11:56 UT -> longitudine 335.206° (calculul dă exact 335.206°). */
+function moonLongitude(jd){
+  const t=(jd-2451545.0)/36525;
+  let l=218.32+481267.883*t;
+  l+=6.29*Math.sin(toRad(134.9+477198.85*t));
+  l-=1.27*Math.sin(toRad(259.2-413335.38*t));
+  l+=0.66*Math.sin(toRad(235.7+890534.23*t));
+  l+=0.21*Math.sin(toRad(269.9+954397.7*t));
+  l-=0.19*Math.sin(toRad(357.5+35999.05*t));
+  l-=0.11*Math.sin(toRad(186.6+966404.05*t));
+  return norm360(l);
+}
+/* Case Placidus — trisecția arcului semi-diurn/semi-nocturn, prin iterație.
+   Verificat față de exemplul complet lucrat (astrologysoftware.com/.../placidus.html):
+   obl=23.45°, LAT=37°, RAMC=113° -> L11=144.1571°, L12=173.7374°, L2=226.6842°, L3=257.8696°
+   (calculul dă exact aceste valori, la eroare de iterație <0.0001°). */
+function raToLon(alphaDeg,epsDeg){
+  const a=toRad(alphaDeg), e=toRad(epsDeg);
+  return norm360(toDeg(Math.atan2(Math.sin(a),Math.cos(a)*Math.cos(e))));
+}
+function placidusCuspLon(ramc,eps,lat,kind){
+  let lon=ramc+30;
+  for(let i=0;i<200;i++){
+    const prevLon=lon;
+    const dec=toDeg(Math.asin(Math.sin(toRad(eps))*Math.sin(toRad(lon))));
+    let x=-Math.tan(toRad(lat))*Math.tan(toRad(dec));
+    x=Math.max(-1,Math.min(1,x));
+    const SDA=toDeg(Math.acos(x));
+    let targetRA;
+    if(kind==='c11') targetRA=ramc+SDA/3;
+    else if(kind==='c12') targetRA=ramc+2*SDA/3;
+    else if(kind==='c3') targetRA=ramc-240+SDA/3;
+    else targetRA=ramc+60+2*SDA/3; /* c2 */
+    lon=raToLon(targetRA,eps);
+    if(Math.abs(norm360(lon-prevLon+180)-180)<1e-9) break; /* convergență atinsă */
+  }
+  return norm360(lon);
+}
+/* Placidus e definit doar sub cercul polar (|lat| < 90° - oblicitate); la latitudini mai mari
+   cuspidele devin invalide (arce semi-diurne nedefinite) — verificăm și monotonia lor. */
+function placidusValid(cusps){
+  let sum=0;
+  for(let i=0;i<12;i++){
+    const sp=norm360(cusps[(i+1)%12]-cusps[i]);
+    if(!(sp>0)||sp>=180) return false;
+    sum+=sp;
+  }
+  return Math.abs(sum-360)<1e-6;
+}
+function placidusCusps(ramc,eps,lat,asc,mc){
+  const c=new Array(12);
+  c[9]=mc; c[0]=asc;
+  c[10]=placidusCuspLon(ramc,eps,lat,'c11');
+  c[11]=placidusCuspLon(ramc,eps,lat,'c12');
+  c[1]=placidusCuspLon(ramc,eps,lat,'c2');
+  c[2]=placidusCuspLon(ramc,eps,lat,'c3');
+  c[3]=norm360(mc+180);
+  c[6]=norm360(asc+180);
+  c[4]=norm360(c[10]+180);
+  c[5]=norm360(c[11]+180);
+  c[7]=norm360(c[1]+180);
+  c[8]=norm360(c[2]+180);
+  return c;
+}
+function houseFromCusps(cusps,targetLon){
+  for(let i=0;i<12;i++){
+    const start=cusps[i], end=cusps[(i+1)%12];
+    const span=norm360(end-start);
+    const rel=norm360(targetLon-start);
+    if(span===0 || rel<span) return i+1;
+  }
+  return 12;
+}
+function signIndex(lon){return Math.floor(norm360(lon)/30);}
+function wholeSignHouse(ascLon,targetLon){
+  return ((signIndex(targetLon)-signIndex(ascLon)+12)%12)+1;
+}
+function equalHouse(ascLon,targetLon){
+  return Math.floor(norm360(targetLon-ascLon)/30)+1;
+}
+function degInSign(lon){
+  const l=norm360(lon), s=Math.floor(l/30), rest=l-s*30;
+  let deg=Math.floor(rest), min=Math.round((rest-deg)*60);
+  if(min===60){ min=0; deg+=1; }
+  let sign=s;
+  if(deg===30){ deg=0; sign=(s+1)%12; }
+  return {sign, deg, min};
+}
+function fmtPos(lon){
+  const p=degInSign(lon);
+  const nameIdx = LANG==='en' ? 2 : 0;
+  return p.deg+"°"+String(p.min).padStart(2,"0")+"' "+SIGNS[p.sign][1]+" "+SIGNS[p.sign][nameIdx];
+}
+function computeChart(o){
+  let asc, mc, ramc=null, eps=null;
+  const jdBirthLocal = julianDay(o.y,o.m,o.d,o.noTime?12:o.h,o.noTime?0:o.mi,0);
+  if(o.noTime){
+    /* fara ora nasterii nu exista ascendent real — folosim harta solara:
+       Soarele natal (calculat la amiaza UTC a datei date, suficient de precis
+       cat timp Soarele misca doar ~1 grad/zi) tine locul ascendentului,
+       doar pentru numararea semnelor intregi. Nu exista mijlocul cerului. */
+    asc = sunLongitude(jdBirthLocal);
+    mc = null;
+  } else {
+    const jdBirthUT = jdBirthLocal - o.tzOffset/24;
+    eps = obliquity(jdBirthUT);
+    ramc = norm360(gmst(jdBirthUT) + o.lon);
+    ({asc, mc} = ascMC(ramc, eps, o.lat));
+  }
+  const jdEclipse = julianDay(o.ey,o.em,o.ed,o.eh,o.emi,0);
+  const sunLon = sunLongitude(jdEclipse);
+  /* la o eclipsă de Lună, Luna e la opoziție exactă față de Soare (Lună Plină) —
+     folosim Soare+180° ca poziție eclipsă, precis până la o fracțiune de grad */
+  const eclipseLon = o.eclipseKind==="lunar" ? norm360(sunLon+180) : sunLon;
+  const houseSystem = o.noTime ? "whole" : o.houseSystem;
+  let houseNum, cusps=null;
+  if(houseSystem==="placidus"){
+    cusps = placidusCusps(ramc, eps, o.lat, asc, mc);
+    if(!placidusValid(cusps)) throw new Error('placidus-polar');
+    houseNum = houseFromCusps(cusps, eclipseLon);
+  } else if(houseSystem==="whole"){
+    houseNum = wholeSignHouse(asc, eclipseLon);
+  } else {
+    houseNum = equalHouse(asc, eclipseLon);
+  }
+  /* poziția natală a Lunii — doar informativă (nu afectează casa eclipsei),
+     folosind aceeași formulă redusă, la ora nașterii (calculată în UT dacă avem ora) */
+  const jdForMoon = o.noTime ? jdBirthLocal : (jdBirthLocal - o.tzOffset/24);
+  const moonLon = moonLongitude(jdForMoon);
+  return {asc, mc, eclipseLon, moonLon, houseNum, houseSystem, cusps, noTime: !!o.noTime};
+}
+
+
+/* ---------- sugestie fus orar: baza IANA din browser (Intl), cu ora de vară istorică ---------- */
+function ianaOffsetHours(zone, y, m, d, h, mi){
+  try{
+    const fmt = new Intl.DateTimeFormat('en-GB',{timeZone:zone,hourCycle:'h23',year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'});
+    const want = Date.UTC(y,m-1,d,h,mi);
+    let off = 0;
+    for(let i=0;i<3;i++){
+      const tt = want - off*3600000;
+      const p = {};
+      fmt.formatToParts(new Date(tt)).forEach(x=>{ if(x.type!=='literal') p[x.type]=parseInt(x.value,10); });
+      off = (Date.UTC(p.year,p.month-1,p.day,p.hour,p.minute,p.second) - tt)/3600000;
+    }
+    if(!isFinite(off)) return null;
+    return Math.round(off*4)/4; /* câmpul fus orar are pas de 0,25 h */
+  }catch(e){ return null; }
+}
+/* ---------- sugestie fus orar România (rezervă, dacă Intl lipsește) ---------- */
+function lastSundayUTC(year, monthIndex0){
+  const d = new Date(Date.UTC(year, monthIndex0+1, 0));
+  d.setUTCDate(d.getUTCDate() - d.getUTCDay());
+  return d;
+}
+function suggestROOffset(dateStr){
+  if(!dateStr) return 2;
+  const d = new Date(dateStr+"T12:00:00Z");
+  const year = d.getUTCFullYear();
+  const marLastSun = lastSundayUTC(year,2);
+  const octLastSun = lastSundayUTC(year,9);
+  return (d>=marLastSun && d<octLastSun) ? 3 : 2;
+}
+
+/* ---------- roata SVG ---------- */
+function polar(lon, ascLon, R, cx, cy){
+  const th = toRad(180 + (lon - ascLon));
+  return {x: cx + R*Math.cos(th), y: cy - R*Math.sin(th)};
+}
+function arcWedge(lon1, lon2, ascLon, R, cx, cy){
+  const p1=polar(lon1,ascLon,R,cx,cy), p2=polar(lon2,ascLon,R,cx,cy);
+  return `M ${cx.toFixed(1)},${cy.toFixed(1)} L ${p1.x.toFixed(1)},${p1.y.toFixed(1)} A ${R},${R} 0 0 0 ${p2.x.toFixed(1)},${p2.y.toFixed(1)} Z`;
+}
+function buildWheelSVG(asc, mc, eclipseLon, houseSystem, houseNum, eclipseKind, noTime){
+  const cx=200, cy=200;
+  const Router=190, Rsign=158, Rhouse=128, Rcusp=58, Rtick=196, Rmark=204, Rlabel=214;
+  const cusp1 = houseSystem==="whole" ? Math.floor(norm360(asc)/30)*30 : asc;
+  let svg = `<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${t('wheelAriaLabel')} — ${t('houseWord')} ${ROMAN[houseNum-1]}">`;
+  const hs = cusp1 + (houseNum-1)*30, he = hs+30;
+  svg += `<path d="${arcWedge(hs,he,asc,Rsign,cx,cy)}" fill="var(--corona)" fill-opacity="0.14" stroke="var(--corona)" stroke-opacity="0.4" stroke-width="1"/>`;
+  svg += `<circle cx="${cx}" cy="${cy}" r="${Router}" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>`;
+  svg += `<circle cx="${cx}" cy="${cy}" r="${Rsign}" fill="none" stroke="var(--line)" stroke-width="1"/>`;
+  svg += `<circle cx="${cx}" cy="${cy}" r="${Rcusp}" fill="none" stroke="var(--line)" stroke-width="1"/>`;
+  for(let g=0; g<360; g+=10){
+    const p1=polar(g,asc,Router,cx,cy), p2=polar(g,asc,(g%30===0?Rsign-8:Router-6),cx,cy);
+    svg += `<line x1="${p1.x.toFixed(1)}" y1="${p1.y.toFixed(1)}" x2="${p2.x.toFixed(1)}" y2="${p2.y.toFixed(1)}" stroke="var(--line)" stroke-width="1"/>`;
+  }
+  for(let i=0;i<12;i++){
+    const g0=i*30;
+    const p1=polar(g0,asc,Router,cx,cy), p2=polar(g0,asc,Rcusp,cx,cy);
+    svg += `<line x1="${p1.x.toFixed(1)}" y1="${p1.y.toFixed(1)}" x2="${p2.x.toFixed(1)}" y2="${p2.y.toFixed(1)}" stroke="var(--line)" stroke-width="1"/>`;
+    const mid=polar(g0+15,asc,(Rsign+Router)/2,cx,cy);
+    svg += `<text x="${mid.x.toFixed(1)}" y="${mid.y.toFixed(1)}" class="glyph" text-anchor="middle" dominant-baseline="central">${SIGNS[i][1]}</text>`;
+  }
+  for(let i=0;i<12;i++){
+    const g0=cusp1+i*30;
+    const p1=polar(g0,asc,Rsign,cx,cy), p2=polar(g0,asc,Rcusp,cx,cy);
+    const w = (i===0) ? 2 : 1;
+    svg += `<line x1="${p1.x.toFixed(1)}" y1="${p1.y.toFixed(1)}" x2="${p2.x.toFixed(1)}" y2="${p2.y.toFixed(1)}" stroke="var(--line-strong)" stroke-width="${w}"/>`;
+    const mid=polar(g0+15,asc,Rhouse,cx,cy);
+    svg += `<text x="${mid.x.toFixed(1)}" y="${mid.y.toFixed(1)}" class="huse ${i===houseNum-1?'huse-active':''}" text-anchor="middle" dominant-baseline="central">${ROMAN[i]}</text>`;
+  }
+  if(!noTime){
+    const p1=polar(asc,asc,Rcusp,cx,cy), p2=polar(asc,asc,Router,cx,cy);
+    svg += `<line x1="${p1.x.toFixed(1)}" y1="${p1.y.toFixed(1)}" x2="${p2.x.toFixed(1)}" y2="${p2.y.toFixed(1)}" stroke="var(--prominence)" stroke-width="2"/>`;
+    const lp=polar(asc,asc,Rlabel,cx,cy);
+    svg += `<text x="${lp.x.toFixed(1)}" y="${lp.y.toFixed(1)}" class="angle-label" text-anchor="middle" dominant-baseline="central">ASC</text>`;
+  }
+  if(!noTime && mc!==null){
+    const p1=polar(mc,asc,Rcusp,cx,cy), p2=polar(mc,asc,Router,cx,cy);
+    svg += `<line x1="${p1.x.toFixed(1)}" y1="${p1.y.toFixed(1)}" x2="${p2.x.toFixed(1)}" y2="${p2.y.toFixed(1)}" stroke="var(--prominence)" stroke-width="2" stroke-dasharray="4 3"/>`;
+    const lp=polar(mc,asc,Rlabel,cx,cy);
+    svg += `<text x="${lp.x.toFixed(1)}" y="${lp.y.toFixed(1)}" class="angle-label" text-anchor="middle" dominant-baseline="central">MC</text>`;
+  }
+  {
+    const markColor = eclipseKind==="lunar" ? "var(--prominence)" : "var(--corona)";
+    const pTick1=polar(eclipseLon,asc,Router,cx,cy), pTick2=polar(eclipseLon,asc,Rtick,cx,cy);
+    svg += `<line x1="${pTick1.x.toFixed(1)}" y1="${pTick1.y.toFixed(1)}" x2="${pTick2.x.toFixed(1)}" y2="${pTick2.y.toFixed(1)}" stroke="${markColor}" stroke-width="1.5"/>`;
+    const pm=polar(eclipseLon,asc,Rmark,cx,cy);
+    if(eclipseKind==="lunar"){
+      svg += `<circle cx="${pm.x.toFixed(1)}" cy="${pm.y.toFixed(1)}" r="7" fill="${markColor}" fill-opacity="0.88" stroke="var(--corona-dim)" stroke-width="1"/>`;
+    } else {
+      svg += `<circle cx="${pm.x.toFixed(1)}" cy="${pm.y.toFixed(1)}" r="7" fill="var(--bg-void)" stroke="${markColor}" stroke-width="1.5"/>`;
+      svg += `<circle cx="${pm.x.toFixed(1)}" cy="${pm.y.toFixed(1)}" r="3.4" fill="${markColor}"/>`;
+    }
+  }
+  svg += `<circle cx="${cx}" cy="${cy}" r="3" fill="var(--corona)"/>`;
+  svg += `</svg>`;
+  return svg;
+}
+
+/* ---------- interfață ---------- */
+const LUNI = [
+["ianuarie","January"],["februarie","February"],["martie","March"],["aprilie","April"],["mai","May"],["iunie","June"],
+["iulie","July"],["august","August"],["septembrie","September"],["octombrie","October"],["noiembrie","November"],["decembrie","December"]
+];
+
+function buildEclipseOptions(){
+  const eclipseSelect = document.getElementById('eclipseSelect');
+  const prevValue = eclipseSelect.value;
+  eclipseSelect.innerHTML = '';
+  let currentDecadeGroup = null, currentDecadeStart = null;
+  ALL_ECLIPSES.forEach((e,i)=>{
+    const y = parseInt(e.d.slice(0,4),10);
+    const decadeStart = Math.floor(y/10)*10;
+    if(decadeStart !== currentDecadeStart){
+      currentDecadeStart = decadeStart;
+      currentDecadeGroup = document.createElement('optgroup');
+      currentDecadeGroup.label = `${decadeStart}–${decadeStart+9}`;
+      eclipseSelect.appendChild(currentDecadeGroup);
+    }
+    const opt=document.createElement('option');
+    opt.value=i;
+    const [ey,em,ed]=e.d.split('-');
+    const monthName = LUNI[parseInt(em,10)-1][LANG==='en'?1:0];
+    const kindLabel = LANG==='en' ? (e.kind==='solar'?'Solar':'Lunar') : (e.kind==='solar'?'de Soare':'de Lună');
+    const tip = LANG==='en' ? e.tipEn : e.tip;
+    const loc = LANG==='en' ? e.locEn : e.loc;
+    opt.textContent = LANG==='en'
+      ? `${monthName} ${parseInt(ed,10)}, ${ey} — ${kindLabel}, ${tip} (${loc})`
+      : `${parseInt(ed,10)} ${monthName} ${ey} — ${kindLabel}, ${tip} (${loc})`;
+    currentDecadeGroup.appendChild(opt);
+  });
+  if(prevValue!==''){
+    eclipseSelect.value = prevValue;
+  } else {
+    const now = new Date();
+    let bestIdx = 0;
+    for(let i=0;i<ALL_ECLIPSES.length;i++){
+      const edt = new Date(ALL_ECLIPSES[i].d+"T"+ALL_ECLIPSES[i].t+":00Z");
+      if(edt<=now) bestIdx=i;
+    }
+    eclipseSelect.value = bestIdx;
+    fillEclipseDateFields(bestIdx);
+  }
+}
+
+function populateSelects(){
+  const ogRO = document.getElementById('ogRO');
+  CITIES_RO.forEach(([name],i)=>{
+    const opt=document.createElement('option');
+    opt.value='ro:'+i; opt.textContent=name;
+    ogRO.appendChild(opt);
+  });
+  const ogIntl = document.getElementById('ogIntl');
+  CITIES_INTL.forEach(([name],i)=>{
+    const opt=document.createElement('option');
+    opt.value='intl:'+i; opt.textContent=name;
+    ogIntl.appendChild(opt);
+  });
+  buildEclipseOptions();
+}
+
+function fillEclipseDateFields(idx){
+  const e = ALL_ECLIPSES[idx];
+  document.getElementById('edate').value = e.d;
+  document.getElementById('etime').value = e.t;
+  const radio = document.querySelector(`input[name="ekind"][value="${e.kind}"]`);
+  if(radio) radio.checked = true;
+}
+
+let lastResultText = '';
+let lastRenderArgs = null;
+
+function renderResults(name, res, eclipseKind, meta, edateStr){
+  const results = document.getElementById('results');
+  results.classList.remove('stale');
+  lastRenderArgs = {name, res, eclipseKind, meta, edateStr};
+
+  document.getElementById('wheelContainer').innerHTML = buildWheelSVG(res.asc, res.mc, res.eclipseLon, res.houseSystem, res.houseNum, eclipseKind, res.noTime);
+  const greeting = name ? t('forName')(name) : t('yourResult');
+  document.getElementById('resultGreeting').textContent = greeting;
+
+  const tip = meta ? (LANG==='en'?meta.tipEn:meta.tip) : null;
+  const dateFmt = formatDateLong(edateStr);
+  const eclipseCtx = eclipseKind==='lunar'
+    ? (tip ? t('eclipseTagLunar')(tip, dateFmt) : `${t('ofMoon')} · ${dateFmt}`)
+    : (tip ? t('eclipseTagSolar')(tip, dateFmt) : `${t('ofSun')} · ${dateFmt}`);
+  document.getElementById('resultEclipseTag').textContent = eclipseCtx;
+
+  const houseTema = LANG==='en' ? HOUSES[res.houseNum-1].temaEn : HOUSES[res.houseNum-1].tema;
+  const houseLine = `${t('houseWord')} ${ROMAN[res.houseNum-1]} (${houseTema})`;
+  document.getElementById('resultHouse').textContent = houseLine;
+  const lead = (eclipseKind==='lunar' ? LEAD_LUNAR : LEAD_SOLAR)[LANG];
+  const bodyText = LANG==='en' ? HOUSES[res.houseNum-1].textEn : HOUSES[res.houseNum-1].text;
+  const interpretation = lead + bodyText;
+  document.getElementById('resultText').textContent = interpretation;
+
+  const dd = document.getElementById('resultDetails');
+  dd.innerHTML = '';
+  const eclipseDetailLabel = eclipseKind==='lunar' ? t('detailEclipseMoon') : t('detailEclipseSun');
+  const items = res.noTime ? [
+    [t('detailSunSign'), fmtPos(res.asc)],
+    [eclipseDetailLabel, fmtPos(res.eclipseLon)],
+    [t('detailHouseSystem'), t('hsysWholeSolar')]
+  ] : [
+    [t('detailAscendant'), fmtPos(res.asc)],
+    [t('detailMC'), fmtPos(res.mc)],
+    [eclipseDetailLabel, fmtPos(res.eclipseLon)],
+    [t('detailMoon'), fmtPos(res.moonLon)],
+    [t('detailHouseSystem'), res.houseSystem==='whole'?t('hsysWhole'):(res.houseSystem==='placidus'?t('hsysPlacidus'):t('hsysEqual'))]
+  ];
+  items.forEach(([k,v])=>{
+    const dt=document.createElement('dt'); dt.textContent=k;
+    const dv=document.createElement('dd'); dv.textContent=v;
+    dd.appendChild(dt); dd.appendChild(dv);
+  });
+  document.getElementById('noTimeNote').hidden = !res.noTime;
+
+  lastResultText = [
+    'ECLIPSA — ' + greeting,
+    eclipseCtx,
+    '',
+    houseLine,
+    interpretation,
+    '',
+    ...items.map(([k,v]) => `${k}: ${v}`)
+  ].join('\n');
+
+  results.hidden = false;
+  results.scrollIntoView({behavior: (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) ? 'auto' : 'smooth', block:'start'});
+}
+
+function markResultsStale(){
+  const results = document.getElementById('results');
+  if(!results.hidden) results.classList.add('stale');
+}
+
+async function copyToClipboard(text){
+  try {
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch(e){ /* cade pe metoda de rezervă */ }
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch(e){
+    return false;
+  }
+}
+function downloadTextFile(filename, text){
+  const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+}
+
+let selectedCityGroup = null, selectedCityUtcBase = null, selectedCityZone = null;
+document.getElementById('citySelect').addEventListener('change', function(){
+  const v = this.value;
+  if(!v || v==='manual'){ selectedCityGroup=null; selectedCityUtcBase=null; selectedCityZone=null; updateTZButtonLabel(); return; }
+  const [group, idx] = v.split(':');
+  const arr = group==='ro' ? CITIES_RO : CITIES_INTL;
+  const entry = arr[parseInt(idx,10)];
+  document.getElementById('lat').value = entry[1];
+  document.getElementById('lon').value = entry[2];
+  selectedCityGroup = group;
+  selectedCityUtcBase = group==='intl' ? entry[3] : null;
+  selectedCityZone = group==='intl' ? entry[4] : 'Europe/Bucharest';
+  updateTZButtonLabel();
+});
+function updateTZButtonLabel(){
+  const btn = document.getElementById('btnSuggestTZ');
+  const hint = document.getElementById('locHint');
+  if(selectedCityGroup==='intl'){
+    btn.textContent = t('suggestTZStandard');
+    hint.textContent = t('locHintIntl');
+  } else {
+    btn.textContent = t('suggestTZRomania');
+    hint.textContent = t('locHint');
+  }
+}
+
+document.getElementById('eclipseSelect').addEventListener('change', function(){
+  fillEclipseDateFields(parseInt(this.value,10));
+});
+
+function formatDateLong(dateStr){
+  const [y,m,d] = dateStr.split('-');
+  const monthName = LUNI[parseInt(m,10)-1][LANG==='en'?1:0];
+  return LANG==='en' ? `${monthName} ${parseInt(d,10)}, ${y}` : `${parseInt(d,10)} ${monthName} ${y}`;
+}
+function findEclipseMeta(dateStr, timeStr, kind){
+  return ALL_ECLIPSES.find(e => e.d===dateStr && e.kind===kind && e.t===timeStr) || null;
+}
+
+document.getElementById('btnSuggestTZ').addEventListener('click', function(){
+  const bdate = document.getElementById('bdate').value;
+  let timeStr = document.getElementById('btime').value || (document.getElementById('approxToggle').checked ? document.getElementById('btimeFrom').value : '') || '12:00';
+  const zone = selectedCityZone || 'Europe/Bucharest';
+  let off = null;
+  if(bdate){
+    const [y,m,d] = bdate.split('-').map(Number);
+    const [h,mi] = timeStr.split(':').map(Number);
+    off = ianaOffsetHours(zone, y, m, d, h, mi);
+  }
+  if(off===null){
+    off = (selectedCityGroup==='intl' && selectedCityUtcBase!==null) ? selectedCityUtcBase : suggestROOffset(bdate);
+  }
+  document.getElementById('tz').value = off;
+});
+
+document.getElementById('approxToggle').addEventListener('change', function(){
+  const on = this.checked;
+  document.getElementById('approxFields').hidden = !on;
+  document.getElementById('approxHint').hidden = !on;
+  const btimeInput = document.getElementById('btime');
+  btimeInput.disabled = on;
+  if(on){ btimeInput.value=''; }
+  else { document.getElementById('btimeFrom').value=''; document.getElementById('btimeTo').value=''; }
+  updateHouseSystemAvailability();
+});
+
+function showFormError(msg){
+  const errEl = document.getElementById('formError');
+  errEl.textContent = msg;
+  errEl.hidden = false;
+  errEl.scrollIntoView({behavior: (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) ? 'auto' : 'smooth', block:'center'});
+}
+
+document.getElementById('chartForm').addEventListener('submit', function(ev){
+  ev.preventDefault();
+  document.getElementById('formError').hidden = true;
+  document.getElementById('approxResultNote').hidden = true;
+
+  const prenume = document.getElementById('prenume').value.trim();
+  const nume = document.getElementById('nume').value.trim();
+  const name = [prenume, nume].filter(Boolean).join(' ');
+  const bdate = document.getElementById('bdate').value;
+  const isApprox = document.getElementById('approxToggle').checked;
+  const btime = document.getElementById('btime').value;
+  const btimeFrom = document.getElementById('btimeFrom').value;
+  const btimeTo = document.getElementById('btimeTo').value;
+
+  let hasTime, bh, bmi, approxFromMin=null, approxToMin=null;
+  if(isApprox){
+    if(!btimeFrom || !btimeTo){ showFormError(t('errApproxRange')); return; }
+    const [fh,fm] = btimeFrom.split(':').map(Number);
+    const [th,tm] = btimeTo.split(':').map(Number);
+    approxFromMin = fh*60+fm; approxToMin = th*60+tm;
+    if(approxToMin < approxFromMin) approxToMin += 1440; /* interval peste miezul nopții */
+    if(approxFromMin === approxToMin){ showFormError(t('errApproxRange')); return; }
+    hasTime = true;
+    const midMin = Math.round((approxFromMin+approxToMin)/2);
+    bh = Math.floor(midMin/60); bmi = midMin%60;
+  } else {
+    hasTime = !!btime;
+    if(hasTime){ [bh,bmi] = btime.split(':').map(Number); }
+  }
+
+  const lat = parseFloat(document.getElementById('lat').value);
+  const lon = parseFloat(document.getElementById('lon').value);
+  const tz = parseFloat(document.getElementById('tz').value);
+  const hsys = document.querySelector('input[name="hsys"]:checked').value;
+  const ekind = document.querySelector('input[name="ekind"]:checked').value;
+  const edate = document.getElementById('edate').value;
+  const etime = document.getElementById('etime').value;
+
+  if(!bdate || !edate || !etime){ showFormError(t('errNeedDates')); return; }
+  if(hasTime && (isNaN(lat) || isNaN(lon) || isNaN(tz))){ showFormError(t('errNeedLoc')); return; }
+  if(hasTime && (lat<-90||lat>90||lon<-180||lon>180)){ showFormError(t('errLat')+' '+t('errLon')); return; }
+  if(hasTime && (tz<-12||tz>14)){ showFormError(t('errTz')); return; }
+  if(hasTime && Math.abs(lat)>89.5){ showFormError(t('errPole')); return; }
+  if(hasTime && hsys==='placidus' && Math.abs(lat) > 90 - obliquity(julianDay(+edate.slice(0,4),1,1,0,0,0)) - 0.2){ showFormError(t('errPlacidusPolar')); return; }
+  const todayStr = new Date().toISOString().slice(0,10);
+  if(bdate < '1900-01-01' || bdate > todayStr){ showFormError(t('errBirthDate')); return; }
+  if(edate < '1583-01-01' || edate > '2100-12-31'){ showFormError(t('errEclipseDate')); return; }
+
+  const [by,bm,bd] = bdate.split('-').map(Number);
+  const [ey,em,ed] = edate.split('-').map(Number);
+  const [eh,emi] = etime.split(':').map(Number);
+
+  const baseParams = {y:by,m:bm,d:bd, tzOffset:tz, lat, lon, houseSystem:hsys, eclipseKind:ekind, ey,em,ed,eh,emi};
+  let res;
+  try { res = computeChart({...baseParams, h:bh, mi:bmi, noTime:!hasTime}); }
+  catch(e){ showFormError(t('errPlacidusPolar')); return; }
+
+  const meta = findEclipseMeta(edate, etime, ekind);
+  renderResults(name, res, ekind, meta, edate);
+
+  if(isApprox){
+    const houses = new Set();
+    const step = 10;
+    for(let m=approxFromMin; m<=approxToMin; m+=step){
+      let r;
+      try { r = computeChart({...baseParams, h:Math.floor(m/60), mi:m%60, noTime:false}); }
+      catch(e){ continue; }
+      houses.add(r.houseNum);
+    }
+    try {
+      const lastR = computeChart({...baseParams, h:Math.floor(approxToMin/60), mi:approxToMin%60, noTime:false});
+      houses.add(lastR.houseNum);
+    } catch(e){ /* cuspidă invalidă la capătul intervalului — ignorat */ }
+    lastApproxHouseNums = Array.from(houses).sort((a,b)=>a-b);
+    renderApproxNote();
+  } else {
+    lastApproxHouseNums = null;
+  }
+});
+
+let lastApproxHouseNums = null;
+function renderApproxNote(){
+  if(!lastApproxHouseNums) return;
+  const note = document.getElementById('approxResultNote');
+  if(lastApproxHouseNums.length>1){
+    const list = lastApproxHouseNums.map(h=>ROMAN[h-1]);
+    const listStr = list.length===2 ? `${t('houseWord')} ${list[0]} ${t('and')} ${t('houseWord')} ${list[1]}`
+      : list.slice(0,-1).map(h=>t('houseWord')+' '+h).join(', ') + ' ' + t('and') + ' ' + t('houseWord') + ' ' + list[list.length-1];
+    note.textContent = t('approxResultNote')(listStr);
+  } else {
+    note.textContent = t('approxOnlyOne')(ROMAN[lastApproxHouseNums[0]-1]);
+  }
+  note.hidden = false;
+}
+
+function updateHouseSystemAvailability(){
+  const isApprox = document.getElementById('approxToggle').checked;
+  const hasTime = isApprox || !!document.getElementById('btime').value;
+  document.getElementById('hsysEqual').disabled = !hasTime;
+  document.getElementById('hsysPlacidus').disabled = !hasTime;
+  if(!hasTime) document.getElementById('hsysWhole').checked = true;
+  document.getElementById('hsysHint').textContent = hasTime ? t('hsysHintFull') : t('hsysHintNoTime');
+}
+document.getElementById('btime').addEventListener('input', updateHouseSystemAvailability);
+
+document.getElementById('chartForm').addEventListener('input', markResultsStale);
+document.getElementById('chartForm').addEventListener('change', markResultsStale);
+
+document.getElementById('btnCopyResult').addEventListener('click', async function(){
+  const btn = this;
+  const original = btn.textContent;
+  const ok = await copyToClipboard(lastResultText);
+  btn.textContent = ok ? t('copied') : t('copyFailed');
+  setTimeout(()=>{ btn.textContent = t('copyResult'); }, 2000);
+});
+document.getElementById('btnDownloadResult').addEventListener('click', function(){
+  downloadTextFile(LANG==='en'?'eclipse-result.txt':'eclipsa-rezultat.txt', lastResultText);
+});
+
+function applyLanguage(){
+  document.documentElement.lang = LANG;
+  document.title = t('pageTitle');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    el.textContent = t(el.getAttribute('data-i18n'));
+  });
+  const staleBanner = document.getElementById('staleBanner');
+  staleBanner.innerHTML = t('staleBannerHtml');
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
+  });
+  document.querySelectorAll('[data-i18n-label]').forEach(el=>{
+    el.label = t(el.getAttribute('data-i18n-label'));
+  });
+  const targetLang = LANG==='ro' ? 'en' : 'ro';
+  document.getElementById('btnLang').textContent = targetLang==='en' ? 'EN' : 'RO';
+  document.getElementById('btnLang').setAttribute('lang', targetLang); /* eticheta insasi arata limba TINTA, spre care comuti */
+
+  buildEclipseOptions();
+  updateHouseSystemAvailability();
+  updateTZButtonLabel();
+  renderApproxNote();
+
+  if(lastRenderArgs){
+    const {name, res, eclipseKind, meta, edateStr} = lastRenderArgs;
+    const results = document.getElementById('results');
+    const wasHidden = results.hidden;
+    const wasStale = results.classList.contains('stale');
+    renderResults(name, res, eclipseKind, meta, edateStr);
+    if(wasHidden) results.hidden = true;
+    if(wasStale) results.classList.add('stale');
+  }
+}
+document.getElementById('btnLang').addEventListener('click', function(){
+  LANG = LANG==='ro' ? 'en' : 'ro';
+  applyLanguage();
+});
+
+populateSelects();
+updateHouseSystemAvailability();
+document.getElementById('bdate').max = new Date().toISOString().slice(0,10);
+</script>
+</body>
+</html>
