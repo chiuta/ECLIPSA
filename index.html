@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title id="pageTitle">ECLIPSA — casa ta la eclipsa de Soare sau de Lună</title>
 <meta name="description" content="Calculează pe ce casă astrologică natală a căzut o eclipsă de Soare sau de Lună (semne întregi, case egale sau Placidus). Calcul local, offline, fără cont. Astrologia nu are validare științifică.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; font-src 'none'; form-action 'none'; base-uri 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-HqC+8mqDlRyastf4coSuJtT4DnYN8VTvjA3jWD3Bu7A='; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; font-src 'none'; form-action 'none'; base-uri 'none'">
 <meta property="og:title" content="ECLIPSA — casa ta la eclipsa de Soare sau de Lună">
 <meta property="og:description" content="Află în ce casă astrologică natală cade o eclipsă (Soare sau Lună). Calcul local, offline, fără cont.">
 <meta property="og:type" content="website">
@@ -189,6 +189,14 @@ input:focus-visible,select:focus-visible,button:focus-visible{
 }
 .result-details dt{font-size:0.78rem;color:var(--text-muted);margin:0;}
 .result-details dd{font-size:0.92rem;margin:0.15rem 0 0;}
+.upcoming{border-top:1px solid var(--line);padding-top:1rem;margin:0 0 1.2rem;}
+.upcoming summary{cursor:pointer;font-weight:600;color:var(--corona);}
+.upcoming summary:focus-visible{outline:2px solid var(--corona);outline-offset:3px;}
+.up-table{width:100%;border-collapse:collapse;font-size:0.86rem;margin-top:0.7rem;}
+.up-table th{text-align:left;font-weight:600;color:var(--text-muted);font-size:0.76rem;padding:0.3rem 0.4rem;border-bottom:1px solid var(--line-strong);}
+.up-table td{padding:0.4rem;border-bottom:1px solid var(--line);vertical-align:top;}
+.up-table td:last-child{color:var(--text-muted);}
+.up-note{font-size:0.8rem;color:var(--text-muted);margin:0.6rem 0 0;}
 .note{font-size:0.82rem;color:var(--text-muted);border-top:1px solid var(--line);padding-top:1rem;margin:0;}
 .stale-banner{
   display:none;
@@ -391,6 +399,10 @@ input:focus-visible,select:focus-visible,button:focus-visible{
     <h2 class="result-house" id="resultHouse"></h2>
     <p class="result-text" id="resultText"></p>
     <dl class="result-details" id="resultDetails"></dl>
+    <details class="upcoming" id="upcoming">
+      <summary id="upSummary"></summary>
+      <div id="upBody"></div>
+    </details>
     <p class="hint" id="approxResultNote" hidden></p>
     <p class="hint" id="noTimeNote" data-i18n="noTimeNote" hidden>Fără ora nașterii, nu se poate calcula un ascendent real, așa că am folosit harta solară: Soarele ține locul ascendentului, iar casele urmează semnele întregi de la el încolo. E o metodă recunoscută pentru cazul ăsta, dar mai puțin precisă — dacă afli vreodată ora exactă, revino pentru rezultatul complet.</p>
     <p class="note" data-i18n="note">Instrument de reflecție, construit pe formule astronomice (precizie de ordinul 0,01–0,1°) — poziția Soarelui sau a Lunii (după tipul eclipsei) și, când se cunoaște ora nașterii, a ascendentului. Astrologia nu are validare științifică; interpretarea e simbolică, nu o predicție și nu un sfat medical, financiar sau juridic.</p>
@@ -454,6 +466,7 @@ ro: {
   footer1:"Aplicație single-file, offline, fără conexiune la internet și fără dependințe externe.",
   footer2:"Parte din seria de aplicații independente „fără frontiere”.",
   footer3:"Datele eclipselor: NASA / GSFC (Fred Espenak).",
+  upSummary:"Următoarele eclipse în casele tale", upDate:"Data", upEclipse:"Eclipsa", upHouse:"Casa", upCap:"Următoarele 12 eclipse (după data de azi) și casa natală în care cad, cu aceleași date de naștere și același sistem de case.", upApprox:"Ora nașterii este ora medie a intervalului ales; casa se poate schimba în interval.", upNoTime:"Fără ora nașterii: hartă solară, semne întregi.", upNone:"Nicio eclipsă din listă (până în 2070) după data de azi.", upSkip:"nu se poate calcula la această latitudine",
   forName:n=>`Pentru ${n}:`, yourResult:"Rezultatul tău:",
   houseWord:"Casa",
   detailAscendant:"Ascendent", detailMC:"Mijlocul cerului (MC)", detailSunSign:"Semnul Soarelui (bază pentru case)",
@@ -516,6 +529,7 @@ en: {
   footer1:"Single-file, offline application — no internet connection and no external dependencies.",
   footer2:"Part of the \"fără frontiere\" (borderless) series of independent applications.",
   footer3:"Eclipse data: NASA / GSFC (Fred Espenak).",
+  upSummary:"Upcoming eclipses in your houses", upDate:"Date", upEclipse:"Eclipse", upHouse:"House", upCap:"The next 12 eclipses (after today's date) and the natal house they fall in, using the same birth data and house system.", upApprox:"Birth time is the midpoint of the chosen interval; the house may change within the interval.", upNoTime:"No birth time: solar chart, whole signs.", upNone:"No eclipse in the list (up to 2070) after today's date.", upSkip:"cannot be computed at this latitude",
   forName:n=>`For ${n}:`, yourResult:"Your result:",
   houseWord:"House",
   detailAscendant:"Ascendant", detailMC:"Midheaven (MC)", detailSunSign:"Sun's sign (basis for houses)",
@@ -1278,8 +1292,42 @@ function renderResults(name, res, eclipseKind, meta, edateStr){
     ...items.map(([k,v]) => `${k}: ${v}`)
   ].join('\n');
 
+  renderUpcoming();
   results.hidden = false;
   results.scrollIntoView({behavior: (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) ? 'auto' : 'smooth', block:'start'});
+}
+
+/* calendar personal: următoarele 12 eclipse și casa natală în care cad (aceleași date de naștere) */
+let lastCalcBase = null;
+function renderUpcoming(){
+  const box = document.getElementById('upcoming'), body = document.getElementById('upBody');
+  document.getElementById('upSummary').textContent = t('upSummary');
+  body.textContent = '';
+  if(!lastCalcBase){ box.hidden = true; return; }
+  box.hidden = false;
+  const today = new Date().toISOString().slice(0,10);
+  const list = ALL_ECLIPSES.filter(e => e.d >= today).slice(0,12);
+  if(!list.length){ const p=document.createElement('p'); p.className='up-note'; p.textContent=t('upNone'); body.appendChild(p); return; }
+  const cap = document.createElement('p'); cap.className='up-note'; cap.textContent = t('upCap'); body.appendChild(cap);
+  const tbl = document.createElement('table'); tbl.className='up-table';
+  const thead = tbl.createTHead().insertRow();
+  [t('upDate'), t('upEclipse'), t('upHouse')].forEach(h=>{ const th=document.createElement('th'); th.scope='col'; th.textContent=h; thead.appendChild(th); });
+  const tb = tbl.createTBody();
+  list.forEach(e=>{
+    const [ey,em,ed] = e.d.split('-').map(Number), [eh,emi] = e.t.split(':').map(Number);
+    let houseTxt;
+    try{
+      const r = computeChart({...lastCalcBase, eclipseKind:e.kind, ey,em,ed,eh,emi});
+      houseTxt = ROMAN[r.houseNum-1] + ' — ' + (LANG==='en' ? HOUSES[r.houseNum-1].temaEn : HOUSES[r.houseNum-1].tema);
+    }catch(err){ houseTxt = t('upSkip'); }
+    const tr = tb.insertRow();
+    tr.insertCell().textContent = formatDateLong(e.d);
+    tr.insertCell().textContent = (e.kind==='lunar' ? t('ofMoon') : t('ofSun')) + ' · ' + (LANG==='en' ? e.tipEn : e.tip);
+    tr.insertCell().textContent = houseTxt;
+  });
+  body.appendChild(tbl);
+  if(lastCalcBase.approx){ const p=document.createElement('p'); p.className='up-note'; p.textContent=t('upApprox'); body.appendChild(p); }
+  if(lastCalcBase.noTime){ const p=document.createElement('p'); p.className='up-note'; p.textContent=t('upNoTime'); body.appendChild(p); }
 }
 
 function markResultsStale(){
@@ -1451,6 +1499,7 @@ document.getElementById('chartForm').addEventListener('submit', function(ev){
   catch(e){ showFormError(t('errPlacidusPolar')); return; }
 
   const meta = findEclipseMeta(edate, etime, ekind);
+  lastCalcBase = {...baseParams, h:bh, mi:bmi, noTime:!hasTime, approx:isApprox};
   renderResults(name, res, ekind, meta, edate);
 
   if(isApprox){
