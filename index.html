@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title id="pageTitle">ECLIPSA — casa ta la eclipsa de Soare sau de Lună</title>
 <meta name="description" content="Calculează pe ce casă astrologică natală a căzut o eclipsă de Soare sau de Lună (semne întregi, case egale sau Placidus). Calcul local, offline, fără cont. Astrologia nu are validare științifică.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-HqC+8mqDlRyastf4coSuJtT4DnYN8VTvjA3jWD3Bu7A='; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; font-src 'none'; form-action 'none'; base-uri 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/AG7aK8sxodc0H1SlmLh+wTJX+bzRFFRN3oYf3/Akkw='; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; font-src 'none'; form-action 'none'; base-uri 'none'">
 <meta property="og:title" content="ECLIPSA — casa ta la eclipsa de Soare sau de Lună">
 <meta property="og:description" content="Află în ce casă astrologică natală cade o eclipsă (Soare sau Lună). Calcul local, offline, fără cont.">
 <meta property="og:type" content="website">
@@ -1407,7 +1407,7 @@ function findEclipseMeta(dateStr, timeStr, kind){
   return ALL_ECLIPSES.find(e => e.d===dateStr && e.kind===kind && e.t===timeStr) || null;
 }
 
-document.getElementById('btnSuggestTZ').addEventListener('click', function(){
+function computeSuggestedTZ(){
   const bdate = document.getElementById('bdate').value;
   let timeStr = document.getElementById('btime').value || (document.getElementById('approxToggle').checked ? document.getElementById('btimeFrom').value : '') || '12:00';
   const zone = selectedCityZone || 'Europe/Bucharest';
@@ -1420,8 +1420,21 @@ document.getElementById('btnSuggestTZ').addEventListener('click', function(){
   if(off===null){
     off = (selectedCityGroup==='intl' && selectedCityUtcBase!==null) ? selectedCityUtcBase : suggestROOffset(bdate);
   }
-  document.getElementById('tz').value = off;
+  return off;
+}
+/* Fusul orar se completează singur (din baza IANA) cât timp câmpul e gol sau a fost completat automat; o valoare scrisă manual nu se mai suprascrie. */
+let tzAuto = true;
+function autoSuggestTZ(){
+  const tzEl = document.getElementById('tz');
+  if(!document.getElementById('bdate').value) return;
+  if(tzEl.value !== '' && !tzAuto) return;
+  tzEl.value = computeSuggestedTZ(); tzAuto = true;
+}
+document.getElementById('btnSuggestTZ').addEventListener('click', function(){
+  document.getElementById('tz').value = computeSuggestedTZ(); tzAuto = true;
 });
+document.getElementById('tz').addEventListener('input', function(){ tzAuto = (this.value === ''); });
+['bdate','btime','btimeFrom','citySelect'].forEach(function(id){ document.getElementById(id).addEventListener('change', autoSuggestTZ); });
 
 document.getElementById('approxToggle').addEventListener('change', function(){
   const on = this.checked;

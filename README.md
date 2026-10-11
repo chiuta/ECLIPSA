@@ -17,7 +17,7 @@ Calcul astronomic local (Soare, Lună, ascendent, MC, case) plus texte simbolice
 - Lista de eclipse verificată față de catalogul NASA (date și tipuri: 106 solare + 106 lunare, toate concordante); eclipsă personalizată posibilă.
 - Roată SVG, copiere/descărcare rezultat, RO/EN.
 - „Următoarele eclipse în casele tale”: după calcul, un tabel pliabil cu următoarele 12 eclipse (după data de azi, din lista NASA inclusă) și casa natală în care cade fiecare, cu aceleași date de naștere și același sistem de case (la ora aproximativă se folosește mijlocul intervalului, cu notă; fără oră, harta solară).
-- Sugestie de fus orar din baza IANA a browserului (ora de vară istorică).
+- Sugestie de fus orar din baza IANA a browserului (ora de vară istorică); câmpul se completează singur la alegerea datei, a orei sau a orașului și rămâne editabil (o valoare scrisă manual nu se mai suprascrie); butonul „Sugerează…” o recalculează oricând.
 
 ## Manual de utilizare
 
@@ -42,6 +42,7 @@ Calcul astronomic local (Soare, Lună, ascendent, MC, case) plus texte simbolice
 
 Ultima actualizare: 11 octombrie 2026.
 
+- Runda 7: fusul orar nu mai rămâne gol până la apăsarea butonului de sugestie: se completează automat (din baza IANA) la schimbarea datei/orei/orașului, cât timp nu a fost scris manual.
 - Adăugat tabelul „Următoarele eclipse în casele tale” (RO/EN); CSP: `script-src` pe hash SHA-256, fără `'unsafe-inline'`.
 - Autoverificare a motorului (11.10.2026, calcul local, nu efemeridă externă): Soarele calculat pentru eclipsele din 8.04.2024, 2.10.2024 și 2.08.2027 cade la ~19°24′ Berbec, ~10°04′ Balanță, ~9°55′ Leu, coerent cu semnul și gradul în care sunt cunoscute aceste eclipse; verificarea față de o efemeridă externă rămâne nerezolvată.
 - Formularul și rezultatele sunt încadrate în `<main>` (reper de accesibilitate); axe-core: 0 violări la 1280 și 360 px.
