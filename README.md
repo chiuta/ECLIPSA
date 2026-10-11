@@ -37,6 +37,14 @@ Calcul astronomic local (Soare, Lună, ascendent, MC, case) plus texte simbolice
 - Fusul orar: verifică manual înainte de ~1970 și în ziua schimbării orei; data nașterii ≥ 1900.
 - Astrologia nu are bază științifică.
 
+## Istoric / Changelog
+
+Ultima actualizare: 11 octombrie 2026.
+
+- Formularul și rezultatele sunt încadrate în `<main>` (reper de accesibilitate); axe-core: 0 violări la 1280 și 360 px.
+- Eclipsa implicită din listă se alege dinamic (cea mai recentă eclipsă trecută față de data curentă); lista de 212 eclipse NASA nu a fost modificată.
+- Nerezolvat: rezultatul de referință (casa V pentru eclipsa din 2 octombrie 2024) nu a putut fi reverificat independent, fiindcă mediul de lucru nu are o efemeridă externă.
+
 ## Rulare locală / offline
 
 Descarcă `index.html` și deschide-l în browser.
