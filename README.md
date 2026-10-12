@@ -1,5 +1,7 @@
 # ECLIPSA — casa ta la eclipsa de Soare sau de Lună
 
+**Versiune:** 1.0.0 · **Ultima actualizare:** 12 octombrie 2026
+
 Aplicație single-file care află în ce casă astrologică natală cade o eclipsă (212 eclipse 2024–2070) pe baza datelor tale de naștere.
 
 **Live:** https://chiuta.github.io/ECLIPSA/
@@ -40,8 +42,7 @@ Calcul astronomic local (Soare, Lună, ascendent, MC, case) plus texte simbolice
 
 ## Istoric / Changelog
 
-Ultima actualizare: 11 octombrie 2026.
-
+- 1.0.0 — 2026-10-12: versiunea și data ultimei actualizări sunt afișate în aplicație
 - Runda 7: fusul orar nu mai rămâne gol până la apăsarea butonului de sugestie: se completează automat (din baza IANA) la schimbarea datei/orei/orașului, cât timp nu a fost scris manual.
 - Adăugat tabelul „Următoarele eclipse în casele tale” (RO/EN); CSP: `script-src` pe hash SHA-256, fără `'unsafe-inline'`.
 - Autoverificare a motorului (11.10.2026, calcul local, nu efemeridă externă): Soarele calculat pentru eclipsele din 8.04.2024, 2.10.2024 și 2.08.2027 cade la ~19°24′ Berbec, ~10°04′ Balanță, ~9°55′ Leu, coerent cu semnul și gradul în care sunt cunoscute aceste eclipse; verificarea față de o efemeridă externă rămâne nerezolvată.

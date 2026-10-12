@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="application-version" content="1.0.0">
+<meta name="last-updated" content="2026-10-12">
 <title id="pageTitle">ECLIPSA — casa ta la eclipsa de Soare sau de Lună</title>
 <meta name="description" content="Calculează pe ce casă astrologică natală a căzut o eclipsă de Soare sau de Lună (semne întregi, case egale sau Placidus). Calcul local, offline, fără cont. Astrologia nu are validare științifică.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/AG7aK8sxodc0H1SlmLh+wTJX+bzRFFRN3oYf3/Akkw='; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; font-src 'none'; form-action 'none'; base-uri 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-gkKMiM0hsioAQnOqflHrjKp982/g4UxLjdBJbeKqOwU='; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; font-src 'none'; form-action 'none'; base-uri 'none'">
 <meta property="og:title" content="ECLIPSA — casa ta la eclipsa de Soare sau de Lună">
 <meta property="og:description" content="Află în ce casă astrologică natală cade o eclipsă (Soare sau Lună). Calcul local, offline, fără cont.">
 <meta property="og:type" content="website">
@@ -417,7 +419,8 @@ input:focus-visible,select:focus-visible,button:focus-visible{
   <footer class="footer">
     <span data-i18n="footer1">Aplicație single-file, offline, fără conexiune la internet și fără dependințe externe.</span><br>
     <span data-i18n="footer2">Parte din seria de aplicații independente „fără frontiere”.</span><br>
-    <span data-i18n="footer3">Datele eclipselor: NASA / GSFC (Fred Espenak).</span>
+    <span data-i18n="footer3">Datele eclipselor: NASA / GSFC (Fred Espenak).</span><br>
+    <span id="app-version"><span data-i18n="verLabel">Versiune</span>: v 1.0.0 · 2026-10-12</span>
   </footer>
 </div>
 
@@ -466,6 +469,7 @@ ro: {
   footer1:"Aplicație single-file, offline, fără conexiune la internet și fără dependințe externe.",
   footer2:"Parte din seria de aplicații independente „fără frontiere”.",
   footer3:"Datele eclipselor: NASA / GSFC (Fred Espenak).",
+  verLabel:"Versiune",
   upSummary:"Următoarele eclipse în casele tale", upDate:"Data", upEclipse:"Eclipsa", upHouse:"Casa", upCap:"Următoarele 12 eclipse (după data de azi) și casa natală în care cad, cu aceleași date de naștere și același sistem de case.", upApprox:"Ora nașterii este ora medie a intervalului ales; casa se poate schimba în interval.", upNoTime:"Fără ora nașterii: hartă solară, semne întregi.", upNone:"Nicio eclipsă din listă (până în 2070) după data de azi.", upSkip:"nu se poate calcula la această latitudine",
   forName:n=>`Pentru ${n}:`, yourResult:"Rezultatul tău:",
   houseWord:"Casa",
@@ -529,6 +533,7 @@ en: {
   footer1:"Single-file, offline application — no internet connection and no external dependencies.",
   footer2:"Part of the \"fără frontiere\" (borderless) series of independent applications.",
   footer3:"Eclipse data: NASA / GSFC (Fred Espenak).",
+  verLabel:"Version",
   upSummary:"Upcoming eclipses in your houses", upDate:"Date", upEclipse:"Eclipse", upHouse:"House", upCap:"The next 12 eclipses (after today's date) and the natal house they fall in, using the same birth data and house system.", upApprox:"Birth time is the midpoint of the chosen interval; the house may change within the interval.", upNoTime:"No birth time: solar chart, whole signs.", upNone:"No eclipse in the list (up to 2070) after today's date.", upSkip:"cannot be computed at this latitude",
   forName:n=>`For ${n}:`, yourResult:"Your result:",
   houseWord:"House",
