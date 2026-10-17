@@ -78,7 +78,7 @@ Descarcă `index.html` și deschide-l în browser.
 
 ## Licență
 
-Licența nu este încă declarată. Terți: conturul continentelor din panoul nou provine din Natural Earth (domeniu public), decimat; `FFF.ephem` și `fff-kit` sunt codul autorului.
+MIT — vezi fișierul LICENSE. Terți: conturul continentelor din panoul nou provine din Natural Earth (domeniu public), decimat; `FFF.ephem` și `fff-kit` sunt codul autorului.
 
 ## Autor
 
