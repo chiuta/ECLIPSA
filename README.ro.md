@@ -91,6 +91,6 @@ MIT — vezi fișierul LICENSE. Terți: conturul continentelor din panoul nou pr
 
 Alexio — Alexandru-Ionuț Chiuță, contact: alexio@trom.tf
 
-## English summary
+## Rezumat
 
-Offline single-file app that finds which natal house (whole sign, equal, or Placidus) a solar/lunar eclipse falls in, for 212 eclipses 2024–2070 (checked against NASA's catalogs). Local computation, no storage or network. Astrology has no scientific validation; interpretations are symbolic.
+Aplicație offline într-un singur fișier care găsește în ce casă natală (semn întreg, egală sau Placidus) cade o eclipsă de Soare/Lună, pentru 212 eclipse din 2024–2070 (verificate față de cataloagele NASA). Calcul local, fără stocare sau rețea. Astrologia nu are validare științifică; interpretările sunt simbolice.
