@@ -1,6 +1,6 @@
 // ECLIPSA — teste pentru funcțiile noi (runda 8): circumstanțe locale, numărătoare, ICS, listă de verificare, hartă simplă a benzii, GPS cu consimțământ.
 // Rulare: node tests/fff-r8.test.mjs   (Playwright din /opt/node-tools, rețea blocată, Chromium local)
-import {launch, axeRun, hOverflow, check, summary, REF} from "./_lib.mjs";
+import {launch, axeRun, hOverflow, check, summary, REF, setLang} from "./_lib.mjs";
 
 const hms = ms => new Date(ms).toISOString().slice(11, 19);
 const toS = s => { const [h, m, x] = s.split(":").map(Number); return h * 3600 + m * 60 + x; };
@@ -14,8 +14,8 @@ console.log("1. pornire, versiune, 0 erori");
   check("0 pageerror/console error", st.errs.length === 0, st.errs);
   check("0 cereri de rețea", st.net.length === 0, st.net);
   check("0 violări CSP", (await page.evaluate(() => window.__csp)).length === 0);
-  check("#app-version arată 1.2.0 · 2026-10-19", /1\.2\.0 · 2026-10-19/.test((await page.textContent("#app-version")).replace(/\s+/g, " ")));
-  check("meta application-version 1.2.0", (await page.getAttribute('meta[name="application-version"]', "content")) === "1.2.0");
+  check("#app-version arată 1.3.0 · 2026-10-19", /1\.3\.0 · 2026-10-19/.test((await page.textContent("#app-version")).replace(/\s+/g, " ")));
+  check("meta application-version 1.3.0", (await page.getAttribute('meta[name="application-version"]', "content")) === "1.3.0");
   check("meta last-updated 2026-10-19", (await page.getAttribute('meta[name="last-updated"]', "content")) === "2026-10-19");
   check("panoul „eclipsa la locul tău” apare (FFF.ephem încărcat)", await page.isVisible("#e27Panel"));
   check("fără depășire orizontală 1280", (await hOverflow(page)) <= 0);
@@ -204,13 +204,14 @@ console.log("9. limbi: ro → en → hu → de");
   const {browser, page} = await launch();
   await page.waitForTimeout(1500);
   const seq = [], sums = {};
-  for (let i = 0; i < 4; i++) { const l = await page.evaluate(() => document.documentElement.lang); seq.push(l); sums[l] = await page.textContent("#e27Sum"); await page.click("#btnLang"); await page.waitForTimeout(200); }
-  check("ciclul de limbi atinge ro, en, hu, de", ["ro", "en", "hu", "de"].every(l => seq.includes(l)), seq);
+  for (const want of ["ro", "en", "hu", "de", "fr", "it", "es", "pt"]) { await setLang(page, want); const l = await page.evaluate(() => document.documentElement.lang); seq.push(l); sums[l] = await page.textContent("#e27Sum"); }
+  check("selectorul de limbi atinge toate cele 8 limbi", ["ro", "en", "hu", "de", "fr", "it", "es", "pt"].every(l => seq.includes(l)), seq);
+  check("titlul panoului diferă în fr, it, es, pt față de en", ["fr", "it", "es", "pt"].every(l => sums[l] && sums[l] !== sums.en), sums);
   check("titlul panoului diferă în hu și de față de en", sums.hu && sums.de && sums.hu !== sums.en && sums.de !== sums.en, sums);
-  while ((await page.evaluate(() => document.documentElement.lang)) !== "hu") { await page.click("#btnLang"); await page.waitForTimeout(150); }
+  await setLang(page, "hu");
   await openDlg(page); await search(page, "25.6872, 32.6396");
   check("în maghiară rezultatul e tradus (tipul eclipsei)", /teljes/i.test(await page.textContent("#e27-type")), await page.textContent("#e27-type"));
-  while ((await page.evaluate(() => document.documentElement.lang)) !== "de") { await page.click("#btnLang"); await page.waitForTimeout(150); }
+  await setLang(page, "de");
   check("în germană rezultatul rămâne și e tradus", /total/i.test(await page.textContent("#e27-type")) && /Sonnenfinsternis|Finsternis|Totalit/i.test(await page.textContent("#e27-result")), await page.textContent("#e27-type"));
   await browser.close();
 }
@@ -223,7 +224,7 @@ for (const [w, h] of [[1280, 800], [360, 740]]) {
   await openDlg(page); await search(page, "25.6872, 32.6396");
   check(`${w}: axe 0 (panou cu rezultat)`, ((await axeRun(page)) || []).length === 0, await axeRun(page));
   check(`${w}: fără depășire orizontală cu panoul deschis`, (await hOverflow(page)) <= 0, await hOverflow(page));
-  for (const l of ["en", "hu", "de"]) { while ((await page.evaluate(() => document.documentElement.lang)) !== l) { await page.click("#btnLang"); await page.waitForTimeout(200); } check(`${w}: axe 0 în ${l}`, ((await axeRun(page)) || []).length === 0, await axeRun(page)); check(`${w}: fără depășire în ${l}`, (await hOverflow(page)) <= 0); }
+  for (const l of ["en", "hu", "de", "fr", "it", "es", "pt"]) { await setLang(page, l); check(`${w}: axe 0 în ${l}`, ((await axeRun(page)) || []).length === 0, await axeRun(page)); check(`${w}: fără depășire în ${l}`, (await hOverflow(page)) <= 0); }
   await browser.close();
 }
 summary();

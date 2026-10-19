@@ -47,7 +47,7 @@ if (!IS27) {   // ECLIPSA: secțiunea astrologică — doar eclipse de Soare, f�
   check("eclipsă de Soare: link TerRa cu data/ora eclipsei din catalog", a.length === 1 && a[0].h === `https://chiuta.github.io/TerRa/#v=2d&t=2027-08-02T${t0}:00Z&from=eclipsa`, a);
   check("fără ll (nu se trimite locul nașterii)", !/ll=/.test(a[0].h) && !/44|26/.test(a[0].h.split("t=")[1].slice(0, 0)));
   check("text ro", /Umbra Lunii pe glob la maximul eclipsei/.test(a[0].t) && /Nu trimite locul nașterii/.test(a[0].ttl), a[0]);
-  await page.click("#btnLang"); await page.waitForTimeout(400);
+  await page.selectOption("#btnLang", "en"); await page.waitForTimeout(400);
   a = await page.$$eval("#resultTerra a", x => x.map(y => y.textContent));
   check("după comutarea în EN link-ul se retraduce", a.length === 1 && /The Moon's shadow on the globe/.test(a[0]), a);
   // eclipsă de Lună: fără link
