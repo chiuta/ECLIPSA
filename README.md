@@ -1,92 +1,94 @@
-# ECLIPSA — casa ta la eclipsa de Soare sau de Lună
+# ECLIPSA — your house at the solar or lunar eclipse
 
-**Versiune:** 1.2.0 · **Ultima actualizare:** 19 octombrie 2026
+**English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-Aplicație single-file care află în ce casă astrologică natală cade o eclipsă (212 eclipse 2024–2070) pe baza datelor tale de naștere.
+**Version:** 1.2.0 · **Last updated:** 2026-10-19
+
+A single-file app that finds which natal astrological house an eclipse falls in (212 eclipses 2024–2070), based on your birth data.
 
 **Live:** https://chiuta.github.io/ECLIPSA/
 
-![Captura de ecran](screenshot.png)
+![Screenshot](screenshot.png)
 
-## Ce este
+## What it is
 
-Calcul astronomic local (Soare, Lună, ascendent, MC, case) plus texte simbolice pentru fiecare casă. **Astrologia nu are validare științifică**: interpretările sunt reflecție/divertisment, nu predicții și nu sfat medical, financiar sau juridic.
+Local astronomical computation (Sun, Moon, ascendant, MC, houses) plus symbolic texts for each house. **Astrology has no scientific validation**: the interpretations are reflection/entertainment, not predictions and not medical, financial or legal advice.
 
-## Funcții
+## Features
 
-- Sisteme de case declarate: semne întregi (implicit), case egale, Placidus. Fără ora nașterii: hartă solară (semne întregi).
-- Ora aproximativă (interval, inclusiv peste miezul nopții): arată toate casele posibile.
-- Lista de eclipse verificată față de catalogul NASA (date și tipuri: 106 solare + 106 lunare, toate concordante); eclipsă personalizată posibilă.
-- Roată SVG, copiere/descărcare rezultat, RO/EN.
-- „Următoarele eclipse în casele tale”: după calcul, un tabel pliabil cu următoarele 12 eclipse (după data de azi, din lista NASA inclusă) și casa natală în care cade fiecare, cu aceleași date de naștere și același sistem de case (la ora aproximativă se folosește mijlocul intervalului, cu notă; fără oră, harta solară).
-- Sugestie de fus orar din baza IANA a browserului (ora de vară istorică); câmpul se completează singur la alegerea datei, a orei sau a orașului și rămâne editabil (o valoare scrisă manual nu se mai suprascrie); butonul „Sugerează…” o recalculează oricând.
+- Declared house systems: whole signs (default), equal houses, Placidus. Without the birth time: solar chart (whole signs).
+- Approximate time (an interval, including across midnight): shows all possible houses.
+- The eclipse list is checked against the NASA catalog (dates and types: 106 solar + 106 lunar, all matching); a custom eclipse is possible.
+- SVG wheel, copy/download of the result, RO/EN.
+- "Upcoming eclipses in your houses": after the calculation, a collapsible table with the next 12 eclipses (after today's date, from the included NASA list) and the natal house each falls in, with the same birth data and the same house system (for the approximate time the midpoint of the interval is used, with a note; without a time, the solar chart).
+- Time zone suggestion from the browser's IANA database (historical daylight saving time); the field fills itself in when you choose the date, the time or the city and stays editable (a manually typed value is no longer overwritten); the "Suggest…" button recomputes it at any time.
 
-## Funcții noi (1.1.0)
+## New features (1.1.0)
 
-Un panou pliabil „Eclipsa totală din 2 august 2027 — la locul tău”, sub rezultate (varianta mică a celei din Eclipsa-2027), calculat local cu `FFF.ephem`:
+A collapsible panel "Total eclipse of 2 August 2027 — at your location", below the results (a small version of the one in Eclipsa-2027), computed locally with `FFF.ephem`:
 
-- **Circumstanțe locale:** contactele C1, C2, maxim, C3, C4 (UTC și ora locală când fusul e cunoscut), magnitudine, obscurare, durata totalității și a fazei parțiale, altitudinea/azimutul Soarelui, poziția față de banda totalității. Locul: căutare în lista de orașe a aplicației (România și orașe din lume), coordonate `lat, lon`, butonul „Folosește locul din formular” (latitudinea/longitudinea deja completate) sau GPS.
-- **GPS cu consimțământ explicit în două trepte** (confirmare în pagină, apoi o singură cerere); nimic nu se salvează sau se trimite.
-- **Numărătoare inversă** până la următorul contact și buton „Repetiție” (ceas simulat, pornește cu 30 s înainte de C2/maxim).
-- **Export `.ics`** (eveniment C1–C4 și, la totalitate, C2–C3; alarme opționale).
-- **Listă de verificare pentru observarea în siguranță** (cu progres; nu se salvează).
-- **Hartă simplă a benzii:** SVG cu conturul Natural Earth (coaste și granițe) decimat (≈ 14 KB, domeniu public), banda totalității și linia centrală calculate de `FFF.ephem`, punctul maximului global și locul tău. Nu este hartă interactivă și nu are fundal de tile-uri; conturul e grosier (decimat) și nu e potrivit pentru a găsi un loc exact.
-- Ciclul de limbi este RO → EN → HU → DE; textele vechi rămân în RO/EN (în HU/DE se vede engleza), funcțiile noi au toate patru limbile. Traducerile în maghiară (hu) și germană (de) ale funcțiilor noi sunt **automate și neverificate nativ**; la fel ar fi orice altă limbă adăugată ulterior (fr/it/es/pt nu sunt oferite în această aplicație).
+- **Local circumstances:** the contacts C1, C2, maximum, C3, C4 (UTC and local time when the time zone is known), magnitude, obscuration, the duration of totality and of the partial phase, the Sun's altitude/azimuth, the position relative to the totality band. The location: a search in the app's city list (Romania and cities worldwide), `lat, lon` coordinates, the "Use the place from the form" button (the latitude/longitude already filled in) or GPS.
+- **GPS with explicit two-step consent** (confirmation in the page, then a single request); nothing is saved or sent.
+- **Countdown** to the next contact and a "Rehearsal" button (simulated clock, starts 30 s before C2/maximum).
+- **`.ics` export** (an event C1–C4 and, for totality, C2–C3; optional alarms).
+- **Checklist for safe observation** (with progress; not saved).
+- **Simple map of the band:** an SVG with the decimated Natural Earth outline (coasts and borders) (≈ 14 KB, public domain), the totality band and the central line computed by `FFF.ephem`, the point of global maximum and your location. It is not an interactive map and has no tile background; the outline is coarse (decimated) and not suitable for finding an exact place.
+- The language cycle is RO → EN → HU → DE; the old texts remain in RO/EN (in HU/DE English is shown), the new features have all four languages. The Hungarian (hu) and German (de) translations of the new features are **automatic and not verified by native speakers**; so would any other language added later be (fr/it/es/pt are not offered in this app).
 
-## Manual de utilizare
+## User guide
 
-1. Completează data și (opțional) ora nașterii; alege orașul sau coordonatele.
-2. Apasă „Sugerează fusul orar” (poți corecta manual).
-3. Alege sistemul de case și eclipsa.
-4. Apasă „Calculează”.
+1. Fill in the date and (optionally) the time of birth; choose the city or the coordinates.
+2. Press "Suggest time zone" (you can correct it manually).
+3. Choose the house system and the eclipse.
+4. Press "Calculate".
 
-## Confidențialitate și rețea
+## Privacy and network
 
-- Nu folosește storage, cookie-uri, conturi; nicio gazdă externă (CSP `connect-src 'none'`). Datele nu părăsesc dispozitivul.
-- Permisiuni: niciuna la pornire; locația doar la cerere explicită, după confirmare în pagină.
+- It uses no storage, cookies or accounts; no external host (CSP `connect-src 'none'`). The data never leaves the device.
+- Permissions: none at startup; location only on explicit request, after confirmation in the page.
 
-- 1.1.0: **geolocația** se folosește doar dacă apeși „Folosește locația mea (GPS)” și confirmi în pagină. Exportul `.ics` se descarcă local prin `Blob`. Nu există cereri de rețea noi. Kitul `fff-kit` (`core`, `label`, `bundle`, `ephem`) adaugă butonul de transparență; aplicația nu scrie nimic în storage (0 chei la pornire).
-## Limite și avertismente
+- 1.1.0: **geolocation** is used only if you press "Use my location (GPS)" and confirm in the page. The `.ics` export is downloaded locally through a `Blob`. There are no new network requests. The `fff-kit` (`core`, `label`, `bundle`, `ephem`) adds the transparency button; the app writes nothing to storage (0 keys at startup).
+## Limits and warnings
 
-- Precizie ~0,01° (Soare), ~0,1–0,3° (Lună, informativă). Orele eclipselor sunt rotunjite la minut (±2 min, fără efect practic).
-- Placidus nu e definit peste ~66° latitudine (aplicația refuză); peste 89,5° nu există ascendent.
-- Fusul orar: verifică manual înainte de ~1970 și în ziua schimbării orei; data nașterii ≥ 1900.
-- Astrologia nu are bază științifică.
+- Precision ~0.01° (Sun), ~0.1–0.3° (Moon, informative). Eclipse times are rounded to the minute (±2 min, no practical effect).
+- Placidus is not defined above ~66° latitude (the app refuses); above 89.5° there is no ascendant.
+- Time zone: check manually before ~1970 and on the day of a clock change; birth date ≥ 1900.
+- Astrology has no scientific basis.
 
-- **Funcții noi, limite reale.** Aceleași ca în Eclipsa-2027: contactele sunt calculate pentru nivelul mării (concordanță cu referința DE421: ≈ 1 s la maxim, ≤ 3 s la contacte pe 10 locuri; ΔT ≈ ±1 s incert în 2027), fără relief și fără profilul marginii Lunii; durata totalității la marginea benzii e foarte sensibilă. Numărătoarea folosește ceasul dispozitivului. Nu este instrument de siguranță și nu oferă sfat medical; filtrele ISO 12312-2 rămân obligatorii.
-- Calculul astrologic existent (case, eclipse NASA 2024–2070) **nu** a fost înlocuit cu `FFF.ephem` și nu a fost modificat; panoul nou este independent de el. Lista de orașe nu conține locuri pe traseul totalității în Africa (Luxor, Cádiz): folosește coordonatele.
-## Istoric / Changelog
+- **New features, real limits.** The same as in Eclipsa-2027: the contacts are computed for sea level (agreement with the DE421 reference: ≈ 1 s at maximum, ≤ 3 s at contacts at 10 places; ΔT ≈ ±1 s uncertain in 2027), without terrain and without the profile of the Moon's limb; the duration of totality at the edge of the band is very sensitive. The countdown uses the device clock. It is not a safety tool and gives no medical advice; ISO 12312-2 filters remain mandatory.
+- The existing astrological calculation (houses, NASA eclipses 2024–2070) was **not** replaced with `FFF.ephem` and was not modified; the new panel is independent of it. The city list does not contain places on the totality path in Africa (Luxor, Cádiz): use the coordinates.
+## History / Changelog
 
 ### 1.2.0 — 2026-10-19
-- Nou: „↗ TerRa” — la eclipsele de Soare, link spre TerRa (hartă 2D) la momentul maximului, cu umbra Lunii pe glob; nu conține locul nașterii. În panoul „Eclipsa la locul tău — 2027”: același link, la maximul local, cu locul ales (rotunjit la ~1 km) ca „Locația mea”.
+- New: "↗ TerRa" — for solar eclipses, a link to TerRa (2D map) at the moment of maximum, with the Moon's shadow on the globe; it does not contain the birthplace. In the "Eclipse at your location — 2027" panel: the same link, at the local maximum, with the chosen place (rounded to ~1 km) as "My location".
 
 ### 1.1.0 — 2026-10-14
-- Nou: panoul „Eclipsa din 2 august 2027 la locul tău” (circumstanțe locale, numărătoare + repetiție, export `.ics`, listă de verificare, hartă SVG simplă a benzii, GPS cu consimțământ în două trepte); ciclu de limbi RO/EN/HU/DE pentru funcțiile noi; `FFF.ephem` și `fff-kit` (`core`, `label`, `bundle`, `ephem`); `tests/fff-r8.test.mjs` (91 de verificări). Comparație înainte/după la 1280×800: pagina inițială neschimbată vizibil (0 pixeli cu diferență peste prag; panoul e închis implicit), deci captura de ecran nu s-a schimbat.
+- New: the panel "Eclipse of 2 August 2027 at your location" (local circumstances, countdown + rehearsal, `.ics` export, checklist, simple SVG map of the band, GPS with two-step consent); RO/EN/HU/DE language cycle for the new features; `FFF.ephem` and `fff-kit` (`core`, `label`, `bundle`, `ephem`); `tests/fff-r8.test.mjs` (91 checks). Before/after comparison at 1280×800: the initial page unchanged visibly (0 pixels with a difference above the threshold; the panel is closed by default), so the screenshot did not change.
 
-- 1.0.0 — 2026-10-12: versiunea și data ultimei actualizări sunt afișate în aplicație
-- Runda 7: fusul orar nu mai rămâne gol până la apăsarea butonului de sugestie: se completează automat (din baza IANA) la schimbarea datei/orei/orașului, cât timp nu a fost scris manual.
-- Adăugat tabelul „Următoarele eclipse în casele tale” (RO/EN); CSP: `script-src` pe hash SHA-256, fără `'unsafe-inline'`.
-- Autoverificare a motorului (11.10.2026, calcul local, nu efemeridă externă): Soarele calculat pentru eclipsele din 8.04.2024, 2.10.2024 și 2.08.2027 cade la ~19°24′ Berbec, ~10°04′ Balanță, ~9°55′ Leu, coerent cu semnul și gradul în care sunt cunoscute aceste eclipse; verificarea față de o efemeridă externă rămâne nerezolvată.
-- Formularul și rezultatele sunt încadrate în `<main>` (reper de accesibilitate); axe-core: 0 violări la 1280 și 360 px.
-- Eclipsa implicită din listă se alege dinamic (cea mai recentă eclipsă trecută față de data curentă); lista de 212 eclipse NASA nu a fost modificată.
-- Nerezolvat: rezultatul de referință (casa V pentru eclipsa din 2 octombrie 2024) nu a putut fi reverificat independent, fiindcă mediul de lucru nu are o efemeridă externă.
+- 1.0.0 — 2026-10-12: the version and the date of the last update are shown in the app
+- Round 7: the time zone no longer stays empty until the suggestion button is pressed: it is filled in automatically (from the IANA database) when the date/time/city changes, as long as it has not been typed manually.
+- Added the "Upcoming eclipses in your houses" table (RO/EN); CSP: `script-src` by SHA-256 hash, without `'unsafe-inline'`.
+- Engine self-check (11.10.2026, local computation, not an external ephemeris): the Sun computed for the eclipses of 8.04.2024, 2.10.2024 and 2.08.2027 falls at ~19°24′ Aries, ~10°04′ Libra, ~9°55′ Leo, consistent with the sign and degree in which these eclipses are known; verification against an external ephemeris remains unresolved.
+- The form and the results are wrapped in `<main>` (accessibility landmark); axe-core: 0 violations at 1280 and 360 px.
+- The default eclipse in the list is chosen dynamically (the most recent past eclipse relative to the current date); the list of 212 NASA eclipses was not modified.
+- Unresolved: the reference result (house V for the eclipse of 2 October 2024) could not be re-verified independently, because the working environment has no external ephemeris.
 
-## Teste
+## Tests
 
-`node tests/fff-r8.test.mjs` (Playwright din `/opt/node-tools`, Chromium local, rețeaua blocată; `tests/_lib.mjs` are ajutoarele comune). Valorile de referință sunt în `tests/ref-c3a.json`: circumstanțele locale pentru 10 locuri de referință (contacte C1–C4, durata, obscurare, altitudinea Soarelui; JPL DE421, din `fff-kit/test/ref`), momentele de răsărit/apus/trecere (Soare, Lună; 5 locuri × 4 date), 56 de momente de fază și 54 de poziții alt/az, calculate independent cu **pyephem 4.2.1** (folosit doar offline pentru a genera numerele; nu face parte din aplicație). Fiecare test are pragul scris în cod; testul de accesibilitate (axe-core, `bypassCSP`) rulează și în dialoguri/panouri deschise, la 1280×800 și 360×740.
+`node tests/fff-r8.test.mjs` (Playwright from `/opt/node-tools`, local Chromium, network blocked; `tests/_lib.mjs` has the shared helpers). The reference values are in `tests/ref-c3a.json`: the local circumstances for 10 reference places (contacts C1–C4, duration, obscuration, Sun's altitude; JPL DE421, from `fff-kit/test/ref`), the sunrise/sunset/transit times (Sun, Moon; 5 places × 4 dates), 56 phase moments and 54 alt/az positions, computed independently with **pyephem 4.2.1** (used only offline to generate the numbers; it is not part of the app). Each test has its threshold written in the code; the accessibility test (axe-core, `bypassCSP`) also runs in open dialogs/panels, at 1280×800 and 360×740.
 
-## Rulare locală / offline
+## Running locally / offline
 
-Descarcă `index.html` și deschide-l în browser.
+Download `index.html` and open it in a browser.
 
-## Licență
+## License
 
-MIT — vezi fișierul LICENSE. Terți: conturul continentelor din panoul nou provine din Natural Earth (domeniu public), decimat; `FFF.ephem` și `fff-kit` sunt codul autorului.
+MIT — see the LICENSE file. Third parties: the continents' outline in the new panel comes from Natural Earth (public domain), decimated; `FFF.ephem` and `fff-kit` are the author's code.
 
-## Autor
+## Author
 
 Alexio — Alexandru-Ionuț Chiuță, contact: alexio@trom.tf
 
-## English summary
+## Summary
 
 Offline single-file app that finds which natal house (whole sign, equal, or Placidus) a solar/lunar eclipse falls in, for 212 eclipses 2024–2070 (checked against NASA's catalogs). Local computation, no storage or network. Astrology has no scientific validation; interpretations are symbolic.
