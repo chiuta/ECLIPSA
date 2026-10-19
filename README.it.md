@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 1.2.0 · **Ultimo aggiornamento:** 2026-10-19
+**Versione:** 1.3.0 · **Ultimo aggiornamento:** 2026-10-19
+
+Lingue dell'interfaccia: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 App in un unico file che scopre in quale casa astrologica natale cade un'eclissi (212 eclissi 2024–2070) in base ai tuoi dati di nascita.
 
@@ -33,7 +35,7 @@ Un pannello comprimibile «Eclissi totale del 2 agosto 2027 — nel tuo luogo»,
 - **Esportazione `.ics`** (evento C1–C4 e, in caso di totalità, C2–C3; allarmi opzionali).
 - **Lista di controllo per l'osservazione in sicurezza** (con avanzamento; non viene salvata).
 - **Mappa semplice della fascia:** SVG con il contorno Natural Earth (coste e confini) decimato (≈ 14 KB, pubblico dominio), la fascia di totalità e la linea centrale calcolate da `FFF.ephem`, il punto del massimo globale e il tuo luogo. Non è una mappa interattiva e non ha sfondo di tessere; il contorno è grossolano (decimato) e non è adatto a trovare un luogo preciso.
-- Il ciclo delle lingue è RO → EN → HU → DE; i vecchi testi restano in RO/EN (in HU/DE si vede l'inglese), le nuove funzioni hanno tutte e quattro le lingue. Le traduzioni in ungherese (hu) e tedesco (de) delle nuove funzioni sono **automatiche e non verificate da madrelingua**; lo stesso varrebbe per qualsiasi altra lingua aggiunta in seguito (fr/it/es/pt non sono offerte in questa app).
+- L'interfaccia ha 8 lingue (RO, EN, FR, IT, ES, PT, DE, HU), scelte dal selettore di lingua. I testi lunghi di interpretazione restano in RO/EN (nelle altre lingue si vede l'inglese). Le traduzioni fr/it/es/pt/de/hu sono **automatiche e non verificate da madrelingua**.
 
 ## Manuale d'uso
 

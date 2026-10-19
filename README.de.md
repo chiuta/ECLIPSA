@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 1.2.0 · **Zuletzt aktualisiert:** 2026-10-19
+**Version:** 1.3.0 · **Zuletzt aktualisiert:** 2026-10-19
+
+Oberflächensprachen: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 Single-File-App, die anhand deiner Geburtsdaten ermittelt, in welches astrologische Geburtshaus eine Finsternis fällt (212 Finsternisse 2024–2070).
 
@@ -33,7 +35,7 @@ Ein einklappbares Feld „Totale Sonnenfinsternis am 2. August 2027 — an deine
 - **`.ics`-Export** (Ereignis C1–C4 und bei Totalität C2–C3; optionale Alarme).
 - **Checkliste für sicheres Beobachten** (mit Fortschritt; wird nicht gespeichert).
 - **Einfache Karte des Streifens:** SVG mit der vereinfachten (dezimierten) Natural-Earth-Kontur (Küsten und Grenzen) (≈ 14 KB, gemeinfrei), dem von `FFF.ephem` berechneten Totalitätsstreifen und der Mittellinie, dem Punkt des globalen Maximums und deinem Ort. Es ist keine interaktive Karte und hat keinen Kachel-Hintergrund; die Kontur ist grob (dezimiert) und nicht geeignet, einen genauen Ort zu finden.
-- Der Sprachzyklus ist RO → EN → HU → DE; die alten Texte bleiben in RO/EN (in HU/DE sieht man Englisch), die neuen Funktionen haben alle vier Sprachen. Die ungarischen (hu) und deutschen (de) Übersetzungen der neuen Funktionen sind **automatisch und nicht von Muttersprachlern geprüft**; ebenso wäre es bei jeder später hinzugefügten Sprache (fr/it/es/pt werden in dieser App nicht angeboten).
+- Die Oberfläche hat 8 Sprachen (RO, EN, FR, IT, ES, PT, DE, HU), die im Sprachwähler ausgewählt werden. Die langen Deutungstexte bleiben in RO/EN (in den anderen Sprachen sieht man Englisch). Die Übersetzungen fr/it/es/pt/de/hu sind **automatisch und nicht von Muttersprachlern geprüft**.
 
 ## Bedienungsanleitung
 

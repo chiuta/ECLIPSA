@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · **Français** · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version :** 1.2.0 · **Dernière mise à jour :** 2026-10-19
+**Version :** 1.3.0 · **Dernière mise à jour :** 2026-10-19
+
+Langues de l'interface : **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 Application monofichier qui détermine dans quelle maison astrologique natale tombe une éclipse (212 éclipses 2024–2070) à partir de vos données de naissance.
 
@@ -33,7 +35,7 @@ Un panneau repliable « Éclipse totale du 2 août 2027 — chez vous », sous l
 - **Export `.ics`** (événement C1–C4 et, en cas de totalité, C2–C3 ; alarmes facultatives).
 - **Liste de contrôle pour une observation en toute sécurité** (avec progression ; non enregistrée).
 - **Carte simple de la bande :** SVG avec le contour Natural Earth (côtes et frontières) décimé (≈ 14 Ko, domaine public), la bande de totalité et la ligne centrale calculées par `FFF.ephem`, le point du maximum global et votre lieu. Ce n'est pas une carte interactive et elle n'a pas de fond de tuiles ; le contour est grossier (décimé) et ne convient pas pour trouver un lieu précis.
-- Le cycle des langues est RO → EN → HU → DE ; les anciens textes restent en RO/EN (en HU/DE on voit l'anglais), les nouvelles fonctions ont les quatre langues. Les traductions en hongrois (hu) et en allemand (de) des nouvelles fonctions sont **automatiques et non vérifiées par des locuteurs natifs** ; il en irait de même pour toute autre langue ajoutée par la suite (fr/it/es/pt ne sont pas proposées dans cette application).
+- L'interface compte 8 langues (RO, EN, FR, IT, ES, PT, DE, HU), choisies dans le sélecteur de langue. Les longs textes d'interprétation restent en RO/EN (dans les autres langues, c'est l'anglais qui s'affiche). Les traductions fr/it/es/pt/de/hu sont **automatiques et non vérifiées par des locuteurs natifs**.
 
 ## Mode d'emploi
 

@@ -2,7 +2,9 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 1.2.0 · **Ultima actualizare:** 2026-10-19
+**Versiune:** 1.3.0 · **Ultima actualizare:** 2026-10-19
+
+Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 Aplicație single-file care află în ce casă astrologică natală cade o eclipsă (212 eclipse 2024–2070) pe baza datelor tale de naștere.
 
@@ -33,7 +35,7 @@ Un panou pliabil „Eclipsa totală din 2 august 2027 — la locul tău”, sub 
 - **Export `.ics`** (eveniment C1–C4 și, la totalitate, C2–C3; alarme opționale).
 - **Listă de verificare pentru observarea în siguranță** (cu progres; nu se salvează).
 - **Hartă simplă a benzii:** SVG cu conturul Natural Earth (coaste și granițe) decimat (≈ 14 KB, domeniu public), banda totalității și linia centrală calculate de `FFF.ephem`, punctul maximului global și locul tău. Nu este hartă interactivă și nu are fundal de tile-uri; conturul e grosier (decimat) și nu e potrivit pentru a găsi un loc exact.
-- Ciclul de limbi este RO → EN → HU → DE; textele vechi rămân în RO/EN (în HU/DE se vede engleza), funcțiile noi au toate patru limbile. Traducerile în maghiară (hu) și germană (de) ale funcțiilor noi sunt **automate și neverificate nativ**; la fel ar fi orice altă limbă adăugată ulterior (fr/it/es/pt nu sunt oferite în această aplicație).
+- Interfața are 8 limbi (RO, EN, FR, IT, ES, PT, DE, HU), alese din selectorul de limbă. Textele lungi de interpretare rămân în RO/EN (în celelalte limbi se vede engleza). Traducerile fr/it/es/pt/de/hu sunt **automate și neverificate nativ**.
 
 ## Manual de utilizare
 

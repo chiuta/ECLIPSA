@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.2.0 · **Utolsó frissítés:** 2026-10-19
+**Verzió:** 1.3.0 · **Utolsó frissítés:** 2026-10-19
+
+A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 Egyfájlos alkalmazás, amely a születési adataid alapján megmondja, melyik asztrológiai születési házba esik egy fogyatkozás (212 fogyatkozás, 2024–2070).
 
@@ -33,7 +35,7 @@ Egy összecsukható panel „Teljes napfogyatkozás 2027. augusztus 2-án — a 
 - **`.ics` export** (C1–C4 esemény, és teljesség esetén C2–C3; opcionális riasztások).
 - **Ellenőrzőlista a biztonságos megfigyeléshez** (előrehaladással; nem mentődik).
 - **Egyszerű térkép a sávról:** SVG a ritkított Natural Earth körvonallal (partok és határok) (≈ 14 KB, közkincs), az `FFF.ephem` által számolt teljességi sávval és középvonallal, a globális maximum pontjával és a te helyeddel. Nem interaktív térkép, és nincs csempés háttere; a körvonal durva (ritkított), és nem alkalmas pontos hely megtalálására.
-- A nyelvek ciklusa RO → EN → HU → DE; a régi szövegek RO/EN nyelven maradnak (HU/DE esetén angol látszik), az új funkciók mind a négy nyelven megvannak. Az új funkciók magyar (hu) és német (de) fordításai **automatikusak és anyanyelvi beszélők által nem ellenőrzöttek**; ugyanígy lenne bármely később hozzáadott nyelvnél (fr/it/es/pt nem érhető el ebben az alkalmazásban).
+- A felület 8 nyelvű (RO, EN, FR, IT, ES, PT, DE, HU), a nyelvválasztóból választható. A hosszú értelmezési szövegek RO/EN nyelven maradnak (a többi nyelven angol látszik). Az fr/it/es/pt/de/hu fordítások **automatikusak, és anyanyelvi beszélők nem ellenőrizték őket**.
 
 ## Használati útmutató
 

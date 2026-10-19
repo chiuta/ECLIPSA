@@ -2,7 +2,9 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.2.0 · **Last updated:** 2026-10-19
+**Version:** 1.3.0 · **Last updated:** 2026-10-19
+
+Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 A single-file app that finds which natal astrological house an eclipse falls in (212 eclipses 2024–2070), based on your birth data.
 
@@ -33,7 +35,7 @@ A collapsible panel "Total eclipse of 2 August 2027 — at your location", below
 - **`.ics` export** (an event C1–C4 and, for totality, C2–C3; optional alarms).
 - **Checklist for safe observation** (with progress; not saved).
 - **Simple map of the band:** an SVG with the decimated Natural Earth outline (coasts and borders) (≈ 14 KB, public domain), the totality band and the central line computed by `FFF.ephem`, the point of global maximum and your location. It is not an interactive map and has no tile background; the outline is coarse (decimated) and not suitable for finding an exact place.
-- The language cycle is RO → EN → HU → DE; the old texts remain in RO/EN (in HU/DE English is shown), the new features have all four languages. The Hungarian (hu) and German (de) translations of the new features are **automatic and not verified by native speakers**; so would any other language added later be (fr/it/es/pt are not offered in this app).
+- The interface has 8 languages (RO, EN, FR, IT, ES, PT, DE, HU), chosen from the language selector. The long interpretation texts remain in RO/EN (in the other languages English is shown). The fr/it/es/pt/de/hu translations are **automatic and not verified by native speakers**.
 
 ## User guide
 
