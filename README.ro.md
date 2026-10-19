@@ -10,7 +10,7 @@ Aplicație single-file care află în ce casă astrologică natală cade o eclip
 
 **Live:** https://chiuta.github.io/ECLIPSA/
 
-![Captura de ecran](screenshot.png)
+![Captura de ecran](screenshot.ro.png)
 
 ## Ce este
 

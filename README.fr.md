@@ -10,7 +10,7 @@ Application monofichier qui détermine dans quelle maison astrologique natale to
 
 **En ligne :** https://chiuta.github.io/ECLIPSA/
 
-![Capture d'écran](screenshot.png)
+![Capture d'écran](screenshot.fr.png)
 
 ## Ce que c'est
 

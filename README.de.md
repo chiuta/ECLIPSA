@@ -10,7 +10,7 @@ Single-File-App, die anhand deiner Geburtsdaten ermittelt, in welches astrologis
 
 **Online:** https://chiuta.github.io/ECLIPSA/
 
-![Screenshot](screenshot.png)
+![Screenshot](screenshot.de.png)
 
 ## Was es ist
 

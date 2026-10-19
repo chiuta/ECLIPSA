@@ -10,7 +10,7 @@ Aplicação de ficheiro único que descobre em que casa astrológica natal cai u
 
 **Online:** https://chiuta.github.io/ECLIPSA/
 
-![Captura de ecrã](screenshot.png)
+![Captura de ecrã](screenshot.pt.png)
 
 ## O que é
 

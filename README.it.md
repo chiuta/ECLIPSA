@@ -10,7 +10,7 @@ App in un unico file che scopre in quale casa astrologica natale cade un'eclissi
 
 **Online:** https://chiuta.github.io/ECLIPSA/
 
-![Schermata](screenshot.png)
+![Schermata](screenshot.it.png)
 
 ## Che cos'è
 

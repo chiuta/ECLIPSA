@@ -10,7 +10,7 @@ A single-file app that finds which natal astrological house an eclipse falls in 
 
 **Live:** https://chiuta.github.io/ECLIPSA/
 
-![Screenshot](screenshot.png)
+![Screenshot](screenshot.en.png)
 
 ## What it is
 

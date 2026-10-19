@@ -10,7 +10,7 @@ Egyfájlos alkalmazás, amely a születési adataid alapján megmondja, melyik a
 
 **Élő verzió:** https://chiuta.github.io/ECLIPSA/
 
-![Képernyőkép](screenshot.png)
+![Képernyőkép](screenshot.hu.png)
 
 ## Mi ez
 
