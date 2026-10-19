@@ -1,6 +1,6 @@
 # ECLIPSA — casa ta la eclipsa de Soare sau de Lună
 
-**Versiune:** 1.1.0 · **Ultima actualizare:** 14 octombrie 2026
+**Versiune:** 1.2.0 · **Ultima actualizare:** 19 octombrie 2026
 
 Aplicație single-file care află în ce casă astrologică natală cade o eclipsă (212 eclipse 2024–2070) pe baza datelor tale de naștere.
 
@@ -56,6 +56,9 @@ Un panou pliabil „Eclipsa totală din 2 august 2027 — la locul tău”, sub 
 - **Funcții noi, limite reale.** Aceleași ca în Eclipsa-2027: contactele sunt calculate pentru nivelul mării (concordanță cu referința DE421: ≈ 1 s la maxim, ≤ 3 s la contacte pe 10 locuri; ΔT ≈ ±1 s incert în 2027), fără relief și fără profilul marginii Lunii; durata totalității la marginea benzii e foarte sensibilă. Numărătoarea folosește ceasul dispozitivului. Nu este instrument de siguranță și nu oferă sfat medical; filtrele ISO 12312-2 rămân obligatorii.
 - Calculul astrologic existent (case, eclipse NASA 2024–2070) **nu** a fost înlocuit cu `FFF.ephem` și nu a fost modificat; panoul nou este independent de el. Lista de orașe nu conține locuri pe traseul totalității în Africa (Luxor, Cádiz): folosește coordonatele.
 ## Istoric / Changelog
+
+### 1.2.0 — 2026-10-19
+- Nou: „↗ TerRa” — la eclipsele de Soare, link spre TerRa (hartă 2D) la momentul maximului, cu umbra Lunii pe glob; nu conține locul nașterii. În panoul „Eclipsa la locul tău — 2027”: același link, la maximul local, cu locul ales (rotunjit la ~1 km) ca „Locația mea”.
 
 ### 1.1.0 — 2026-10-14
 - Nou: panoul „Eclipsa din 2 august 2027 la locul tău” (circumstanțe locale, numărătoare + repetiție, export `.ics`, listă de verificare, hartă SVG simplă a benzii, GPS cu consimțământ în două trepte); ciclu de limbi RO/EN/HU/DE pentru funcțiile noi; `FFF.ephem` și `fff-kit` (`core`, `label`, `bundle`, `ephem`); `tests/fff-r8.test.mjs` (91 de verificări). Comparație înainte/după la 1280×800: pagina inițială neschimbată vizibil (0 pixeli cu diferență peste prag; panoul e închis implicit), deci captura de ecran nu s-a schimbat.
