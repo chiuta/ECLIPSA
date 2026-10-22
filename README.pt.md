@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · **Português** · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versão:** 1.3.3 · **Última atualização:** 2026-10-22
+**Versão:** 1.3.4 · **Última atualização:** 2026-10-22
 
 Idiomas da interface: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -60,6 +60,10 @@ Um painel recolhível «Eclipse total de 2 de agosto de 2027 — no teu local»,
 - **Novas funcionalidades, limites reais.** Os mesmos do Eclipsa-2027: os contactos são calculados para o nível do mar (concordância com a referência DE421: ≈ 1 s no máximo, ≤ 3 s nos contactos em 10 locais; ΔT ≈ ±1 s incerto em 2027), sem relevo e sem o perfil do bordo da Lua; a duração da totalidade no limite da faixa é muito sensível. A contagem decrescente usa o relógio do dispositivo. Não é uma ferramenta de segurança e não dá aconselhamento médico; os filtros ISO 12312-2 continuam obrigatórios.
 - O cálculo astrológico existente (casas, eclipses NASA 2024–2070) **não** foi substituído por `FFF.ephem` e não foi modificado; o novo painel é independente dele. A lista de cidades não contém locais no percurso da totalidade em África (Luxor, Cádis): usa as coordenadas.
 ## Histórico / Changelog
+
+### 1.3.4 — 2026-10-22
+
+fff-kit 1.1.4: áreas de toque e texto mínimo.
 
 ### 1.3.3 — 2026-10-22
 
