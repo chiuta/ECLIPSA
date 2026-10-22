@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 1.3.1 · **Zuletzt aktualisiert:** 2026-10-19
+**Version:** 1.3.2 · **Zuletzt aktualisiert:** 2026-10-22
 
 Oberflächensprachen: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -60,6 +60,9 @@ Ein einklappbares Feld „Totale Sonnenfinsternis am 2. August 2027 — an deine
 - **Neue Funktionen, reale Grenzen.** Dieselben wie in Eclipsa-2027: Die Kontakte werden für Meereshöhe berechnet (Übereinstimmung mit der Referenz DE421: ≈ 1 s beim Maximum, ≤ 3 s bei den Kontakten an 10 Orten; ΔT ≈ ±1 s unsicher im Jahr 2027), ohne Gelände und ohne das Profil des Mondrandes; die Dauer der Totalität am Rand des Streifens ist sehr empfindlich. Der Countdown verwendet die Uhr des Geräts. Es ist kein Sicherheitswerkzeug und bietet keine medizinische Beratung; ISO-12312-2-Filter bleiben Pflicht.
 - Die bestehende astrologische Berechnung (Häuser, NASA-Finsternisse 2024–2070) wurde **nicht** durch `FFF.ephem` ersetzt und nicht verändert; das neue Feld ist davon unabhängig. Die Städteliste enthält keine Orte auf der Totalitätsroute in Afrika (Luxor, Cádiz): Verwende die Koordinaten.
 ## Verlauf / Changelog
+
+### 1.3.2 — 2026-10-22
+- Optionsfelder und Kontrollkästchen von 24 px; kleiner Text auf 12 px angehoben.
 
 ### 1.2.0 — 2026-10-19
 - Neu: „↗ TerRa“ — bei Sonnenfinsternissen ein Link zu TerRa (2D-Karte) zum Zeitpunkt des Maximums, mit dem Mondschatten auf dem Globus; er enthält nicht den Geburtsort. Im Feld „Finsternis an deinem Ort — 2027“: derselbe Link, zum lokalen Maximum, mit dem gewählten Ort (auf ~1 km gerundet) als „Mein Standort“.

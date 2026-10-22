@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · **Français** · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version :** 1.3.1 · **Dernière mise à jour :** 2026-10-19
+**Version :** 1.3.2 · **Dernière mise à jour :** 2026-10-22
 
 Langues de l'interface : **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -60,6 +60,9 @@ Un panneau repliable « Éclipse totale du 2 août 2027 — chez vous », sous l
 - **Nouvelles fonctions, limites réelles.** Les mêmes que dans Eclipsa-2027 : les contacts sont calculés pour le niveau de la mer (concordance avec la référence DE421 : ≈ 1 s au maximum, ≤ 3 s aux contacts sur 10 lieux ; ΔT ≈ ±1 s d'incertitude en 2027), sans relief et sans profil du limbe lunaire ; la durée de la totalité au bord de la bande est très sensible. Le compte à rebours utilise l'horloge de l'appareil. Ce n'est pas un outil de sécurité et il ne donne aucun conseil médical ; les filtres ISO 12312-2 restent obligatoires.
 - Le calcul astrologique existant (maisons, éclipses NASA 2024–2070) n'a **pas** été remplacé par `FFF.ephem` et n'a pas été modifié ; le nouveau panneau en est indépendant. La liste de villes ne contient pas de lieux sur le trajet de la totalité en Afrique (Louxor, Cadix) : utilisez les coordonnées.
 ## Historique / Changelog
+
+### 1.3.2 — 2026-10-22
+- Boutons radio et cases à cocher de 24 px ; petit texte porté à 12 px.
 
 ### 1.2.0 — 2026-10-19
 - Nouveau : « ↗ TerRa » — pour les éclipses de Soleil, lien vers TerRa (carte 2D) au moment du maximum, avec l'ombre de la Lune sur le globe ; il ne contient pas le lieu de naissance. Dans le panneau « Éclipse chez vous — 2027 » : le même lien, au maximum local, avec le lieu choisi (arrondi à ~1 km) comme « Ma position ».

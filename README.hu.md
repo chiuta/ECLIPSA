@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.3.1 · **Utolsó frissítés:** 2026-10-19
+**Verzió:** 1.3.2 · **Utolsó frissítés:** 2026-10-22
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -60,6 +60,9 @@ Egy összecsukható panel „Teljes napfogyatkozás 2027. augusztus 2-án — a 
 - **Új funkciók, valós korlátok.** Ugyanazok, mint az Eclipsa-2027-ben: az érintések tengerszintre vannak számolva (egyezés a DE421 referenciával: ≈ 1 s a maximumnál, ≤ 3 s az érintéseknél 10 helyen; a ΔT ≈ ±1 s bizonytalan 2027-ben), domborzat és a Hold peremprofilja nélkül; a teljesség időtartama a sáv szélén nagyon érzékeny. A visszaszámlálás az eszköz óráját használja. Nem biztonsági eszköz, és nem ad orvosi tanácsot; az ISO 12312-2 szűrők használata továbbra is kötelező.
 - A meglévő asztrológiai számítást (házak, NASA-fogyatkozások 2024–2070) **nem** váltotta fel az `FFF.ephem`, és nem módosult; az új panel független tőle. A városlista nem tartalmaz helyeket a teljesség útvonalán Afrikában (Luxor, Cádiz): használd a koordinátákat.
 ## Előzmények / Changelog
+
+### 1.3.2 — 2026-10-22
+- 24 px-es választógombok és jelölőnégyzetek; a kis szöveg 12 px-re emelve.
 
 ### 1.2.0 — 2026-10-19
 - Új: „↗ TerRa” — napfogyatkozásoknál hivatkozás a TerRához (2D térkép) a maximum pillanatában, a Hold árnyékával a földgömbön; nem tartalmazza a születési helyet. A „Fogyatkozás a te helyeden — 2027” panelen: ugyanaz a hivatkozás, a helyi maximumnál, a választott hellyel (~1 km-re kerekítve) „Saját helyzetem” néven.

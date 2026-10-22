@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 1.3.1 · **Ultimo aggiornamento:** 2026-10-19
+**Versione:** 1.3.2 · **Ultimo aggiornamento:** 2026-10-22
 
 Lingue dell'interfaccia: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -60,6 +60,9 @@ Un pannello comprimibile «Eclissi totale del 2 agosto 2027 — nel tuo luogo»,
 - **Nuove funzioni, limiti reali.** Gli stessi di Eclipsa-2027: i contatti sono calcolati per il livello del mare (concordanza con il riferimento DE421: ≈ 1 s al massimo, ≤ 3 s ai contatti in 10 luoghi; ΔT ≈ ±1 s incerto nel 2027), senza rilievo e senza il profilo del bordo lunare; la durata della totalità al margine della fascia è molto sensibile. Il conto alla rovescia usa l'orologio del dispositivo. Non è uno strumento di sicurezza e non offre consigli medici; i filtri ISO 12312-2 restano obbligatori.
 - Il calcolo astrologico esistente (case, eclissi NASA 2024–2070) **non** è stato sostituito con `FFF.ephem` e non è stato modificato; il nuovo pannello è indipendente da esso. L'elenco delle città non contiene luoghi sul percorso della totalità in Africa (Luxor, Cadice): usa le coordinate.
 ## Cronologia / Changelog
+
+### 1.3.2 — 2026-10-22
+- Pulsanti radio e caselle di spunta da 24 px; testo piccolo portato a 12 px.
 
 ### 1.2.0 — 2026-10-19
 - Nuovo: «↗ TerRa» — per le eclissi di Sole, link a TerRa (mappa 2D) al momento del massimo, con l'ombra della Luna sul globo; non contiene il luogo di nascita. Nel pannello «Eclissi nel tuo luogo — 2027»: lo stesso link, al massimo locale, con il luogo scelto (arrotondato a ~1 km) come «La mia posizione».
