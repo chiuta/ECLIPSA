@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.3.2 · **Last updated:** 2026-10-22
+**Version:** 1.3.3 · **Last updated:** 2026-10-22
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -60,6 +60,10 @@ A collapsible panel "Total eclipse of 2 August 2027 — at your location", below
 - **New features, real limits.** The same as in Eclipsa-2027: the contacts are computed for sea level (agreement with the DE421 reference: ≈ 1 s at maximum, ≤ 3 s at contacts at 10 places; ΔT ≈ ±1 s uncertain in 2027), without terrain and without the profile of the Moon's limb; the duration of totality at the edge of the band is very sensitive. The countdown uses the device clock. It is not a safety tool and gives no medical advice; ISO 12312-2 filters remain mandatory.
 - The existing astrological calculation (houses, NASA eclipses 2024–2070) was **not** replaced with `FFF.ephem` and was not modified; the new panel is independent of it. The city list does not contain places on the totality path in Africa (Luxor, Cádiz): use the coordinates.
 ## History / Changelog
+
+### 1.3.3 — 2026-10-22
+
+fff-kit 1.1.2: PBKDF2 with 600,000 iterations, anti-clickjacking protection.
 
 ### 1.3.2 — 2026-10-22
 - Radio buttons and checkboxes of 24 px; small text raised to 12 px.
