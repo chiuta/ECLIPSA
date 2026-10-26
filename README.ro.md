@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 1.3.7 · **Ultima actualizare:** 2026-10-26
+**Versiune:** 2.0.0 · **Ultima actualizare:** 2026-10-26
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -60,6 +60,10 @@ Un panou pliabil „Eclipsa totală din 2 august 2027 — la locul tău”, sub 
 - **Funcții noi, limite reale.** Aceleași ca în Eclipsa-2027: contactele sunt calculate pentru nivelul mării (concordanță cu referința DE421: ≈ 1 s la maxim, ≤ 3 s la contacte pe 10 locuri; ΔT ≈ ±1 s incert în 2027), fără relief și fără profilul marginii Lunii; durata totalității la marginea benzii e foarte sensibilă. Numărătoarea folosește ceasul dispozitivului. Nu este instrument de siguranță și nu oferă sfat medical; filtrele ISO 12312-2 rămân obligatorii.
 - Calculul astrologic existent (case, eclipse NASA 2024–2070) **nu** a fost înlocuit cu `FFF.ephem` și nu a fost modificat; panoul nou este independent de el. Lista de orașe nu conține locuri pe traseul totalității în Africa (Luxor, Cádiz): folosește coordonatele.
 ## Istoric / Changelog
+
+### 2.0.0 — 2026-10-26
+
+Panou nou „Catalog de eclipse în timp”: lista eclipselor solare și lunare 2024–2070 cu filtre (corp, tip, ani, regiune, doar viitoare), hartă schematică cu șase repere istorice (Thales 585 î.Hr., Halley 1715, heliul 1868, Eddington 1919, 1999 în România, 2017 SUA) și banda totalității din 2027 calculată local, note culturale, măsuri de siguranță (ISO 12312-2) și export .ics. Interpretările astrologice rămân simbolice. Test: `tests/catalog.test.mjs`.
 
 ### 1.3.4 — 2026-10-22
 
