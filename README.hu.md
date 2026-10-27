@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 2.0.0 · **Utolsó frissítés:** 2026-10-26
+**Verzió:** 2.0.1 · **Utolsó frissítés:** 2026-10-27
+
+**Állapot:** stabil · **Offline:** teljes (nincs hálózati kérés)
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -52,7 +54,7 @@ Egy összecsukható panel „Teljes napfogyatkozás 2027. augusztus 2-án — a 
 - 1.1.0: a **helymeghatározást** csak akkor használja, ha megnyomod a „Saját helyzetem használata (GPS)” gombot, és megerősíted az oldalon. Az `.ics` export helyben, `Blob`-on keresztül töltődik le. Nincsenek új hálózati kérések. Az `fff-kit` (`core`, `label`, `bundle`, `ephem`) hozzáadja az átláthatóság gombot; az alkalmazás nem ír semmit a tárolóba (0 kulcs induláskor).
 ## Korlátok és figyelmeztetések
 
-- Pontosság ~0,01° (Nap), ~0,1–0,3° (Hold, tájékoztató jellegű). A fogyatkozások időpontjai percre vannak kerekítve (±2 perc, gyakorlati hatás nélkül).
+- Pontosság, **mérve** 500 dátumon 1900 és 2050 között a JPL DE421-hez képest (látszó ekliptikai hosszúság): Nap átlag 0,4′, max. 1,1′ (≈0,02°); Hold átlag 4,7′, 95. percentilis 11,4′, max. 19,6′ (≈0,33°). Az aszcendenst külön nem mértem: a pontosság nincs megmérve, ellenőrzendő. A fogyatkozások időpontjai percre vannak kerekítve (±2 perc, gyakorlati hatás nélkül).
 - A Placidus ~66° szélesség felett nincs értelmezve (az alkalmazás elutasítja); 89,5° felett nincs felkelő jegy.
 - Időzóna: ~1970 előtt és az óraátállítás napján ellenőrizd kézzel; a születési dátum ≥ 1900.
 - Az asztrológiának nincs tudományos alapja.

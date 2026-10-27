@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 2.0.0 · **Ultimo aggiornamento:** 2026-10-26
+**Versione:** 2.0.1 · **Ultimo aggiornamento:** 2026-10-27
+
+**Stato:** stabile · **Offline:** completo (nessuna richiesta di rete)
 
 Lingue dell'interfaccia: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -52,7 +54,7 @@ Un pannello comprimibile «Eclissi totale del 2 agosto 2027 — nel tuo luogo»,
 - 1.1.0: la **geolocalizzazione** viene usata solo se premi «Usa la mia posizione (GPS)» e confermi nella pagina. L'esportazione `.ics` si scarica localmente tramite `Blob`. Non ci sono nuove richieste di rete. Il kit `fff-kit` (`core`, `label`, `bundle`, `ephem`) aggiunge il pulsante di trasparenza; l'app non scrive nulla nell'archiviazione (0 chiavi all'avvio).
 ## Limiti e avvertenze
 
-- Precisione ~0,01° (Sole), ~0,1–0,3° (Luna, indicativa). Gli orari delle eclissi sono arrotondati al minuto (±2 min, senza effetto pratico).
+- Precisione **misurata** su 500 date tra il 1900 e il 2050 rispetto a JPL DE421 (longitudine eclittica apparente): Sole media 0,4′, max 1,1′ (≈0,02°); Luna media 4,7′, 95° percentile 11,4′, max 19,6′ (≈0,33°). L’ascendente non è stato misurato separatamente: precisione non misurata, da verificare. Gli orari delle eclissi sono arrotondati al minuto (±2 min, senza effetto pratico).
 - Placidus non è definito oltre circa 66° di latitudine (l'app rifiuta); oltre 89,5° non esiste l'ascendente.
 - Fuso orario: verifica a mano prima del ~1970 e nel giorno del cambio d'ora; data di nascita ≥ 1900.
 - L'astrologia non ha base scientifica.
