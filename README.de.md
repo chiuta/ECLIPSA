@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 2.0.0 · **Zuletzt aktualisiert:** 2026-10-26
+**Version:** 2.0.1 · **Zuletzt aktualisiert:** 2026-10-27
+
+**Status:** stabil · **Offline:** vollständig (keine Netzwerkanfragen)
 
 Oberflächensprachen: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -52,7 +54,7 @@ Ein einklappbares Feld „Totale Sonnenfinsternis am 2. August 2027 — an deine
 - 1.1.0: Die **Geolokalisierung** wird nur verwendet, wenn du „Meinen Standort verwenden (GPS)“ drückst und in der Seite bestätigst. Der `.ics`-Export wird lokal über einen `Blob` heruntergeladen. Es gibt keine neuen Netzwerkanfragen. Das Kit `fff-kit` (`core`, `label`, `bundle`, `ephem`) fügt die Transparenz-Schaltfläche hinzu; die App schreibt nichts in den Speicher (0 Schlüssel beim Start).
 ## Grenzen und Warnhinweise
 
-- Genauigkeit ~0,01° (Sonne), ~0,1–0,3° (Mond, informativ). Die Finsternis-Uhrzeiten sind auf die Minute gerundet (±2 min, ohne praktische Auswirkung).
+- Genauigkeit, **gemessen** an 500 Daten zwischen 1900 und 2050 gegen JPL DE421 (scheinbare ekliptikale Länge): Sonne Mittel 0,4′, max. 1,1′ (≈0,02°); Mond Mittel 4,7′, 95. Perzentil 11,4′, max. 19,6′ (≈0,33°). Der Aszendent wurde nicht gesondert gemessen: Genauigkeit nicht gemessen, zu prüfen. Die Finsternis-Uhrzeiten sind auf die Minute gerundet (±2 min, ohne praktische Auswirkung).
 - Placidus ist oberhalb von ~66° Breite nicht definiert (die App lehnt ab); oberhalb von 89,5° gibt es keinen Aszendenten.
 - Zeitzone: Vor ~1970 und am Tag der Zeitumstellung von Hand prüfen; Geburtsdatum ≥ 1900.
 - Astrologie hat keine wissenschaftliche Grundlage.

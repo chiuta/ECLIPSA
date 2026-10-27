@@ -2,7 +2,9 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 2.0.0 · **Last updated:** 2026-10-26
+**Version:** 2.0.1 · **Last updated:** 2026-10-27
+
+**Status:** stable · **Offline:** complete (no network requests)
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -52,13 +54,17 @@ A collapsible panel "Total eclipse of 2 August 2027 — at your location", below
 - 1.1.0: **geolocation** is used only if you press "Use my location (GPS)" and confirm in the page. The `.ics` export is downloaded locally through a `Blob`. There are no new network requests. The `fff-kit` (`core`, `label`, `bundle`, `ephem`) adds the transparency button; the app writes nothing to storage (0 keys at startup).
 ## Limits and warnings
 
-- Precision ~0.01° (Sun), ~0.1–0.3° (Moon, informative). Eclipse times are rounded to the minute (±2 min, no practical effect).
+- Precision, **measured** on 500 dates in 1900–2050 against JPL DE421 (apparent ecliptic longitude): Sun mean 0.4′, max 1.1′ (≈0.02°); Moon mean 4.7′, 95th percentile 11.4′, max 19.6′ (≈0.33°). The ascendant has not been measured separately: accuracy not measured, to be verified. Eclipse times are rounded to the minute (±2 min, no practical effect).
 - Placidus is not defined above ~66° latitude (the app refuses); above 89.5° there is no ascendant.
 - Time zone: check manually before ~1970 and on the day of a clock change; birth date ≥ 1900.
 - Astrology has no scientific basis.
 
 - **New features, real limits.** The same as in Eclipsa-2027: the contacts are computed for sea level (agreement with the DE421 reference: ≈ 1 s at maximum, ≤ 3 s at contacts at 10 places; ΔT ≈ ±1 s uncertain in 2027), without terrain and without the profile of the Moon's limb; the duration of totality at the edge of the band is very sensitive. The countdown uses the device clock. It is not a safety tool and gives no medical advice; ISO 12312-2 filters remain mandatory.
 - The existing astrological calculation (houses, NASA eclipses 2024–2070) was **not** replaced with `FFF.ephem` and was not modified; the new panel is independent of it. The city list does not contain places on the totality path in Africa (Luxor, Cádiz): use the coordinates.
+## Measured accuracy of the astrology engine (2026-10-27)
+
+The earlier claim "accuracy on the order of 0.01–0.1°" was not backed by a measurement and has been replaced. Method: the app's own functions `sunLongitude` and `moonLongitude` (reduced Meeus / Astronomical Almanac formulas) were run in headless Chromium on 500 pseudo-random dates between 1900 and 2050 (fixed seed) and compared with the apparent geocentric ecliptic longitude of date computed from JPL DE421 (`jplephem` + the `de421` package; light-time, aberration, IAU 2006/2000A precession-nutation; ΔT from Skyfield). Result (absolute error, arcminutes): **Sun** mean 0.44′, 95th percentile 0.86′, max 1.06′ (≈0.02°); **Moon** mean 4.7′, 95th percentile 11.4′, max 19.6′ (≈0.33°). The ascendant and the houses were not measured separately: accuracy not measured, to be verified. NASA JPL Horizons was not reachable from the environment used, so DE421 itself (the ephemeris behind Horizons) was used. Eclipse timing figures (≈3 s against DE421) are those already documented in the app.
+
 ## History / Changelog
 
 ### 1.3.4 — 2026-10-22

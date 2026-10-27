@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · **Español** · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versión:** 2.0.0 · **Última actualización:** 2026-10-26
+**Versión:** 2.0.1 · **Última actualización:** 2026-10-27
+
+**Estado:** estable · **Sin conexión:** completo (sin peticiones de red)
 
 Idiomas de la interfaz: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -52,7 +54,7 @@ Un panel plegable «Eclipse total del 2 de agosto de 2027 — en tu lugar», baj
 - 1.1.0: la **geolocalización** solo se usa si pulsas «Usar mi ubicación (GPS)» y confirmas en la página. La exportación `.ics` se descarga localmente mediante `Blob`. No hay nuevas solicitudes de red. El kit `fff-kit` (`core`, `label`, `bundle`, `ephem`) añade el botón de transparencia; la aplicación no escribe nada en el almacenamiento (0 claves al iniciar).
 ## Límites y advertencias
 
-- Precisión ~0,01° (Sol), ~0,1–0,3° (Luna, informativa). Las horas de los eclipses se redondean al minuto (±2 min, sin efecto práctico).
+- Precisión **medida** en 500 fechas entre 1900 y 2050 frente a JPL DE421 (longitud eclíptica aparente): Sol media 0,4′, máx. 1,1′ (≈0,02°); Luna media 4,7′, percentil 95 11,4′, máx. 19,6′ (≈0,33°). El ascendente no se midió por separado: precisión no medida, por verificar. Las horas de los eclipses se redondean al minuto (±2 min, sin efecto práctico).
 - Placidus no está definido por encima de ~66° de latitud (la aplicación lo rechaza); por encima de 89,5° no hay ascendente.
 - Zona horaria: comprueba a mano antes de ~1970 y el día del cambio de hora; fecha de nacimiento ≥ 1900.
 - La astrología no tiene base científica.
