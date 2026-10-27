@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · **Português** · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versão:** 2.0.1 · **Última atualização:** 2026-10-27
+**Versão:** 2.0.2 · **Última atualização:** 2026-10-27
 
 **Estado:** estável · **Offline:** completo (sem pedidos de rede)
 
@@ -54,7 +54,7 @@ Um painel recolhível «Eclipse total de 2 de agosto de 2027 — no teu local»,
 - 1.1.0: a **geolocalização** só é usada se premires «Usar a minha localização (GPS)» e confirmares na página. A exportação `.ics` é transferida localmente através de um `Blob`. Não há novos pedidos de rede. O kit `fff-kit` (`core`, `label`, `bundle`, `ephem`) acrescenta o botão de transparência; a aplicação não escreve nada no armazenamento (0 chaves no arranque).
 ## Limites e avisos
 
-- Precisão **medida** em 500 datas entre 1900 e 2050 face a JPL DE421 (longitude eclíptica aparente): Sol média 0,4′, máx. 1,1′ (≈0,02°); Lua média 4,7′, percentil 95 11,4′, máx. 19,6′ (≈0,33°). O ascendente não foi medido em separado: precisão não medida, a verificar. As horas dos eclipses são arredondadas ao minuto (±2 min, sem efeito prático).
+- Precisão **medida** em 500 datas entre 1900 e 2050 face a JPL DE421 (longitude eclíptica aparente): Sol média 0,4′, máx. 1,1′ (≈0,02°); Lua média 4,7′, percentil 95 11,4′, máx. 19,6′ (≈0,33°). Ascendente e casas (600 datas e locais, latitude ≤ 65°, face a uma definição geométrica independente com tempo sideral aparente e obliquidade verdadeira IAU 2006/2000A): ascendente média 0,20′, p95 0,41′, máx. 2,05′ (≈0,03°); MC máx. 0,31′; cúspides Placidus média 0,18′, máx. 0,81′; a mesma casa em 600/600 casos (Placidus, casas iguais, signos inteiros). As horas dos eclipses são arredondadas ao minuto (±2 min, sem efeito prático).
 - O Placidus não está definido acima de ~66° de latitude (a aplicação recusa); acima de 89,5° não existe ascendente.
 - Fuso horário: verifica à mão antes de ~1970 e no dia da mudança de hora; data de nascimento ≥ 1900.
 - A astrologia não tem base científica.
