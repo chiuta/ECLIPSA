@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · **Français** · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version :** 2.0.1 · **Dernière mise à jour :** 2026-10-27
+**Version :** 2.0.2 · **Dernière mise à jour :** 2026-10-27
 
 **Statut :** stable · **Hors ligne :** complet (aucune requête réseau)
 
@@ -54,7 +54,7 @@ Un panneau repliable « Éclipse totale du 2 août 2027 — chez vous », sous l
 - 1.1.0 : la **géolocalisation** n'est utilisée que si vous appuyez sur « Utiliser ma position (GPS) » et confirmez dans la page. L'export `.ics` se télécharge localement via un `Blob`. Il n'y a pas de nouvelles requêtes réseau. Le kit `fff-kit` (`core`, `label`, `bundle`, `ephem`) ajoute le bouton de transparence ; l'application n'écrit rien dans le stockage (0 clé au démarrage).
 ## Limites et avertissements
 
-- Précision **mesurée** sur 500 dates entre 1900 et 2050 par rapport à JPL DE421 (longitude écliptique apparente) : Soleil moyenne 0,4′, max 1,1′ (≈0,02°) ; Lune moyenne 4,7′, 95e centile 11,4′, max 19,6′ (≈0,33°). L’ascendant n’a pas été mesuré séparément : précision non mesurée, à vérifier. Les heures des éclipses sont arrondies à la minute (±2 min, sans effet pratique).
+- Précision **mesurée** sur 500 dates entre 1900 et 2050 par rapport à JPL DE421 (longitude écliptique apparente) : Soleil moyenne 0,4′, max 1,1′ (≈0,02°) ; Lune moyenne 4,7′, 95e centile 11,4′, max 19,6′ (≈0,33°). Ascendant et maisons (600 dates et lieux, latitude ≤ 65°, par rapport à une définition géométrique indépendante avec temps sidéral apparent et obliquité vraie IAU 2006/2000A) : ascendant moyenne 0,20′, p95 0,41′, max. 2,05′ (≈0,03°) ; MC max. 0,31′ ; pointes Placidus moyenne 0,18′, max. 0,81′ ; même maison dans 600/600 cas (Placidus, maisons égales, signes entiers). Les heures des éclipses sont arrondies à la minute (±2 min, sans effet pratique).
 - Placidus n'est pas défini au-delà d'environ 66° de latitude (l'application refuse) ; au-delà de 89,5°, il n'y a pas d'ascendant.
 - Fuseau horaire : vérifiez à la main avant ~1970 et le jour du changement d'heure ; date de naissance ≥ 1900.
 - L'astrologie n'a aucune base scientifique.

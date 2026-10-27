@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 2.0.1 · **Ultimo aggiornamento:** 2026-10-27
+**Versione:** 2.0.2 · **Ultimo aggiornamento:** 2026-10-27
 
 **Stato:** stabile · **Offline:** completo (nessuna richiesta di rete)
 
@@ -54,7 +54,7 @@ Un pannello comprimibile «Eclissi totale del 2 agosto 2027 — nel tuo luogo»,
 - 1.1.0: la **geolocalizzazione** viene usata solo se premi «Usa la mia posizione (GPS)» e confermi nella pagina. L'esportazione `.ics` si scarica localmente tramite `Blob`. Non ci sono nuove richieste di rete. Il kit `fff-kit` (`core`, `label`, `bundle`, `ephem`) aggiunge il pulsante di trasparenza; l'app non scrive nulla nell'archiviazione (0 chiavi all'avvio).
 ## Limiti e avvertenze
 
-- Precisione **misurata** su 500 date tra il 1900 e il 2050 rispetto a JPL DE421 (longitudine eclittica apparente): Sole media 0,4′, max 1,1′ (≈0,02°); Luna media 4,7′, 95° percentile 11,4′, max 19,6′ (≈0,33°). L’ascendente non è stato misurato separatamente: precisione non misurata, da verificare. Gli orari delle eclissi sono arrotondati al minuto (±2 min, senza effetto pratico).
+- Precisione **misurata** su 500 date tra il 1900 e il 2050 rispetto a JPL DE421 (longitudine eclittica apparente): Sole media 0,4′, max 1,1′ (≈0,02°); Luna media 4,7′, 95° percentile 11,4′, max 19,6′ (≈0,33°). Ascendente e case (600 date e luoghi, latitudine ≤ 65°, rispetto a una definizione geometrica indipendente con tempo siderale apparente e obliquità vera IAU 2006/2000A): ascendente media 0,20′, p95 0,41′, max 2,05′ (≈0,03°); MC max 0,31′; cuspidi Placidus media 0,18′, max 0,81′; stessa casa in 600/600 casi (Placidus, case uguali, segni interi). Gli orari delle eclissi sono arrotondati al minuto (±2 min, senza effetto pratico).
 - Placidus non è definito oltre circa 66° di latitudine (l'app rifiuta); oltre 89,5° non esiste l'ascendente.
 - Fuso orario: verifica a mano prima del ~1970 e nel giorno del cambio d'ora; data di nascita ≥ 1900.
 - L'astrologia non ha base scientifica.
