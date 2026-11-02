@@ -15,8 +15,8 @@
   "storageKeys": [
     "eclipsa.lang"
   ],
-  "sizeBytes": 806181,
-  "sha256": "feab7ec94a90dee04b300015b7819a21639b1ebd0ccd2f07603025da16bee9b8",
+  "sizeBytes": 806224,
+  "sha256": "386752aefeaa32076cc0e4d29e4bd662da4650d9c6c80f93d55f1561f3ab1ee2",
   "csp": {
     "present": true,
     "directives": {
