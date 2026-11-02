@@ -6,6 +6,8 @@
 
 Nou: «Trimite la…» (fff-kit, modulul FFF.bridge) — după orice export de fișier (GPX, ICS, CSV, Markdown) apare butonul «Trimite la…» către aplicațiile compatibile, iar importul de fișiere al aplicației primește plicuri .fff.json trimise de ele, cu confirmare înainte de import. Fără rețea, fără telemetrie.
 
+Traduceri: catalogul de eclipse (38 de chei `cat_*`) și cele 6 repere istorice (dată, loc, descriere) erau afișate în engleză în fr, de, es, it, pt, hu; acum sunt traduse în cele 6 limbi, prin dicționarele existente (`STR.<limbă>`, câmpurile `d/p/s<Limbă>` din `CAT_HIST`).
+
 ## 2.0.2 — 2026-10-27 (anterior: 2.0.1)
 
 Text/documentație + test (formulele de calcul nu s-au schimbat).
