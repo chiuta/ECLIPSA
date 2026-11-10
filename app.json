@@ -2,8 +2,8 @@
   "schema": 1,
   "slug": "eclipsa",
   "name": "ECLIPSA — casa ta la eclipsa de Soare sau de Lună",
-  "version": "2.1.3",
-  "updated": "2026-11-08",
+  "version": "2.1.4",
+  "updated": "2026-11-10",
   "description": "Calculează pe ce casă astrologică natală a căzut o eclipsă de Soare sau de Lună (semne întregi, case egale sau Placidus). Calcul local, offline, fără cont. Astrologia nu are validare științifică.",
   "egress": [],
   "permissions": [
@@ -15,8 +15,8 @@
   "storageKeys": [
     "eclipsa.lang"
   ],
-  "sizeBytes": 991932,
-  "sha256": "986cf30c5aee60fa69bc69e048418eb871528bfb84b3ccb72aadd664cbd6dc6f",
+  "sizeBytes": 1013065,
+  "sha256": "db4d464206ed8a2372ed398e9ae0f396ad279a67bd8a292a6e6bd70a364c8a05",
   "csp": {
     "present": true,
     "directives": {
@@ -56,6 +56,7 @@
       "store",
       "dialog",
       "exit",
+      "view",
       "label",
       "bundle",
       "qr",
@@ -67,12 +68,13 @@
     ]
   },
   "kit": {
-    "version": "1.3.0",
+    "version": "1.4.0",
     "modules": [
       "core",
       "store",
       "dialog",
       "exit",
+      "view",
       "label",
       "bundle",
       "qr",
