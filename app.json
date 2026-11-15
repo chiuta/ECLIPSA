@@ -10,18 +10,19 @@
     "geolocation",
     "clipboard",
     "serviceWorker",
-    "localStorage"
+    "localStorage",
+    "WebGL"
   ],
   "storageKeys": [
     "eclipsa.lang"
   ],
-  "sizeBytes": 1030752,
-  "sha256": "04182c00799f49d9141bd1d71a0da887603c0665db5930de077af728169a98a0",
+  "sizeBytes": 1082931,
+  "sha256": "0de5ff70301a5461ecc222627b0c1d37ddb86853b2be92e06dbf1957e781e9d1",
   "csp": {
     "present": true,
     "directives": {
       "default-src": "'none'",
-      "script-src": "sha256×5",
+      "script-src": "sha256×6",
       "style-src": "'unsafe-inline'",
       "img-src": "'self' data:",
       "connect-src": "'none'",
