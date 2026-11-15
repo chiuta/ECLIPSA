@@ -1,5 +1,9 @@
 # Jurnal de modificări — ECLIPSA
 
+## 2.1.8 — 2026-11-15
+
+- Nou: texturi fractale hiper-detaliate (fff-texturi 1.1.2) — fundalul și suprafețele mari (carduri, panouri, antete, butoane; filele și dialogurile ascunse la încărcare, când se deschid) primesc un material generat local (WebGL2, fără rețea și fără imagini), care se repetă fără cusătură; culorile aplicației rămân ale ei. Se oprește din dialogul „Transparență” sau cu `?notex=1`.
+
 ## 2.1.3 — 2026-11-08
 
 - Exportul text (copiere/descărcare) separă acum «[Calcul astronomic]» de «[Interpretare simbolică, fără validare științifică]» și adaugă o linie de precizie (în toate cele 8 limbi).
